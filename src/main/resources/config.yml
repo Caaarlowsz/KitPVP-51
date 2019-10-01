@@ -1,0 +1,7 @@
+database:
+  host: ''
+  username: ''
+  password: ''
+  database: ''
+prefix: '&c[KitPvP] &r'
+sign_prefix: '&4&l[KitPvP]'

@@ -1,0 +1,12 @@
+v0.0.1:
++ Config.yml file - including database and prefix fields
++ Kits.yml file - kit data will soon be saved here
++ Maps.yml file - map data will soon be saved here
++ Messages.yml file - message fields
+
++ RegisterListeners - all events (up to v0.0.1) are registered here
++ PlayerInteractEvent - breaking/accessing signs
++ SignChangeEvent - placing signs and converting them into clickable, colored signs
+
++ Message - plugin util to send messages easily
++ TransferMessage - plugin util for converting messages

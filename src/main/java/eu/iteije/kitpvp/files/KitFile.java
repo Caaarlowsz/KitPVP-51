@@ -22,7 +22,7 @@ public class KitFile {
         if (startup) {
             loadDefault(instance);
         } else {
-            this.file = new File(instance.getDataFolder(), "config.yml");
+            this.file = new File(instance.getDataFolder(), "kits.yml");
             this.fileConfiguration = YamlConfiguration.loadConfiguration(this.file);
         }
     }
@@ -58,17 +58,25 @@ public class KitFile {
     public void loadDefault(KitPvP instance) {
         this.file = new File(instance.getDataFolder(), "kits.yml");
 
+        // Check whether the file exists or not
+        // If not; file will be created and 'created-message' will be sent to the console
+        // If so; loaded message will be sent to the console
         if (!file.exists()) {
             try {
+                // Try creating the new file
                 file.createNewFile();
+                // Saving the default kits.yml from the KitPvP.jar
                 instance.saveResource("kits.yml", true);
+                // Send created confirmation to the console
                 Message.sendToConsole("&c[KitPvP] &fKits.yml has been created!", false);
             } catch (IOException e) {
+                // Error message (creating new file)
                 Message.sendToConsole("&c[KitPvP] &fCouldn't create kits.yml file!", false);
             }
         } else {
             this.fileConfiguration = YamlConfiguration.loadConfiguration(file);
-            instance.saveResource("kits.yml", false);
+
+            // Send loaded confirmation to the console
             Message.sendToConsole("&c[KitPvP] &fKits.yml has been loaded!", false);
         }
     }

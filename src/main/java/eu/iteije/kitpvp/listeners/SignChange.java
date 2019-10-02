@@ -28,8 +28,8 @@ public class SignChange implements Listener {
         // Define registered sign prefix/header
         String signHeader = configFile.get().getString("sign_prefix");
 
-        if (player.hasPermission("kitpvp.admin.sign")) {
-            if (event.getLine(0).equalsIgnoreCase("[kitpvp]")) {
+        if (event.getLine(0).equalsIgnoreCase("[kitpvp]")) {
+            if (player.hasPermission("kitpvp.admin.sign")) {
                 if (!event.getLine(1).isEmpty()) {
                     // Convert the sign header to a colored sign header
                     signHeader = TransferMessage.replaceColorCodes(configFile.get().getString("sign_prefix"));
@@ -39,11 +39,11 @@ public class SignChange implements Listener {
                     // Set the second line (line 1 or map) uppercase
                     event.setLine(1, event.getLine(1).toUpperCase());
                 } else {
-                    Message.sendToPlayer(player, "&fJe moet een map invoeren op de 2e lijn!", true);
+                    Message.sendToPlayer(player, Message.get("placesign_empty_map_line"), true);
                 }
+            } else {
+                Message.sendToPlayer(player, Message.get("placesign_not_allowed"), true);
             }
-        } else {
-            Message.sendToPlayer(player, "&fJe mag geen signs plaatsen!", true);
         }
     }
 

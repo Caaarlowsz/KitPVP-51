@@ -59,17 +59,25 @@ public class ConfigFile {
     public void loadDefault(KitPvP instance) {
         this.file = new File(instance.getDataFolder(), "config.yml");
 
+        // Check whether the file exists or not
+        // If not; file will be created and 'created-message' will be sent to the console
+        // If so; loaded message will be sent to the console
         if (!file.exists()) {
             try {
+                // Try creating the new file
                 file.createNewFile();
+                // Saving the default config.yml from the KitPvP.jar
                 instance.saveResource("config.yml", true);
+                // Send created confirmation to the console
                 Message.sendToConsole("&c[KitPvP] &fConfig.yml has been created!", false);
             } catch (IOException e) {
+                // Error message (creating new file)
                 Message.sendToConsole("&c[KitPvP] &fCouldn't create config.yml file!", false);
             }
         } else {
             this.fileConfiguration = YamlConfiguration.loadConfiguration(file);
-            instance.saveResource("config.yml", false);
+
+            // Send loaded confirmation to the console
             Message.sendToConsole("&c[KitPvP] &fConfig.yml has been loaded!", false);
         }
     }

@@ -23,7 +23,7 @@ public class MapFile {
         if (startup) {
             loadDefault(instance);
         } else {
-            this.file = new File(instance.getDataFolder(), "config.yml");
+            this.file = new File(instance.getDataFolder(), "maps.yml");
             this.fileConfiguration = YamlConfiguration.loadConfiguration(this.file);
         }
     }
@@ -59,17 +59,25 @@ public class MapFile {
     public void loadDefault(KitPvP instance) {
         this.file = new File(instance.getDataFolder(), "maps.yml");
 
+        // Check whether the file exists or not
+        // If not; file will be created and 'created-message' will be sent to the console
+        // If so; loaded message will be sent to the console
         if (!file.exists()) {
             try {
+                // Try creating the new file
                 file.createNewFile();
+                // Saving the default maps.yml from the KitPvP.jar
                 instance.saveResource("maps.yml", true);
+                // Send created confirmation to the console
                 Message.sendToConsole("&c[KitPvP] &fMaps.yml has been created!", false);
             } catch (IOException e) {
+                // Error message (creating new file)
                 Message.sendToConsole("&c[KitPvP] &fCouldn't create maps.yml file!", false);
             }
         } else {
             this.fileConfiguration = YamlConfiguration.loadConfiguration(file);
-            instance.saveResource("maps.yml", false);
+
+            // Send loaded confirmation to the console
             Message.sendToConsole("&c[KitPvP] &fMaps.yml has been loaded!", false);
         }
     }

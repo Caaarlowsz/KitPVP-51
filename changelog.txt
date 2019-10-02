@@ -1,3 +1,16 @@
+v0.0.2:
+/ Fixed an issue in Interact where a NullPointerException was thrown when a player hits the air
+/ Fixed an issue in SignChange where a permission error was given if a player (without the permission 'kitpvp.admin.sign') placed a sign without writing [kitpvp] at the top
+/ Fixed an issue where the constructor of each file class was saving config.yml instead of its own file
++ Compiling in Java 11 (for some reason, it wasn't compiling the correct way in v0.0.1)
+
++ Added a get() function in the Message class, which tries to receive a String from the messages.yml file with a given path
+
++ Added new messages in the messages.yml file
+
++ Corrected the project version in pom.xml (previously 1.0-SNAPSHOT)
+
+
 v0.0.1:
 + Config.yml file - including database and prefix fields
 + Kits.yml file - kit data will soon be saved here

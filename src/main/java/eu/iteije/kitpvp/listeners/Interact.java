@@ -33,8 +33,13 @@ public class Interact implements Listener {
         Player player = event.getPlayer();
         // Action performed by player
         Action action = event.getAction();
-        // Clicked material
-        Material clickedBlock = event.getClickedBlock().getType();
+        // Clicked material > AIR by default
+        Material clickedBlock = Material.AIR;
+        try {
+             clickedBlock = event.getClickedBlock().getType();
+        } catch (NullPointerException exception) {
+            // Handle NullPointerException > If player is hitting the air, NullPointerException (.getType()) will be triggered
+        }
 
         // Left/right click block check
         if (action == Action.RIGHT_CLICK_BLOCK || action == Action.LEFT_CLICK_BLOCK) {
@@ -49,7 +54,7 @@ public class Interact implements Listener {
                     if (sign.getLine(0).toLowerCase().equals(signHeader)) {
                         String mapName = sign.getLine(1).toUpperCase();
                         if (mapFile.get().getConfigurationSection(mapName) == null) {
-                            Message.sendToPlayer(player, "&fDeze map bestaat niet!", true);
+                            Message.sendToPlayer(player, Message.get("interactsign_map_error"), true);
                         }
 
                         // Continue here

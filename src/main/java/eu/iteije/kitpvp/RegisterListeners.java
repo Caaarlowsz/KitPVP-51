@@ -1,6 +1,7 @@
-package eu.iteije.kitpvp.listeners;
+package eu.iteije.kitpvp;
 
-import eu.iteije.kitpvp.KitPvP;
+import eu.iteije.kitpvp.listeners.Interact;
+import eu.iteije.kitpvp.listeners.SignChange;
 import org.bukkit.plugin.PluginManager;
 
 public class RegisterListeners {

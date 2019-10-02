@@ -73,4 +73,14 @@ public class Message {
         }
     }
 
+    /**
+     * @param message message where a certain part has to be replaced from
+     * @param oldString old String
+     * @param newString String the old string will be replaced by
+     * @return converted message
+     */
+    public static String replace(String message, String oldString, String newString) {
+        return message.replace(oldString, newString);
+    }
+
 }

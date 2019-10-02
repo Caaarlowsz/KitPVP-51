@@ -3,3 +3,7 @@ version: ${project.version}
 main: eu.iteije.kitpvp.KitPvP
 api-version: 1.13
 authors: [iTeije]
+
+commands:
+  kitpvp:
+    usage: /<command>

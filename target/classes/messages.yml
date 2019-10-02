@@ -3,3 +3,6 @@ placesign_not_allowed: "&fJe mag geen KitPvP signs plaatsen!"
 placesign_empty_map_line: "&fJe moet een map invoeren op de 2e rij van de sign!"
 # Interact sign messages
 interactsign_map_error: "&fDeze map bestaat niet!"
+# Help page
+help_title: "&fHelp pagina:"
+help_line_layout: "&7> &f{command} - {explanation}"

@@ -1,3 +1,15 @@
+v0.0.3:
++ Added Help class where each command/subcommand can put some explanation in
++ Created main command (/kitpvp) and its help page (all commands up to v0.0.3)
++ Created sub command (/kitpvp createmap) and its help page
+
+- The empty registerCommands() function in the KitPvP (main) class has been removed
+
++ Added a replace() function in the Message class, which replaces a certain part of the given String with something else
+
++ Added new messages
+
+
 v0.0.2:
 / Fixed an issue in Interact where a NullPointerException was thrown when a player hits the air
 / Fixed an issue in SignChange where a permission error was given if a player (without the permission 'kitpvp.admin.sign') placed a sign without writing [kitpvp] at the top

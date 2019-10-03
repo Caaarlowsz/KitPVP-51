@@ -7,3 +7,5 @@ authors: [iTeije]
 commands:
   kitpvp:
     usage: /<command>
+  worldtp:
+    usage: /<command>

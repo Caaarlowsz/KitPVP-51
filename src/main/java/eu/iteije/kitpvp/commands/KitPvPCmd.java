@@ -16,11 +16,13 @@ public class KitPvPCmd implements CommandExecutor {
     // Commands and explanation shown in the help list
     private List<String> commands = Arrays.asList(
             "/kitpvp createmap",
-            "/kitpvp maps"
+            "/kitpvp maps",
+            "/worldtp"
     );
     private List<String> explanation = Arrays.asList(
-            "Create a map",
-            "Get a list of maps"
+            "Maak een nieuwe KitPvP map",
+            "Krijg een lijst van alle mappen",
+            "Teleporteer naar een specifieke wereld"
     );
 
     // Help class instance

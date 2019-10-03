@@ -49,7 +49,20 @@ public class Help {
                 Message.sendToConsole(message, true);
             }
         }
+    }
 
+    public void sendWrongUsage(CommandSender sender, String correctCommand) {
+        // Define message
+        String message = Message.WRONG_USAGE;
+        message = Message.replace(message, "{command}", correctCommand);
+        // Check sender type
+        if (sender instanceof Player) {
+            // Wrong usage message for a player
+            Message.sendToPlayer((Player) sender, message, true);
+        } else if (sender instanceof ConsoleCommandSender) {
+            // Wrong usage message for console
+            Message.sendToConsole(message, true);
+        }
     }
 
 }

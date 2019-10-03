@@ -18,8 +18,8 @@ public final class KitPvP extends JavaPlugin {
         instance = this;
 
         // Load files
-        new ConfigFile(this, true);
         new MessageFile(this, true);
+        new ConfigFile(this, true);
         new MapFile(this, true);
         new KitFile(this, true);
 
@@ -28,6 +28,7 @@ public final class KitPvP extends JavaPlugin {
 
         // Register commands
         new RegisterCommands(this);
+
 
         // Send enabled message to console
         Message.sendToConsole("&fPlugin enabled!", true);

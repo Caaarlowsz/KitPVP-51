@@ -1,3 +1,16 @@
+v0.0.4:
++ Fixed an issue where plugin files won't load if folder was deleted
++ Fixed an issue where files weren't accessible after they were created
+
+/ Translated command explanations to Dutch
+
++ Added command to teleport to other worlds
+
++ Added maximum length of map names; 15
+
++ Added new messages, removed specific permission errors
+
+
 v0.0.3:
 + Added Help class where each command/subcommand can put some explanation in
 + Created main command (/kitpvp) and its help page (all commands up to v0.0.3)

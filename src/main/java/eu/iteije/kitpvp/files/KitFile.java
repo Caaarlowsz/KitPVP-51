@@ -56,6 +56,11 @@ public class KitFile {
 
     // Load kits.yml defaults (if file is deleted or corrupt)
     public void loadDefault(KitPvP instance) {
+        // If plugin foler doesn't exists, create it
+        if (!instance.getDataFolder().exists()) {
+            instance.getDataFolder().mkdir();
+        }
+
         this.file = new File(instance.getDataFolder(), "kits.yml");
 
         // Check whether the file exists or not

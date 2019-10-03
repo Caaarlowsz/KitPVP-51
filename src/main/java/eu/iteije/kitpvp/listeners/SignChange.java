@@ -42,7 +42,7 @@ public class SignChange implements Listener {
                     Message.sendToPlayer(player, Message.get("placesign_empty_map_line"), true);
                 }
             } else {
-                Message.sendToPlayer(player, Message.get("placesign_not_allowed"), true);
+                Message.sendToPlayer(player, Message.PERMISSION_ERROR, true);
             }
         }
     }

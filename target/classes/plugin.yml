@@ -1,9 +1,11 @@
 name: KitPvP
-version: 0.0.3
+version: 0.0.4
 main: eu.iteije.kitpvp.KitPvP
 api-version: 1.13
 authors: [iTeije]
 
 commands:
   kitpvp:
+    usage: /<command>
+  worldtp:
     usage: /<command>

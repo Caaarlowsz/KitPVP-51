@@ -15,6 +15,10 @@ public class Message {
     private static ConfigFile configFile = new ConfigFile(instance, false);
     private static MessageFile messageFile = new MessageFile(instance, false);
 
+    // Global messages
+    public static String PERMISSION_ERROR = Message.get("permission_error");
+    public static String WRONG_USAGE = Message.get("wrong_usage");
+
     /**
      * @param player target Player to send the message to
      * @param message message which will be sent to the targeted player
@@ -63,7 +67,7 @@ public class Message {
             message = messageFile.get().getString(messagePath);
 
             return message;
-        } catch (Exception exception) {
+        } catch (NullPointerException exception) {
             // Define String message, so it won't return null
             message = "Path " + messagePath + " is invalid!";
             // Print stack trace

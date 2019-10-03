@@ -18,7 +18,7 @@ public class CreateMapSubCmd {
             "/kitpvp createmap <mapnaam>"
     );
     private List<String> explanation = Arrays.asList(
-            "Create a map"
+            "Maak een nieuwe map in je huidige wereld"
     );
 
     // Help class instance
@@ -39,16 +39,26 @@ public class CreateMapSubCmd {
         // Command executor has to be a player
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            // Check list length of args
-            if (args.length == 2) {
-                // Temp message
-                // NOTE: max characters in a name should be 15!
-                Message.sendToPlayer(player, "&fEen map maken met de naam " + args[1].toUpperCase() + "...", true);
-            } else {
-                // Wrong usage
+            // Check player permissions
+            if (player.hasPermission("kitpvp.admin.createmap")) {
+                // Check list length of args
+                if (args.length == 2) {
+                    if (args[1].length() <= 15) {
+                        // Temp message
+                        Message.sendToPlayer(player, "&fEen map maken met de naam " + args[1].toUpperCase() + "...", true);
+                    } else {
+                        // Map name too long error
+                        // Temp message
+                        Message.sendToPlayer(player, "&fDe naam van de map mag maximaal 15 letters of cijfers bevatten!", true);
+                    }
+                } else {
+                    // Wrong usage
 
-                // Temp
-                help.send(sender);
+                    // Temp
+                    help.send(sender);
+                }
+            } else {
+                Message.sendToPlayer(player, Message.PERMISSION_ERROR, true);
             }
         } else {
             // Player only

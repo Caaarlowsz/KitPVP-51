@@ -18,6 +18,7 @@ public class Message {
     // Global messages
     public static String PERMISSION_ERROR = Message.get("permission_error");
     public static String WRONG_USAGE = Message.get("wrong_usage");
+    public static String PLAYER_ONLY = Message.get("player_only");
 
     /**
      * @param player target Player to send the message to

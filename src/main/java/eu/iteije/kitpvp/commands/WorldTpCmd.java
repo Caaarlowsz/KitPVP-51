@@ -2,6 +2,7 @@ package eu.iteije.kitpvp.commands;
 
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.pluginutils.Message;
+import eu.iteije.kitpvp.utils.CreateMap;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -18,16 +19,18 @@ public class WorldTpCmd implements CommandExecutor {
     // Instance of main class
     private KitPvP instance;
 
+
     // Commands and explanation shown in the help list
     private List<String> commands = Arrays.asList(
-            "/worldtp <worldname> <x> <y> <z>"
+            "/worldtp <wereldnaam> <x> <y> <z>"
     );
     private List<String> explanation = Arrays.asList(
             "Teleporteer naar een andere map"
     );
 
-    // Help class instance
+    // Help class / CreateMap instances
     private Help help = new Help(commands, explanation);
+    private CreateMap createMap = new CreateMap(instance);
 
     /**
      * @param instance instance of KitPvP (main) class
@@ -57,27 +60,39 @@ public class WorldTpCmd implements CommandExecutor {
                         Location location = new Location(world, x, y, z);
 
                         // Teleport player to location
-                        player.teleport(location);
+                        teleport(player, location);
 
                         // Teleport confirmation
                         String message = Message.get("worldtp_success");
                         message = Message.replace(message, "{world}", player.getLocation().getWorld().getName());
                         Message.sendToPlayer(player, message, true);
                     } catch (Exception exception) {
-                        // Unable to teleport
-                        // Temp message
-                        Message.sendToPlayer(player, "&fTeleporting failed!", true);
+                        // Unable to teleport / wrong usage
+                        help.sendWrongUsage(sender, "/worldtp <wereldnaam> <x> <y> <z>");
                     }
                 } else {
-                    help.sendWrongUsage(sender, "/worldtp <worldname> <x> <y> <z>");
+                    // Wrong usage
+                    help.sendWrongUsage(sender, "/worldtp <wereldnaam> <x> <y> <z>");
                 }
             } else {
+                // Permission error
                 Message.sendToPlayer(player, Message.PERMISSION_ERROR, true);
             }
 
         } else {
             // Player only
+            Message.sendToConsole(Message.PLAYER_ONLY, true);
         }
         return true;
+    }
+
+    public void teleport(Player player, Location location) {
+        try {
+            // Try teleporting player to given destination
+            player.teleport(location);
+        } catch (Exception exception) {
+            // Unable to teleport / wrong usage
+            help.sendWrongUsage(player, "/worldtp <wereldnaam> <x> <y> <z>");
+        }
     }
 }

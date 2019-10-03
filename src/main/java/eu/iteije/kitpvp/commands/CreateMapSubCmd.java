@@ -2,6 +2,7 @@ package eu.iteije.kitpvp.commands;
 
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.pluginutils.Message;
+import eu.iteije.kitpvp.utils.CreateMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -23,6 +24,7 @@ public class CreateMapSubCmd {
 
     // Help class instance
     private Help help = new Help(commands, explanation);
+    private CreateMap createMap;
 
     /**
      * @param instance instance of KitPvP (main) class
@@ -36,6 +38,8 @@ public class CreateMapSubCmd {
      * @param args given arguments from the original command
      */
     public void send(CommandSender sender, String[] args) {
+        // Define createMap (instance of CreateMap)
+        createMap = new CreateMap(instance);
         // Command executor has to be a player
         if (sender instanceof Player) {
             Player player = (Player) sender;
@@ -43,25 +47,30 @@ public class CreateMapSubCmd {
             if (player.hasPermission("kitpvp.admin.createmap")) {
                 // Check list length of args
                 if (args.length == 2) {
+                    // Make sure map name is less or equal to 15
                     if (args[1].length() <= 15) {
-                        // Temp message
-                        Message.sendToPlayer(player, "&fEen map maken met de naam " + args[1].toUpperCase() + "...", true);
+                        // Creating new map message
+                        String message = Message.get("createmap_command_success");
+                        message = Message.replace(message, "{mapname}", args[1].toUpperCase());
+                        Message.sendToPlayer(player, message, true);
+                        // Starting new map setup
+                        createMap.startSetup(player, args);
+
                     } else {
                         // Map name too long error
-                        // Temp message
-                        Message.sendToPlayer(player, "&fDe naam van de map mag maximaal 15 letters of cijfers bevatten!", true);
+                        Message.sendToPlayer(player, Message.get("createmap_name_length_error"), true);
                     }
                 } else {
-                    // Wrong usage
-
-                    // Temp
+                    // Help/wrong usage
                     help.send(sender);
                 }
             } else {
+                // Permission error
                 Message.sendToPlayer(player, Message.PERMISSION_ERROR, true);
             }
         } else {
-            // Player only
+            // Player only error
+            Message.sendToConsole(Message.PLAYER_ONLY, true);
         }
     }
 

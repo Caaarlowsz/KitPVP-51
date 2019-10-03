@@ -1,3 +1,13 @@
+v0.0.5:
++ WorldTp is now working correctly
++ CreateMap util added, tools can be given to player, but they're not working yet
++ CreateMapSubCmd is now redirecting to CreateMap
+
++ Added new messages
+
++ NOTE: CreateMap has some temporary functions; giving inventory back after a few seconds, hardcoded tool names...
+
+
 v0.0.4:
 + Fixed an issue where plugin files won't load if folder was deleted
 + Fixed an issue where files weren't accessible after they were created

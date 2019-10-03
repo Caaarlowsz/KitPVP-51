@@ -1,12 +1,16 @@
 # Global messages
 permission_error: "&fGeen permissies!"
 wrong_usage: "&fGebruik &e{command}&f!"
+player_only: "&fDit command is alleen beschikbaar voor spelers!"
 # Place sign messages
 placesign_empty_map_line: "&fJe moet een map invoeren op de 2e rij van de sign!"
 # Interact sign messages
 interactsign_map_error: "&fDeze map bestaat niet!"
 # Help page
 help_title: "&fHelp pagina:"
-help_line_layout: "&7> &f{command} - {explanation}"
+help_line_layout: "&7> &f{command} &e{explanation}"
 # World teleport
 worldtp_success: "&fJe bent geteleporteerd naar de wereld &e{world}&f!"
+# Create map command
+createmap_name_length_error: "&fDe naam van een map mag maximaal 15 tekens bevatten!"
+createmap_command_success: "&fEen nieuwe map maken met de naam &e{mapname}&f..."

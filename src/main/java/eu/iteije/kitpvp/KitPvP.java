@@ -18,8 +18,8 @@ public final class KitPvP extends JavaPlugin {
         instance = this;
 
         // Load files
-        new MessageFile(this, true);
         new ConfigFile(this, true);
+        new MessageFile(this, true);
         new MapFile(this, true);
         new KitFile(this, true);
 
@@ -36,6 +36,8 @@ public final class KitPvP extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        // TODO: let the server delete all spawnplates players in setup set and return their inventory
+
         // Send disabled message to console
         Message.sendToConsole("&c[KitPvP] &fPlugin disabled!", false);
     }

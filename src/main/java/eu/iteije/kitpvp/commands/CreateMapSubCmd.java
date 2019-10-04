@@ -2,7 +2,7 @@ package eu.iteije.kitpvp.commands;
 
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.pluginutils.Message;
-import eu.iteije.kitpvp.utils.CreateMap;
+import eu.iteije.kitpvp.utils.mapsetup.CreateMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 

@@ -13,14 +13,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-public class Interact implements Listener {
+public class PlayerInteract implements Listener {
 
     // Instance variable of main class
     private KitPvP instance;
     private ConfigFile configFile;
     private MapFile mapFile;
 
-    public Interact(KitPvP instance) {
+    public PlayerInteract(KitPvP instance) {
         this.instance = instance;
     }
 
@@ -48,16 +48,21 @@ public class Interact implements Listener {
                 // Checking item in playerhand; it have to be destructible
                 // A KITPVP sign is ONLY destructible by an AXE
                 if (!player.getItemInHand().toString().contains("AXE")) {
+                    // Get clicked sign and get expected header from config
                     Sign sign = (Sign) event.getClickedBlock().getState();
                     String signHeader = TransferMessage.replaceColorCodes(configFile.get().getString("sign_prefix")).toLowerCase();
 
+                    // Compare sign prefix from config with the header of the interacted sign
                     if (sign.getLine(0).toLowerCase().equals(signHeader)) {
+                        // Get map name at sign line 1 (for a player line 2)
                         String mapName = sign.getLine(1).toUpperCase();
-                        if (mapFile.get().getConfigurationSection(mapName) == null) {
+                        // Check whether the map name/map data is known
+                        if (mapFile.get().getConfigurationSection(mapName) != null) {
+                            // Continue here
+                        } else {
+                            // Map doesn't exists error
                             Message.sendToPlayer(player, Message.get("interactsign_map_error"), true);
                         }
-
-                        // Continue here
                     }
                 }
             }

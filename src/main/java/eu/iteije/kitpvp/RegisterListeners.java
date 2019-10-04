@@ -1,7 +1,6 @@
 package eu.iteije.kitpvp;
 
-import eu.iteije.kitpvp.listeners.Interact;
-import eu.iteije.kitpvp.listeners.SignChange;
+import eu.iteije.kitpvp.listeners.*;
 import org.bukkit.plugin.PluginManager;
 
 public class RegisterListeners {
@@ -19,9 +18,19 @@ public class RegisterListeners {
         PluginManager pluginManager = instance.getServer().getPluginManager();
 
         // PlayerInteractEvent
-        pluginManager.registerEvents(new Interact(instance), instance);
+        pluginManager.registerEvents(new PlayerInteract(instance), instance);
         // SignChangeEvent
         pluginManager.registerEvents(new SignChange(instance), instance);
+        // BlockPlaceEvent
+        pluginManager.registerEvents(new BlockPlace(instance), instance);
+        // PlayerQuitEvent
+        pluginManager.registerEvents(new PlayerQuit(instance), instance);
+        // InventoryClickEvent
+        pluginManager.registerEvents(new InventoryClick(instance), instance);
+        // PlayerDropItemEvent
+        pluginManager.registerEvents(new PlayerDropItem(instance), instance);
+        // PlayerPickupItemEvent
+        pluginManager.registerEvents(new PlayerPickupItem(instance), instance);
     }
 
 }

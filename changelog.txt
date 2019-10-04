@@ -1,3 +1,21 @@
+v0.0.6:
++ Fixed an critical issue where files won't load properly without interrupting each other
+
++ ToolActions - tool usage will be proceeded and saved here
+
++ Added a few event listeners to prevent players breaking the mapsetup logic
+  -> Player quit event: if a player leaves, the inventory will return
+  -> Player drop item event: a player can't drop a map setup item anymore
+  -> Inventory click event: it isn't possible to drag items over to a other slot
+  -> Block place event: this event is cancelled to be able to proceed item usage
+  -> Player pickup item event: a player can't pick up items while in setup
+
++ Tool names (previously hardcoded) are moved to config.yml
+
+! Players in creative can double a map setup item to bypass click event cancellation (tags: TODO)
+! Setup tool 'Finish' can be placed, while the other tools (LWPP and red wool) can't be
+
+
 v0.0.5:
 + WorldTp is now working correctly
 + CreateMap util added, tools can be given to player, but they're not working yet

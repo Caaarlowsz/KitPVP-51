@@ -1,7 +1,7 @@
 package eu.iteije.kitpvp.files;
 
 import eu.iteije.kitpvp.KitPvP;
-import eu.iteije.kitpvp.pluginutils.Message;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -74,16 +74,16 @@ public class MapFile {
                 // Saving the default maps.yml from the KitPvP.jar
                 instance.saveResource("maps.yml", true);
                 // Send created confirmation to the console
-                Message.sendToConsole("&c[KitPvP] &fMaps.yml has been created!", false);
+                Bukkit.getConsoleSender().sendMessage("§c[KitPvP] §fMaps.yml has been created!");
             } catch (IOException e) {
                 // Error message (creating new file)
-                Message.sendToConsole("&c[KitPvP] &fCouldn't create maps.yml file!", false);
+                Bukkit.getConsoleSender().sendMessage("§c[KitPvP] §fCouldn't create maps.yml file!");
             }
         } else {
             this.fileConfiguration = YamlConfiguration.loadConfiguration(file);
 
             // Send loaded confirmation to the console
-            Message.sendToConsole("&c[KitPvP] &fMaps.yml has been loaded!", false);
+            Bukkit.getConsoleSender().sendMessage("§c[KitPvP] §fMaps.yml has been loaded!");
         }
     }
 }

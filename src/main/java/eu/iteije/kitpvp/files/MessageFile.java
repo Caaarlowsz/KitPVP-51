@@ -1,7 +1,7 @@
 package eu.iteije.kitpvp.files;
 
 import eu.iteije.kitpvp.KitPvP;
-import eu.iteije.kitpvp.pluginutils.Message;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -21,6 +21,8 @@ public class MessageFile {
      */
     public MessageFile(KitPvP instance, boolean startup) {
         if (startup) {
+            this.file = new File(instance.getDataFolder(), "messages.yml");
+            this.fileConfiguration = YamlConfiguration.loadConfiguration(this.file);
             loadDefault(instance);
         } else {
             this.file = new File(instance.getDataFolder(), "messages.yml");
@@ -74,16 +76,16 @@ public class MessageFile {
                 // Saving the default messages.yml from the KitPvP.jar
                 instance.saveResource("messages.yml", true);
                 // Send created confirmation to the console
-                Message.sendToConsole("&c[KitPvP] &fMessages.yml has been created!", false);
+                Bukkit.getConsoleSender().sendMessage("§c[KitPvP] §fMessages.yml has been created!");
             } catch (IOException e) {
                 // Error message (creating new file)
-                Message.sendToConsole("&c[KitPvP] &fCouldn't create messages.yml file!", false);
+                Bukkit.getConsoleSender().sendMessage("§c[KitPvP] §fCouldn't create messages.yml file!");
             }
         } else {
             this.fileConfiguration = YamlConfiguration.loadConfiguration(file);
 
             // Send loaded confirmation to the console
-            Message.sendToConsole("&c[KitPvP] &fMessages.yml has been loaded!", false);
+            Bukkit.getConsoleSender().sendMessage("§c[KitPvP] §fMessages.yml has been loaded!");
         }
     }
 }

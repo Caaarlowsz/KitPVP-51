@@ -5,3 +5,12 @@ database:
   database: ''
 prefix: '&c[KitPvP] &r'
 sign_prefix: '&4&l[KitPvP]'
+
+mapsetup:
+  tools:
+    exit:
+      name: "&cStoppen"
+    spawnpoint:
+      name: "&eSpawnpoint"
+    finish:
+      name: "&aKlaar"

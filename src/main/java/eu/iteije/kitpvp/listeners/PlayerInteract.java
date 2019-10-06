@@ -1,10 +1,12 @@
 package eu.iteije.kitpvp.listeners;
 
 import eu.iteije.kitpvp.KitPvP;
+import eu.iteije.kitpvp.commands.SpawnSubCmd;
 import eu.iteije.kitpvp.files.ConfigFile;
 import eu.iteije.kitpvp.files.MapFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import eu.iteije.kitpvp.pluginutils.TransferMessage;
+import eu.iteije.kitpvp.utils.game.Game;
 import eu.iteije.kitpvp.utils.mapsetup.CreateMap;
 import eu.iteije.kitpvp.utils.mapsetup.ToolActions;
 import org.bukkit.Material;
@@ -22,6 +24,9 @@ public class PlayerInteract implements Listener {
     private KitPvP instance;
     private ConfigFile configFile;
     private MapFile mapFile;
+
+    // Instance of Game
+    public static Game game;
 
     public PlayerInteract(KitPvP instance) {
         this.instance = instance;
@@ -44,7 +49,13 @@ public class PlayerInteract implements Listener {
             // Handle NullPointerException > If player is hitting the air, NullPointerException (.getType()) will be triggered
         }
 
-        // Left/right click block check
+        // Cancel interact event if player is in game
+        if (Game.playersInGame.containsKey(player.getUniqueId())) {
+            event.setCancelled(true);
+            return;
+        }
+
+        // Left/right click block check | SIGNS
         if (action == Action.RIGHT_CLICK_BLOCK || action == Action.LEFT_CLICK_BLOCK) {
             // Checking whether the clicked block is a sign
             if (clickedBlock == Material.SIGN || clickedBlock == Material.WALL_SIGN) {
@@ -60,8 +71,15 @@ public class PlayerInteract implements Listener {
                         // Get map name at sign line 1 (for a player line 2)
                         String mapName = sign.getLine(1).toUpperCase();
                         // Check whether the map name/map data is known
-                        if (mapFile.get().getConfigurationSection(mapName) != null) {
-                            // Continue here
+                        if (mapFile.get().getConfigurationSection("maps." + mapName) != null) {
+                            SpawnSubCmd spawnSubCmd = new SpawnSubCmd(instance);
+                            if (spawnSubCmd.getSpawnSet()) {
+                                game = new Game(player, mapName, instance);
+                                game.join();
+                            } else {
+                                // Send no lobbyspawn message
+                                Message.sendToPlayer(player, Message.get("interactsign_no_spawn"), true);
+                            }
                         } else {
                             // Map doesn't exists error
                             Message.sendToPlayer(player, Message.get("interactsign_map_error"), true);
@@ -71,6 +89,7 @@ public class PlayerInteract implements Listener {
             }
         }
 
+        // Right click block only
         if (action == Action.RIGHT_CLICK_BLOCK) {
             // Checking whether the clicked block is a setup block and which it is
             String setupItem = CreateMap.checkSetupItem(player.getInventory().getItemInMainHand().getType(), player);
@@ -85,6 +104,7 @@ public class PlayerInteract implements Listener {
             }
         }
 
+        // Left click block only
         if (action == Action.LEFT_CLICK_BLOCK) {
             if (CreateMap.savedInventories.containsKey(player.getUniqueId())) {
                 if (event.getClickedBlock().getType() != Material.LIGHT_WEIGHTED_PRESSURE_PLATE) {
@@ -113,6 +133,8 @@ public class PlayerInteract implements Listener {
         }
     }
 
+
+    // Use tool
     private void useTool(String setupItem, Player player, boolean includeSpawnpoint, Block interactedBlock) {
         if (includeSpawnpoint) {
             switch (setupItem) {

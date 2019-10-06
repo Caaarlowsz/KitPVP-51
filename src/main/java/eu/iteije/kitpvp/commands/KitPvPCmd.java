@@ -16,12 +16,20 @@ public class KitPvPCmd implements CommandExecutor {
     // Commands and explanation shown in the help list
     private List<String> commands = Arrays.asList(
             "/kitpvp createmap",
+            "/kitpvp deletemap",
             "/kitpvp maps",
+            "/kitpvp setspawn",
+            "/kitpvp spawn",
+            "/kitpvp leave",
             "/worldtp"
     );
     private List<String> explanation = Arrays.asList(
             "Maak een nieuwe KitPvP map",
+            "Verwijder een map",
             "Krijg een lijst van alle mappen",
+            "Verander de spawn van de lobby",
+            "Teleporteer naar de spawn/lobby",
+            "Ga terug naar de lobby als je in een game zit",
             "Teleporteer naar een specifieke wereld"
     );
 
@@ -45,6 +53,26 @@ public class KitPvPCmd implements CommandExecutor {
                 case "createmap":
                     CreateMapSubCmd createMapSubCmd = new CreateMapSubCmd(instance);
                     createMapSubCmd.send(sender, args);
+                    break;
+                case "deletemap":
+                    DeleteMapSubCmd deleteMapSubCmd = new DeleteMapSubCmd(instance);
+                    deleteMapSubCmd.send(sender, args);
+                    break;
+                case "maps":
+                    MapsSubCmd mapsSubCmd = new MapsSubCmd(instance);
+                    mapsSubCmd.send(sender);
+                    break;
+                case "setspawn":
+                    SetSpawnSubCmd setSpawnSubCmd = new SetSpawnSubCmd(instance);
+                    setSpawnSubCmd.send(sender);
+                    break;
+                case "spawn":
+                    SpawnSubCmd spawnSubCmd = new SpawnSubCmd(instance);
+                    spawnSubCmd.send(sender);
+                    break;
+                case "leave":
+                    LeaveSubCmd leaveSubCmd = new LeaveSubCmd(instance);
+                    leaveSubCmd.send(sender);
                     break;
                 default:
                     help.send(sender);

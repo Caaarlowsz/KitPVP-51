@@ -75,9 +75,18 @@ public class BlockBreak implements Listener {
                     List<Location> locations = ToolActions.getSpawnPlate().getLocations().get(onlinePlayer.getUniqueId());
                     // Loop through locations
                     for (Location location : locations) {
+                        // Plate have to be indestructible
                         if (compareLocation(blockLocation, location)) {
                             event.setCancelled(true);
+                            return;
                         }
+                        // The block below a plate have to be invulnerable
+                        if (compareLocation(blockLocation, location.add(0, -1, 0))) {
+                            event.setCancelled(true);
+                            return;
+                        }
+                        // Add y + 1 to location, because it is subtracted before
+                        location.add(0, 1, 0);
                     }
                 } catch (NullPointerException exception) {
                     // Leave it empty, it's just a handler (enable if there is suspicious behavior around this class)

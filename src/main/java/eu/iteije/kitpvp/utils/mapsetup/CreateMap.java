@@ -103,10 +103,13 @@ public class CreateMap {
             spawnPlate.removeLocations(player);
         } catch (NullPointerException | ConcurrentModificationException exception) {
             // Leave it empty, it's just a handler
-            exception.printStackTrace();
         }
     }
 
+    // Get map name (players second argument)
+    public static String getMapName(Player player) {
+        return mapNames.get(player.getUniqueId());
+    }
 
     // Return inventory to a specific player in setup
     public static void returnInventory(Player player) {

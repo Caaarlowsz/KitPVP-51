@@ -1,3 +1,31 @@
+v0.0.8:
++ Fixed an issue where spawnplates could be placed on top of each other
+
++ Map setup tool is now working completely
+
++ DeleteMapSubCmd - delete a map
++ MapsSubCmd - get a list of maps
++ SetSpawnSubCmd - set the lobby spawn
++ SpawnSubCmd - teleport to lobby
++ LeaveSubCmd - get out of a game
+
++ PlayerGameModeChange - cancel gamemode change while in game
++ PlayerJoin - teleport a player to the spawn if spawn_join in config.yml is true
+
++ Game - everything what has to do with players is handled here (join/leave)
+
++ Players can now join a map if they click on a sign
++ Players spawn on a randomly selected spawnpoint
++ If the server is reloading, all players will leave the map they're in and all inventories will be returned
++ If a player quit, it's original inventory will be returned
+
++ Added method in Message to send message to a CommandSender
++ Added new messages
+
+! Players are still 'using' food levels (tags: TODO)
+! Spawnplates can be placed on top of grass/other inappropriate blocks (tags: TODO)
+
+
 v0.0.7:
 + Fixed an issue where the 'Finish' mapsetup tool could be placed without being cancelled
 + Fixed an issue where players can destroy others spawn plates
@@ -12,7 +40,7 @@ v0.0.7:
 + BlockBreak - check whether the player is in setup or not and is breaking setup blocks
 
 + Added ability to set/remove spawn plates
-- Spawnpoint are temp-saved in a Map instead of in the maps.yml file
+- Spawnpoints are temp-saved in a Map instead of in the maps.yml file
 
 + The server now automatically removes a [kitpvp] sign if no valid map name is given
 

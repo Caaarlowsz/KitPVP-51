@@ -1,8 +1,7 @@
 package eu.iteije.kitpvp.listeners;
 
 import eu.iteije.kitpvp.KitPvP;
-import eu.iteije.kitpvp.files.ConfigFile;
-import eu.iteije.kitpvp.files.MapFile;
+import eu.iteije.kitpvp.utils.game.Game;
 import eu.iteije.kitpvp.utils.mapsetup.CreateMap;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,8 +12,6 @@ public class PlayerQuit implements Listener {
 
     // Instance variable of main class
     private KitPvP instance;
-    private ConfigFile configFile;
-    private MapFile mapFile;
 
     public PlayerQuit(KitPvP instance) {
         this.instance = instance;
@@ -29,6 +26,16 @@ public class PlayerQuit implements Listener {
         if (CreateMap.savedInventories.containsKey(player.getUniqueId())) {
             // Force stop setup (forced = false, because it isn't possible to send a message to a offline player)
             CreateMap.stopSetup(player, false);
+        }
+
+        // Return inventory to player if the player logs out
+        if (Game.savedInventories.containsKey(player.getUniqueId())) {
+            // Return inventory
+            player.getInventory().clear();
+            // Return old inventory contents
+            player.getInventory().setContents(Game.savedInventories.get(player.getUniqueId()));
+            // Delete saved inventory
+            Game.savedInventories.remove(player.getUniqueId());
         }
     }
 }

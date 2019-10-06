@@ -4,6 +4,7 @@ import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.files.ConfigFile;
 import eu.iteije.kitpvp.files.MessageFile;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class Message {
@@ -53,6 +54,15 @@ public class Message {
 
         // Send converted message to the target; console
         Bukkit.getConsoleSender().sendMessage(message);
+    }
+
+    public static void sendToSender(CommandSender sender, String message, boolean hasPrefix) {
+        // Call send methods of different senders
+        if (sender instanceof Player) {
+            sendToPlayer((Player) sender, message, hasPrefix);
+        } else {
+            sendToConsole(message, hasPrefix);
+        }
     }
 
     /**

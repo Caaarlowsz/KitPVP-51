@@ -3,6 +3,7 @@ database:
   username: ''
   password: ''
   database: ''
+
 prefix: '&c[KitPvP] &r'
 sign_prefix: '&4&l[KitPvP]'
 
@@ -14,3 +15,5 @@ mapsetup:
       name: "&eSpawnpoint"
     finish:
       name: "&aKlaar"
+
+spawn_join: true

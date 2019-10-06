@@ -5,6 +5,7 @@ import eu.iteije.kitpvp.files.KitFile;
 import eu.iteije.kitpvp.files.MapFile;
 import eu.iteije.kitpvp.files.MessageFile;
 import eu.iteije.kitpvp.pluginutils.Message;
+import eu.iteije.kitpvp.utils.game.Game;
 import eu.iteije.kitpvp.utils.mapsetup.CreateMap;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -44,6 +45,10 @@ public final class KitPvP extends JavaPlugin {
             // If player is in setup, force stop and return inventory
             if (CreateMap.savedInventories.containsKey(player.getUniqueId())) {
                 CreateMap.stopSetup(player, true);
+            }
+            // If player is in game, force stop and return inventory
+            if (Game.playersInGame.containsKey(player.getUniqueId())) {
+                Game.leave(player);
             }
         }
 

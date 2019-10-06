@@ -7,6 +7,8 @@ placesign_empty_map_line: "&fJe moet een map invoeren op de 2e rij van de sign!"
 placesign_map_error: "&fDe map &e{map} &fbestaat niet!"
 # Interact sign messages
 interactsign_map_error: "&fDeze map bestaat niet!"
+interactsign_no_spawn: "&fEr is geen lobby spawn gezet, dus je kan niet joinen!"
+interactsign_join_loading: "&fSpawn zoeken in de map &e{map}&f..."
 # Help page
 help_title: "&fHelp pagina:"
 help_line_layout: "&7> &f{command} &e{explanation}"
@@ -20,3 +22,24 @@ createmap_exit_success: "&fJe bent gestopt en alle spawnpoints zijn weggehaald!"
 createmap_force_stop: "&fDe setup is geforceerd gestopt!"
 createmap_spawnpoint_success: "&fJe hebt een spawnpoint neergezet!"
 createmap_spawnpoint_deleted: "&fJe hebt een spawnpoint weggehaald!"
+createmap_success: "&fDe map &e{map} &fis opgeslagen met &e{spawnpoints} &fspawnpoint(s)!"
+createmap_exists_error: "&fDe map &e{map} &fbestaat al!"
+# Delete map command
+deletemap_exists_error: "&fDe map &e{map} &fbestaat niet!"
+deletemap_success: "&fJe hebt de map &e{map} &fverwijderd!"
+# Maps sub command
+maps_title: "&fLijst van alle mappen:"
+maps_content: "&7> &f{map}"
+maps_empty: "&fEr zijn geen mappen!"
+# Set spawn sub command
+setspawn_success: "&fLobby spawnpoint succesvol veranderd!"
+setspawn_failed: "&fHet is niet gelukt een nieuwe lobby spawnpoint te zetten!"
+# Spawn sub command
+spawn_success: "&fJe bent naar de lobby geteleporteerd!"
+spawn_failed: "&fEr is geen spawn ingesteld!"
+# Leave sub command
+leave_success: "&fJe hebt de game verlaten!"
+leave_not_ingame: "&fJe zit niet in een game!"
+# Game messages
+joingame_no_spawns: "&fEr zijn geen spawnspoints gevonden!"
+game_gamemode_change: "&fIngame mag je je gamemode niet veranderen!"

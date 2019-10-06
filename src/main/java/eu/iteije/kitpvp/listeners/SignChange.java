@@ -37,7 +37,7 @@ public class SignChange implements Listener {
         if (event.getLine(0).equalsIgnoreCase("[kitpvp]")) {
             if (player.hasPermission("kitpvp.admin.sign")) {
                 if (!event.getLine(1).isEmpty()) {
-                    if (mapFile.get().getConfigurationSection(event.getLine(1)) != null) {
+                    if (mapFile.get().getConfigurationSection("maps." + event.getLine(1).toUpperCase()) != null) {
                         // Convert the sign header to a colored sign header
                         signHeader = TransferMessage.replaceColorCodes(configFile.get().getString("sign_prefix"));
                         // Set the first line to the colorized sign header
@@ -53,13 +53,18 @@ public class SignChange implements Listener {
                         block.setType(Material.AIR);
                         // Send fail message
                         String message = Message.get("placesign_map_error");
-                        message = Message.replace(message, "{map}", event.getLine(1));
+                        message = Message.replace(message, "{map}", event.getLine(1).toUpperCase());
                         Message.sendToPlayer(player, message, true);
                     }
                 } else {
+                    // Remove the sign
+                    Block block = event.getBlock();
+                    block.setType(Material.AIR);
+                    // Send empty map line message
                     Message.sendToPlayer(player, Message.get("placesign_empty_map_line"), true);
                 }
             } else {
+                // Send permission error
                 Message.sendToPlayer(player, Message.PERMISSION_ERROR, true);
             }
         }

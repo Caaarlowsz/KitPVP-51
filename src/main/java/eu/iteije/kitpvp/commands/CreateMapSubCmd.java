@@ -1,6 +1,7 @@
 package eu.iteije.kitpvp.commands;
 
 import eu.iteije.kitpvp.KitPvP;
+import eu.iteije.kitpvp.files.MapFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import eu.iteije.kitpvp.utils.mapsetup.CreateMap;
 import org.bukkit.command.CommandSender;
@@ -24,7 +25,11 @@ public class CreateMapSubCmd {
 
     // Help class instance
     private Help help = new Help(commands, explanation);
+    // Instance of CreateMap
     private CreateMap createMap;
+
+    // Maps.yml
+    private MapFile mapFile;
 
     /**
      * @param instance instance of KitPvP (main) class
@@ -38,6 +43,8 @@ public class CreateMapSubCmd {
      * @param args given arguments from the original command
      */
     public void send(CommandSender sender, String[] args) {
+        // Define MapFile instance
+        mapFile = new MapFile(instance, false);
         // Define createMap (instance of CreateMap)
         createMap = new CreateMap(instance);
         // Command executor has to be a player
@@ -50,12 +57,19 @@ public class CreateMapSubCmd {
                     // Make sure map name is less or equal to 15
                     if (args[1].length() <= 15) {
                         if (!CreateMap.savedInventories.containsKey(player.getUniqueId())) {
-                            // Creating new map message
-                            String message = Message.get("createmap_command_success");
-                            message = Message.replace(message, "{mapname}", args[1].toUpperCase());
-                            Message.sendToPlayer(player, message, true);
-                            // Starting new map setup
-                            createMap.startSetup(player, args);
+                            if (!mapFile.get().contains(args[1].toUpperCase())) {
+                                // Creating new map message
+                                String message = Message.get("createmap_command_success");
+                                message = Message.replace(message, "{mapname}", args[1].toUpperCase());
+                                Message.sendToPlayer(player, message, true);
+                                // Starting new map setup
+                                createMap.startSetup(player, args);
+                            } else {
+                                // Map exists error
+                                String message = Message.get("createmap_exists_error");
+                                message = Message.replace(message, "{map}", args[1].toUpperCase());
+                                Message.sendToPlayer(player, message, true);
+                            }
                         } else {
                             // Already in setup error
                             Message.sendToPlayer(player, Message.get("createmap_in_setup_error"), true);

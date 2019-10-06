@@ -24,6 +24,8 @@ public class InventoryClick implements Listener {
         // If a player is in a setup, the player is not able to interact with their inventory
         if (CreateMap.savedInventories.containsKey(player.getUniqueId())) {
             event.setCancelled(true);
+            // Close inventory, so players in creative can't double click
+            player.closeInventory();
         }
     }
 }

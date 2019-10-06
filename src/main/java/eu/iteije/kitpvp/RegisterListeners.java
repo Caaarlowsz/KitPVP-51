@@ -31,6 +31,10 @@ public class RegisterListeners {
         pluginManager.registerEvents(new PlayerDropItem(instance), instance);
         // PlayerPickupItemEvent
         pluginManager.registerEvents(new PlayerPickupItem(instance), instance);
+        // BlockBreakEvent
+        pluginManager.registerEvents(new BlockBreak(instance), instance);
+        // PlayerSwapHandItemsEvent
+        pluginManager.registerEvents(new PlayerSwapHandItems(instance), instance);
     }
 
 }

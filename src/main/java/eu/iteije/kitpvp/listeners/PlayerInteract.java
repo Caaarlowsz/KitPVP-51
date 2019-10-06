@@ -5,7 +5,10 @@ import eu.iteije.kitpvp.files.ConfigFile;
 import eu.iteije.kitpvp.files.MapFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import eu.iteije.kitpvp.pluginutils.TransferMessage;
+import eu.iteije.kitpvp.utils.mapsetup.CreateMap;
+import eu.iteije.kitpvp.utils.mapsetup.ToolActions;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -67,5 +70,76 @@ public class PlayerInteract implements Listener {
                 }
             }
         }
+
+        if (action == Action.RIGHT_CLICK_BLOCK) {
+            // Checking whether the clicked block is a setup block and which it is
+            String setupItem = CreateMap.checkSetupItem(player.getInventory().getItemInMainHand().getType(), player);
+            if (!setupItem.equals("none")) {
+                // Use setup item
+                event.setCancelled(true);
+                useTool(setupItem, player, true, event.getClickedBlock());
+            } else {
+                if (CreateMap.savedInventories.containsKey(player.getUniqueId())) {
+                    event.setCancelled(true);
+                }
+            }
+        }
+
+        if (action == Action.LEFT_CLICK_BLOCK) {
+            if (CreateMap.savedInventories.containsKey(player.getUniqueId())) {
+                if (event.getClickedBlock().getType() != Material.LIGHT_WEIGHTED_PRESSURE_PLATE) {
+                    event.setCancelled(true);
+
+                    // Checking whether the clicked block is a setup block and which it is
+                    String setupItem = CreateMap.checkSetupItem(player.getInventory().getItemInMainHand().getType(), player);
+                    if (!setupItem.equals("none")) {
+                        // Use setup item
+                        event.setCancelled(true);
+                        useTool(setupItem, player, true, event.getClickedBlock());
+                    }
+                }
+            }
+        }
+
+        // Left/right click air
+        if (action == Action.RIGHT_CLICK_AIR || action == Action.LEFT_CLICK_AIR) {
+            // Checking whether the clicked block is a setup block and which it is
+            String setupItem = CreateMap.checkSetupItem(player.getInventory().getItemInMainHand().getType(), player);
+            if (!setupItem.equals("none")) {
+                // Use setup item
+                event.setCancelled(true);
+                useTool(setupItem, player, false, null);
+            }
+        }
+    }
+
+    private void useTool(String setupItem, Player player, boolean includeSpawnpoint, Block interactedBlock) {
+        if (includeSpawnpoint) {
+            switch (setupItem) {
+                case "exit":
+                    ToolActions.useExitTool(player);
+                    break;
+                case "spawnpoint":
+                    ToolActions.useSpawnpointTool(player, interactedBlock);
+                    break;
+                case "finish":
+                    ToolActions.useFinishTool(player);
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            switch (setupItem) {
+                case "exit":
+                    ToolActions.useExitTool(player);
+                    break;
+                case "finish":
+                    ToolActions.useFinishTool(player);
+                    break;
+                default:
+                    break;
+            }
+        }
+
     }
 }

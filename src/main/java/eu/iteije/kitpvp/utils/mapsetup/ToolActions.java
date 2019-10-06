@@ -1,25 +1,36 @@
 package eu.iteije.kitpvp.utils.mapsetup;
 
 import eu.iteije.kitpvp.KitPvP;
+import eu.iteije.kitpvp.files.MapFile;
+import eu.iteije.kitpvp.pluginutils.Message;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 public class ToolActions {
 
     // Main class instance
-    private KitPvP instance = KitPvP.getInstance();
+    private static KitPvP instance = KitPvP.getInstance();
 
-    // Since it have to be possible to add easily add other tool actions, no constructor here
+    // Undefined intsance of MapFile
+    private static MapFile mapFile;
+
+    // Instance of SpawnPlate
+    private static SpawnPlate spawnPlate = new SpawnPlate(instance);
 
     // Exit tool
     public static void useExitTool(Player player) {
-        // Remove all existing light weighted (gold) pressure plates placed in current setup
-        // Return inventory
+        // Return inventory and remove light weighted pressure plates
+        CreateMap.stopSetup(player, false);
+        // Send success message
+        Message.sendToPlayer(player, Message.get("createmap_exit_success"), true);
     }
 
     // Spawnpoint tool
-    public static void useSpawnpointTool(Player player) {
-        // Temporary save location in maps.yml
-        // Cancel blockplace event, place light weighted plate
+    public static void useSpawnpointTool(Player player, Block block) {
+        // Add new plate location
+        spawnPlate.addNewLocation(player, block);
+        // Send success message
+        Message.sendToPlayer(player, Message.get("createmap_spawnpoint_success"), true);
     }
 
     // Finish tool
@@ -29,4 +40,9 @@ public class ToolActions {
         // Send a number of spawnpoints if setup is finished an successful
     }
 
+
+    // Get spawn plate
+    public static SpawnPlate getSpawnPlate() {
+        return spawnPlate;
+    }
 }

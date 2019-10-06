@@ -49,13 +49,17 @@ public class CreateMapSubCmd {
                 if (args.length == 2) {
                     // Make sure map name is less or equal to 15
                     if (args[1].length() <= 15) {
-                        // Creating new map message
-                        String message = Message.get("createmap_command_success");
-                        message = Message.replace(message, "{mapname}", args[1].toUpperCase());
-                        Message.sendToPlayer(player, message, true);
-                        // Starting new map setup
-                        createMap.startSetup(player, args);
-
+                        if (!CreateMap.savedInventories.containsKey(player.getUniqueId())) {
+                            // Creating new map message
+                            String message = Message.get("createmap_command_success");
+                            message = Message.replace(message, "{mapname}", args[1].toUpperCase());
+                            Message.sendToPlayer(player, message, true);
+                            // Starting new map setup
+                            createMap.startSetup(player, args);
+                        } else {
+                            // Already in setup error
+                            Message.sendToPlayer(player, Message.get("createmap_in_setup_error"), true);
+                        }
                     } else {
                         // Map name too long error
                         Message.sendToPlayer(player, Message.get("createmap_name_length_error"), true);

@@ -3,15 +3,13 @@ package eu.iteije.kitpvp.utils.mapsetup;
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.commands.Help;
 import eu.iteije.kitpvp.files.ConfigFile;
-import org.bukkit.Bukkit;
+import eu.iteije.kitpvp.pluginutils.Message;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class CreateMap {
 
@@ -21,6 +19,9 @@ public class CreateMap {
     // Here is the inventory of the player saved while in setup
     // If this HashMap contains the UUID of a player, the player is in setup
     public static HashMap<UUID, ItemStack[]> savedInventories = new HashMap<>();
+
+    // Map names
+    public static HashMap<UUID, String> mapNames = new HashMap<>();
 
     // In this case, only a explanation is given, so the second thing isn't used whatsoever
     private List<String> explanation = Arrays.asList(
@@ -45,6 +46,8 @@ public class CreateMap {
     public void startSetup(Player player, String[] args) {
         // Send some explanation of the setup tool here
         help.send(player);
+        // Save given map name
+        mapNames.put(player.getUniqueId(), args[1]);
         // Give tools to the player
         giveTools(player);
     }
@@ -75,19 +78,35 @@ public class CreateMap {
         exitTool.setToInventory(player);
         spawnpointTool.setToInventory(player);
         finishTool.setToInventory(player);
-
-        // Wait a few seconds then give inventory back
-        // If the player logs out before the returninventory is called, nullpointerexception is given
-        Bukkit.getScheduler().scheduleSyncDelayedTask(instance, () -> {
-            returnInventory(player);
-        }, 20 * 5);
-
     }
 
-    // TODO: force stop a setup
-    public static void forceStop(Player player) {
-
+    public static void stopSetup(Player player, boolean forced) {
+        // Send 'forced' message to player if forced is true
+        if (forced) {
+            Message.sendToPlayer(player, Message.get("createmap_force_stop"), true);
+        }
+        // Delete saved map name
+        mapNames.remove(player.getUniqueId());
+        // Return inventory method call
+        returnInventory(player);
+        // Delete all spawnpoints
+        // Instance of SpawnPlate from ToolActions
+        SpawnPlate spawnPlate = ToolActions.getSpawnPlate();
+        try {
+            // Get list of locations
+            List<Location> locations = ToolActions.getSpawnPlate().getLocations().get(player.getUniqueId());
+            // Loop through locations
+            for (Location location : locations) {
+                spawnPlate.destroyPlate(player, location, false);
+            }
+            // Remove saved data
+            spawnPlate.removeLocations(player);
+        } catch (NullPointerException | ConcurrentModificationException exception) {
+            // Leave it empty, it's just a handler
+            exception.printStackTrace();
+        }
     }
+
 
     // Return inventory to a specific player in setup
     public static void returnInventory(Player player) {
@@ -95,7 +114,7 @@ public class CreateMap {
         player.getInventory().clear();
         // Return old inventory contents
         player.getInventory().setContents(savedInventories.get(player.getUniqueId()));
-        // Get the player out of savedInventories (which also serves as inSetup variable)
+        // Get the player out of savedInventories (which also serves as 'inSetup' variable)
         savedInventories.remove(player.getUniqueId());
     }
 
@@ -113,7 +132,7 @@ public class CreateMap {
         if (savedInventories.containsKey(player.getUniqueId())) {
             if (material == exitTool.getMaterial() && heldItemSlot == exitTool.getInventorySlot()) return "exit";
             if (material == spawnpointTool.getMaterial() && heldItemSlot == spawnpointTool.getInventorySlot()) return "spawnpoint";
-            if (material == finishTool.getMaterial() && heldItemSlot == spawnpointTool.getInventorySlot()) return "finish";
+            if (material == finishTool.getMaterial() && heldItemSlot == finishTool.getInventorySlot()) return "finish";
         }
 
         return "none";

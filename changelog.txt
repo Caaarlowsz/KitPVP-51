@@ -1,3 +1,24 @@
+v0.0.7:
++ Fixed an issue where the 'Finish' mapsetup tool could be placed without being cancelled
++ Fixed an issue where players can destroy others spawn plates
++ Fixed an issue where players were able to swap items to their off hand, causing the server thinking they're using normal blocks
++ Fixed an issue where players can enter the setup multiple times, causing the loss of their original inventory
++ Fixed an issue where players were able to move items if they clicked on it two times while in creative mode
++ Fixed an issue where only the first spawn plate despawned if stopSetup() was called (caused by ConcurrentModificationException)
++ Fixed an issue where only one player in setup got it's inventory back while reloading, while others lost their original inventory
++ Fixed an issue in PlayerInteract which caused the BlockBreak class to be unreachable
+
++ SpawnPoint - instance class for all new spawn plates
++ BlockBreak - check whether the player is in setup or not and is breaking setup blocks
+
++ Added ability to set/remove spawn plates
+- Spawnpoint are temp-saved in a Map instead of in the maps.yml file
+
++ The server now automatically removes a [kitpvp] sign if no valid map name is given
+
++ Added new messages
+
+
 v0.0.6:
 + Fixed an critical issue where files won't load properly without interrupting each other
 
@@ -12,7 +33,7 @@ v0.0.6:
 
 + Tool names (previously hardcoded) are moved to config.yml
 
-! Players in creative can double a map setup item to bypass click event cancellation (tags: TODO)
+! Players in creative can double a map setup item to bypass click event cancellation
 ! Setup tool 'Finish' can be placed, while the other tools (LWPP and red wool) can't be
 
 

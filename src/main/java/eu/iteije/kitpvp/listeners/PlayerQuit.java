@@ -26,9 +26,9 @@ public class PlayerQuit implements Listener {
         Player player = event.getPlayer();
 
         // Return inventory to player if the player logs out
-        // TODO: make the server delete all spawn plates
         if (CreateMap.savedInventories.containsKey(player.getUniqueId())) {
-            CreateMap.returnInventory(player);
+            // Force stop setup (forced = false, because it isn't possible to send a message to a offline player)
+            CreateMap.stopSetup(player, false);
         }
     }
 }

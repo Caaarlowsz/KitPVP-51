@@ -34,6 +34,15 @@ maps_empty: "&fEr zijn geen mappen!"
 # Set spawn sub command
 setspawn_success: "&fLobby spawnpoint succesvol veranderd!"
 setspawn_failed: "&fHet is niet gelukt een nieuwe lobby spawnpoint te zetten!"
+# Set leave delay sub command
+setleavedelay_parse_error: "&fJe moet een cijfer invoeren!"
+setleavedelay_no_change: "&fDe wachttijd was al &e{seconds} &fseconde(n)!"
+setleavedelay_negative_number: "&fDe wachttijd kan geen negatief getal zijn!"
+setleavedelay_success: "&fJe hebt de wachttijd naar &e{seconds} &fseconde(n) veranderd!"
+# Modify hunger sub command
+modifyhunger_wrong_args: "&fJe moet &aaan &fof &cuit &finvullen!"
+modifyhunger_no_change: "&fHonger stond al &e{hunger}&f!"
+modifyhunger_success: "&fJe hebt honger &e{hunger} &fgezet!"
 # Spawn sub command
 spawn_success: "&fJe bent naar de lobby geteleporteerd!"
 spawn_failed: "&fEr is geen spawn ingesteld!"
@@ -43,3 +52,4 @@ leave_not_ingame: "&fJe zit niet in een game!"
 # Game messages
 joingame_no_spawns: "&fEr zijn geen spawnspoints gevonden!"
 game_gamemode_change: "&fIngame mag je je gamemode niet veranderen!"
+game_leave_delay: "Je wordt over &e{seconds} &fseconden geteleporteerd!"

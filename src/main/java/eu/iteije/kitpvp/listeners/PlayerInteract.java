@@ -91,24 +91,31 @@ public class PlayerInteract implements Listener {
 
         // Right click block only
         if (action == Action.RIGHT_CLICK_BLOCK) {
-            // Checking whether the clicked block is a setup block and which it is
-            String setupItem = CreateMap.checkSetupItem(player.getInventory().getItemInMainHand().getType(), player);
-            if (!setupItem.equals("none")) {
-                // Use setup item
-                event.setCancelled(true);
-                useTool(setupItem, player, true, event.getClickedBlock());
-            } else {
-                if (CreateMap.savedInventories.containsKey(player.getUniqueId())) {
+            if (CreateMap.savedInventories.containsKey(player.getUniqueId())) {
+                // Checking whether the clicked block is a setup block and which it is
+                String setupItem = CreateMap.checkSetupItem(player.getInventory().getItemInMainHand().getType(), player);
+                if (!setupItem.equals("none")) {
+                    // Use setup item
                     event.setCancelled(true);
+                    useTool(setupItem, player, true, event.getClickedBlock());
+                } else {
+                    if (CreateMap.savedInventories.containsKey(player.getUniqueId())) {
+                        event.setCancelled(true);
+                    }
                 }
             }
+
         }
 
         // Left click block only
         if (action == Action.LEFT_CLICK_BLOCK) {
             if (CreateMap.savedInventories.containsKey(player.getUniqueId())) {
                 if (event.getClickedBlock().getType() != Material.LIGHT_WEIGHTED_PRESSURE_PLATE) {
-                    event.setCancelled(true);
+                    // Redirect to BlockBreak if block is not solid
+                    if (!event.getClickedBlock().getType().isSolid()) {
+                        event.setCancelled(false);
+                        return;
+                    }
 
                     // Checking whether the clicked block is a setup block and which it is
                     String setupItem = CreateMap.checkSetupItem(player.getInventory().getItemInMainHand().getType(), player);

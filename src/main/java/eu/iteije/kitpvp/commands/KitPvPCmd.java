@@ -21,6 +21,8 @@ public class KitPvPCmd implements CommandExecutor {
             "/kitpvp setspawn",
             "/kitpvp spawn",
             "/kitpvp leave",
+            "/kitpvp setleavedelay",
+            "/kitpvp modifyhunger",
             "/worldtp"
     );
     private List<String> explanation = Arrays.asList(
@@ -30,6 +32,8 @@ public class KitPvPCmd implements CommandExecutor {
             "Verander de spawn van de lobby",
             "Teleporteer naar de spawn/lobby",
             "Ga terug naar de lobby als je in een game zit",
+            "Verander de wachttijd als je uit een game gaat",
+            "Zet honger in game aan of uit",
             "Teleporteer naar een specifieke wereld"
     );
 
@@ -73,6 +77,14 @@ public class KitPvPCmd implements CommandExecutor {
                 case "leave":
                     LeaveSubCmd leaveSubCmd = new LeaveSubCmd(instance);
                     leaveSubCmd.send(sender);
+                    break;
+                case "setleavedelay":
+                    SetLeaveDelaySubCmd setLeaveDelaySubCmd = new SetLeaveDelaySubCmd(instance);
+                    setLeaveDelaySubCmd.send(sender, args);
+                    break;
+                case "modifyhunger":
+                    ModifyHungerSubCmd modifyHungerSubCmd = new ModifyHungerSubCmd(instance);
+                    modifyHungerSubCmd.send(sender, args);
                     break;
                 default:
                     help.send(sender);

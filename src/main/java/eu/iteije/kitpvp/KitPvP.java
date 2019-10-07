@@ -42,13 +42,18 @@ public final class KitPvP extends JavaPlugin {
     public void onDisable() {
         // Loop through all online players
         for (Player player : Bukkit.getOnlinePlayers()) {
-            // If player is in setup, force stop and return inventory
-            if (CreateMap.savedInventories.containsKey(player.getUniqueId())) {
-                CreateMap.stopSetup(player, true);
-            }
-            // If player is in game, force stop and return inventory
-            if (Game.playersInGame.containsKey(player.getUniqueId())) {
-                Game.leave(player);
+            try {
+                // If player is in setup, force stop and return inventory
+                if (CreateMap.savedInventories.containsKey(player.getUniqueId())) {
+                    CreateMap.stopSetup(player, true);
+                }
+                // If player is in game, force stop and return inventory
+                if (Game.playersInGame.containsKey(player.getUniqueId())) {
+                    Game.leave(player);
+                }
+            } catch (NoClassDefFoundError exception) {
+                // Empty catch block, you're right, this is just to prevent console spam in case something doesn't work, it does what it is intended to do
+                // Put a printStackTrace() here if suspicious activity is detected
             }
         }
 

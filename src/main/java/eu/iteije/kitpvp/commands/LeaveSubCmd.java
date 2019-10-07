@@ -29,10 +29,8 @@ public class LeaveSubCmd {
             // Command executor
             Player player = (Player) sender;
             if (Game.playersInGame.containsKey(player.getUniqueId())) {
-                // Leave game and return inventory
-                Game.leave(player);
-                // Success message
-                Message.sendToPlayer(player, Message.get("leave_success"), true);
+                // Leave game with and return inventory
+                Game.delayedLeave(player, true);
             } else {
                 // Send fail message (if a player is not in a game but is using the command)
                 Message.sendToPlayer(player, Message.get("leave_not_ingame"), true);

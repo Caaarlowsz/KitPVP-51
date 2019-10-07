@@ -39,6 +39,12 @@ public class BlockBreak implements Listener {
             // Location of broken block
             Location blockLocation = block.getLocation();
 
+            // Instantly allow the player in setup to break not-solid blocks, like grass, flowers, snow, seeds
+            if (!block.getType().isSolid()) {
+                event.setCancelled(false);
+                return;
+            }
+
             try {
                 // All locations of placed spawn plates
                 List<Location> locations = ToolActions.getSpawnPlate().getLocations().get(player.getUniqueId());

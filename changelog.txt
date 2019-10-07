@@ -1,3 +1,19 @@
+v0.0.9:
++ Fixed an issue where a BukkitTask kept going even when it was cancelled
++ Fixed an issue where the player was instantly teleported when ingame and using /kitpvp spawn (no delay)
++ Fixed an issue where players could place spawn plates on top of non-solid blocks, like grass, flowers, snow, vines
+
++ SetLeaveDelaySubCmd - sub command for setting the leave delay
++ ModifyHungerSubCmd - sub command for modifying hunger ingame
+
++ FoodLevelChange - you can now enable/disable hunger
+
++ Added a delay for leaving if someone is in a map, this is to prevent pvploggers (but in this case with '/kitpvp leave|spawn')
++ Players in setup can remove non-solid blocks now
+
++ Added new messages
+
+
 v0.0.8:
 + Fixed an issue where spawnplates could be placed on top of each other
 
@@ -22,8 +38,8 @@ v0.0.8:
 + Added method in Message to send message to a CommandSender
 + Added new messages
 
-! Players are still 'using' food levels (tags: TODO)
-! Spawnplates can be placed on top of grass/other inappropriate blocks (tags: TODO)
+! Players are still 'using' food levels
+! Spawnplates can be placed on top of grass/other inappropriate blocks
 
 
 v0.0.7:

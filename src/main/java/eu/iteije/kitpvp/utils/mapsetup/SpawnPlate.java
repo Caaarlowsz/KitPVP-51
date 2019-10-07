@@ -29,26 +29,29 @@ public class SpawnPlate {
      * @return whether a new plate is set or not
      */
     public boolean addNewLocation(Player player, Block block) {
-        if (block.getType() != Material.LIGHT_WEIGHTED_PRESSURE_PLATE) {
-            // Make up a new location out of block data, increment Y by 1 block, where the plate will be placed on
-            Location plateLocation = new Location(block.getWorld(), block.getX(), block.getY() + 1, block.getZ());
-            // Spawn block at location
-            plateLocation.getBlock().setType(Material.LIGHT_WEIGHTED_PRESSURE_PLATE);
-            // Add new plate to locations Map
-            List<Location> locationList = locations.get(player.getUniqueId());
+        if (!block.getType().toString().contains("PRESSURE_PLATE")) {
+            // Check whether the block is solid or not
+            if (block.getType().isSolid()) {
+                // Make up a new location out of block data, increment Y by 1 block, where the plate will be placed on
+                Location plateLocation = new Location(block.getWorld(), block.getX(), block.getY() + 1, block.getZ());
+                // Spawn block at location
+                plateLocation.getBlock().setType(Material.LIGHT_WEIGHTED_PRESSURE_PLATE);
+                // Add new plate to locations Map
+                List<Location> locationList = locations.get(player.getUniqueId());
 
-            // If list does not exists, create it
-            if (locationList == null) {
-                locationList = new ArrayList<>();
-                locationList.add(plateLocation);
-                locations.put(player.getUniqueId(), locationList);
-            } else {
-                // Add item if it is not already in the list
-                if (!locationList.contains(plateLocation)) locationList.add(plateLocation);
-                locations.remove(player.getUniqueId());
-                locations.put(player.getUniqueId(), locationList);
+                // If list does not exists, create it
+                if (locationList == null) {
+                    locationList = new ArrayList<>();
+                    locationList.add(plateLocation);
+                    locations.put(player.getUniqueId(), locationList);
+                } else {
+                    // Add item if it is not already in the list
+                    if (!locationList.contains(plateLocation)) locationList.add(plateLocation);
+                    locations.remove(player.getUniqueId());
+                    locations.put(player.getUniqueId(), locationList);
+                }
+                return true;
             }
-            return true;
         }
         return false;
     }

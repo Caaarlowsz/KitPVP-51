@@ -35,14 +35,13 @@ public class SpawnSubCmd {
 
 
             try {
-                // Try teleporting to spawn
-                teleportToSpawn(player);
                 // Return inventory/leave if player is in game
                 if (Game.playersInGame.containsKey(player.getUniqueId())) {
-                    Game.leave(player);
-                    // Send success message
-                    Message.sendToPlayer(player, Message.get("leave_success"), true);
+                    // Leave game with specified delay in config.yml
+                    Game.delayedLeave(player, true);
                 } else {
+                    // Try teleporting to spawn
+                    teleportToSpawn(player);
                     // Send success message
                     Message.sendToPlayer(player, Message.get("spawn_success"), true);
                 }

@@ -39,6 +39,8 @@ public class RegisterListeners {
         pluginManager.registerEvents(new PlayerJoin(instance), instance);
         // PlayerGameModeChangeEvent
         pluginManager.registerEvents(new PlayerGameModeChange(instance), instance);
+        // FoodLevelChangeEvent
+        pluginManager.registerEvents(new FoodLevelChange(instance), instance);
     }
 
 }

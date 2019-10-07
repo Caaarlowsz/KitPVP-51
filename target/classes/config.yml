@@ -17,3 +17,6 @@ mapsetup:
       name: "&aKlaar"
 
 spawn_join: true
+
+game_leave_delay: 5
+game_hunger: false

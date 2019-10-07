@@ -2,6 +2,7 @@ package eu.iteije.kitpvp.utils.game;
 
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.commands.SpawnSubCmd;
+import eu.iteije.kitpvp.files.ConfigFile;
 import eu.iteije.kitpvp.files.MapFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import org.bukkit.Bukkit;
@@ -10,6 +11,8 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -82,23 +85,60 @@ public class Game {
         // Set gamemode to survival
         player.setGameMode(GameMode.SURVIVAL);
 
+        // Feed player
+        player.setFoodLevel(20);
+
         // Add player to HashMap playersInGame
         playersInGame.put(player.getUniqueId(), mapName);
     }
 
-    public void leave() {
-        // Return inventory
-        player.getInventory().clear();
-        // Return old inventory contents
-        player.getInventory().setContents(savedInventories.get(player.getUniqueId()));
-        // Delete saved inventory
-        savedInventories.remove(player.getUniqueId());
+    public static HashMap<UUID, Integer> countdown = new HashMap<>();
+    private static HashMap<UUID, BukkitTask> countdownTask = new HashMap<>();
 
-        // Teleport back to spawn
-        SpawnSubCmd spawnSubCmd = new SpawnSubCmd(instance);
-        spawnSubCmd.teleportToSpawn(player);
-        // Remove player from HashMap playersInGame
-        playersInGame.remove(player.getUniqueId());
+    public static void delayedLeave(Player player, boolean delay) {
+        if (delay) {
+            ConfigFile configFile = new ConfigFile(KitPvP.getInstance(), false);
+            int delayInSeconds = configFile.get().getInt("game_leave_delay");
+            // Check whether the number is valid
+            if (delayInSeconds >= 0) {
+                // Put delay in hashmap
+                countdown.put(player.getUniqueId(), delayInSeconds);
+                // Pre define message, so it don't have to be loaded over and over again
+                String message = Message.get("game_leave_delay");
+
+                // Create new BukkitTask and save it in a HashMap
+                countdownTask.put(player.getUniqueId(), new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        if (countdown.get(player.getUniqueId()) > 0) {
+                            // Get current countdown number and send it to the player
+                            int currentCountdown = countdown.get(player.getUniqueId());
+                            Message.sendToPlayer(player, Message.replace(message, "{seconds}", String.valueOf(countdown.get(player.getUniqueId()))), true);
+                            // Subtract 1 from the HashMap countdown
+                            countdown.put(player.getUniqueId(), (currentCountdown - 1));
+                        } else {
+                            // Remove countdown integer from hashmap
+                            countdown.remove(player.getUniqueId());
+                            // Cancel BukkitTask saved in countdownTask
+                            BukkitTask bukkitTask = countdownTask.get(player.getUniqueId());
+                            bukkitTask.cancel();
+                            // Remove BukkitTask saved in hashmap
+                            countdownTask.remove(player.getUniqueId());
+
+                            // Call leave() method
+                            leave(player);
+                            // Success message
+                            Message.sendToPlayer(player, Message.get("leave_success"), true);
+                        }
+                    }
+                }.runTaskTimer(KitPvP.getInstance(), 0, 20));
+            }
+        } else {
+            // Call leave() method
+            leave(player);
+            // Success message
+            Message.sendToPlayer(player, Message.get("leave_success"), true);
+        }
     }
 
     public static void leave(Player player) {
@@ -111,7 +151,12 @@ public class Game {
 
         // Teleport back to spawn
         SpawnSubCmd spawnSubCmd = new SpawnSubCmd(KitPvP.getInstance());
-        spawnSubCmd.teleportToSpawn(player);
+        try {
+            spawnSubCmd.teleportToSpawn(player);
+        } catch (IllegalArgumentException exception) {
+            // If someone deleted the config file, or something else strange happened, it will throw a IllegalArgumentException
+        }
+
         // Remove player from HashMap playersInGame
         playersInGame.remove(player.getUniqueId());
     }

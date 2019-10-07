@@ -57,7 +57,7 @@ public class CreateMapSubCmd {
                     // Make sure map name is less or equal to 15
                     if (args[1].length() <= 15) {
                         if (!CreateMap.savedInventories.containsKey(player.getUniqueId())) {
-                            if (!mapFile.get().contains(args[1].toUpperCase())) {
+                            if (!mapFile.get().contains("maps." + args[1].toUpperCase())) {
                                 // Creating new map message
                                 String message = Message.get("createmap_command_success");
                                 message = Message.replace(message, "{mapname}", args[1].toUpperCase());

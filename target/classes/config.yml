@@ -3,6 +3,7 @@ database:
   username: ''
   password: ''
   database: ''
+  port: 3306
 
 prefix: '&c[KitPvP] &r'
 sign_prefix: '&4&l[KitPvP]'

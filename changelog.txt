@@ -1,3 +1,10 @@
+v0.0.10:
++ Database functionality added
++ Server automatically creates the table 'players' if it does not exist
+
++ Adding player UUID into the database if it logs in and isn't known
+
+
 v0.0.9:
 + Fixed an issue where a BukkitTask kept going even when it was cancelled
 + Fixed an issue where the player was instantly teleported when ingame and using /kitpvp spawn (no delay)

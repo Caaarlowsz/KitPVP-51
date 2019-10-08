@@ -1,3 +1,8 @@
+# Database console messages
+mysql_connection_success: "&fDatabase connection established!"
+mysql_connection_failed: "&fCould not connect to MySQL!"
+mysql_no_connection: "&fNo (valid) database connection! Action cancelled!"
+
 # Global messages
 permission_error: "&fGeen permissies!"
 wrong_usage: "&fGebruik &e{command}&f!"

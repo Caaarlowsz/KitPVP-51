@@ -1,5 +1,6 @@
 package eu.iteije.kitpvp;
 
+import eu.iteije.kitpvp.data.MySQL;
 import eu.iteije.kitpvp.files.ConfigFile;
 import eu.iteije.kitpvp.files.KitFile;
 import eu.iteije.kitpvp.files.MapFile;
@@ -26,6 +27,10 @@ public final class KitPvP extends JavaPlugin {
         new MessageFile(this, true);
         new MapFile(this, true);
         new KitFile(this, true);
+
+        // Open database connection
+        MySQL.getDatabase().openConnection();
+        MySQL.getDatabase().checkTable();
 
         // Register event listeners
         new RegisterListeners(this);

@@ -2,6 +2,7 @@ package eu.iteije.kitpvp.listeners;
 
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.commands.SpawnSubCmd;
+import eu.iteije.kitpvp.data.DataHandler;
 import eu.iteije.kitpvp.files.ConfigFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import org.bukkit.entity.Player;
@@ -21,6 +22,9 @@ public class PlayerJoin implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+
+        // Check player data in database
+        DataHandler.getHandler().loadPlayer(player.getUniqueId());
 
         // Try teleporting player to spawn if spawn_join = true
         try {

@@ -1,3 +1,26 @@
+v0.0.11:
++ Fixed an issue where players without OP were not able to interact with a sign using right click
++ Fixed an issue where the food level was not restored when hunger was disabled
++ Fixed an issue where the server tried to return a inventory if it already was
++ Fixed an issue where the player inventory was considered the same as a custom inventory, while it wasn't
+
+/ SpawnSubCmd now has a global method for retrieving the spawn location
+
++ EntityDamageByEntity - checks whether someone is abusing (creative, player ingame vs player not ingame)
++ InventoryClose - Registers inventory someone closed
++ PlayerDeath - Handling player death; sending message, kills/deaths saving in database is a feature for the upcoming update: v0.0.12 (tags: TODO)
++ PlayerRespawn - Handles respawn event; returning inventory if player is ingame, teleport back to spawn
+
++ SelectKit - Players can now select a kit
+
++ Players in the map setup can now break blocks, but can't place them
+
++ Added the broadcast() method in the Message class, so now it is possible to send a message to everyone in the server, including the console
++ Added the removeColors() method in the TransferMessage class, by using this you can strip a message from all its colors
+
++ Added new messages
+
+
 v0.0.10:
 + Database functionality added
 + Server automatically creates the table 'players' if it does not exist

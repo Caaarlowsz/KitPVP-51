@@ -24,7 +24,7 @@ public class Message {
     /**
      * @param player target Player to send the message to
      * @param message message which will be sent to the targeted player
-     * @param hasPrefix if true, a plugin prefix is added before the message
+     * @param hasPrefix if true, the plugin prefix will be applied to the message
      */
     public static void sendToPlayer(Player player, String message, boolean hasPrefix) {
         // Convert message
@@ -41,7 +41,7 @@ public class Message {
 
     /**
      * @param message message which will be sent to the console
-     * @param hasPrefix if true, the plugin prefix is added before the message
+     * @param hasPrefix if true, the plugin prefix will be applied to the message
      */
     public static void sendToConsole(String message, boolean hasPrefix) {
         // Convert message
@@ -56,6 +56,11 @@ public class Message {
         Bukkit.getConsoleSender().sendMessage(message);
     }
 
+    /**
+     * @param sender CommandSender (so it isn't necessary to use 'instanceof' over and over again)
+     * @param message message which will be sent to the sender
+     * @param hasPrefix if true, the plugin prefix will be applied to the message
+     */
     public static void sendToSender(CommandSender sender, String message, boolean hasPrefix) {
         // Call send methods of different senders
         if (sender instanceof Player) {
@@ -63,6 +68,23 @@ public class Message {
         } else {
             sendToConsole(message, hasPrefix);
         }
+    }
+
+    /**
+     * @param message message which will be broadcasted
+     * @param hasPrefix if true, the plugin prefix will be applied to the message
+     */
+    public static void broadcast(String message, boolean hasPrefix) {
+        // Convert message
+        if (hasPrefix) {
+            message = configFile.get().getString("prefix") + message;
+        }
+
+        // Replace color codes
+        message = TransferMessage.replaceColorCodes(message);
+
+        // Broadcast message
+        Bukkit.broadcastMessage(message);
     }
 
     /**

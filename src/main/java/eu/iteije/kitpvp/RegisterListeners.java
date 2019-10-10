@@ -41,6 +41,14 @@ public class RegisterListeners {
         pluginManager.registerEvents(new PlayerGameModeChange(instance), instance);
         // FoodLevelChangeEvent
         pluginManager.registerEvents(new FoodLevelChange(instance), instance);
+        // InventoryCloseEvent
+        pluginManager.registerEvents(new InventoryClose(instance), instance);
+        // PlayerDeathEvent
+        pluginManager.registerEvents(new PlayerDeath(instance), instance);
+        // PlayerRespawnEvent
+        pluginManager.registerEvents(new PlayerRespawn(instance), instance);
+        // EntityDamageByEntityEvent
+        pluginManager.registerEvents(new EntityDamageByEntity(instance), instance);
     }
 
 }

@@ -31,6 +31,7 @@ public class FoodLevelChange implements Listener {
                 try {
                     boolean foodLevelsChange = configFile.get().getBoolean("game_hunger");
                     if (!foodLevelsChange) {
+                        if (player.getFoodLevel() != 20) player.setFoodLevel(20);
                         event.setCancelled(true);
                     }
                 } catch (NullPointerException exception) {

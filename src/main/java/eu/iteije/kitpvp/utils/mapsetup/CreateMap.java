@@ -4,6 +4,7 @@ import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.commands.Help;
 import eu.iteije.kitpvp.files.ConfigFile;
 import eu.iteije.kitpvp.pluginutils.Message;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -78,6 +79,9 @@ public class CreateMap {
         exitTool.setToInventory(player);
         spawnpointTool.setToInventory(player);
         finishTool.setToInventory(player);
+
+        // Set gamemode to creative
+        player.setGameMode(GameMode.CREATIVE);
     }
 
     public static void stopSetup(Player player, boolean forced) {

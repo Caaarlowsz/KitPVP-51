@@ -2,7 +2,6 @@
 mysql_connection_success: "&fDatabase connection established!"
 mysql_connection_failed: "&fCould not connect to MySQL!"
 mysql_no_connection: "&fNo (valid) database connection! Action cancelled!"
-
 # Global messages
 permission_error: "&fGeen permissies!"
 wrong_usage: "&fGebruik &e{command}&f!"
@@ -56,5 +55,8 @@ leave_success: "&fJe hebt de game verlaten!"
 leave_not_ingame: "&fJe zit niet in een game!"
 # Game messages
 joingame_no_spawns: "&fEr zijn geen spawnspoints gevonden!"
+joingame_kit_error: "&fDeze kit werkt op dit moment niet, probeer een andere!"
 game_gamemode_change: "&fIngame mag je je gamemode niet veranderen!"
 game_leave_delay: "Je wordt over &e{seconds} &fseconden geteleporteerd!"
+game_death_by_player: "&e{killer} &fheeft &e{target} &fvermoord!"
+game_death_unknown_cause: "&e{target} &fis doodgegaan!"

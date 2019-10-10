@@ -77,11 +77,6 @@ public class Game {
             exception.printStackTrace();
         }
 
-        // Save and clear player inventory
-        savedInventories.put(player.getUniqueId(), player.getInventory().getContents());
-        player.getInventory().clear();
-        // TODO: Give kit
-
         // Set gamemode to survival
         player.setGameMode(GameMode.SURVIVAL);
 

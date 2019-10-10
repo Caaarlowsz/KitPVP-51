@@ -1,5 +1,7 @@
 package eu.iteije.kitpvp.pluginutils;
 
+import org.bukkit.ChatColor;
+
 public class TransferMessage {
 
     /**
@@ -13,6 +15,14 @@ public class TransferMessage {
         message = message.replace('&', '§');
 
         return message;
+    }
+
+    /**
+     * @param message string which has to be converted
+     * @return string without colors
+     */
+    public static String removeColors(String message) {
+        return ChatColor.stripColor(message);
     }
 
 }

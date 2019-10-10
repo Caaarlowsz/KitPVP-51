@@ -29,13 +29,15 @@ public class PlayerQuit implements Listener {
         }
 
         // Return inventory to player if the player logs out
-        if (Game.savedInventories.containsKey(player.getUniqueId())) {
+        if (Game.savedInventories.containsKey(player.getUniqueId()) && Game.playersInGame.containsKey(player.getUniqueId())) {
             // Return inventory
             player.getInventory().clear();
             // Return old inventory contents
             player.getInventory().setContents(Game.savedInventories.get(player.getUniqueId()));
             // Delete saved inventory
             Game.savedInventories.remove(player.getUniqueId());
+            // Remove the player from the 'players-ingame list'
+            Game.playersInGame.remove(player.getUniqueId());
         }
     }
 }

@@ -58,17 +58,8 @@ public class SpawnSubCmd {
     }
 
     public void teleportToSpawn(Player player) {
-        // Instance of ConfigFile
-        ConfigFile configFile = new ConfigFile(instance, false);
-
-        // Make up a new location based on data in config
-        World world = Bukkit.getWorld(configFile.get().getString("spawn.world"));
-        double x = (Double) configFile.get().get("spawn.x");
-        double y = (Double) configFile.get().get("spawn.y");
-        double z = (Double) configFile.get().get("spawn.z");
-        float yaw = (Float) Float.parseFloat(configFile.get().getString("spawn.yaw"));
-        float pitch = (Float) Float.parseFloat(configFile.get().getString("spawn.pitch"));
-        Location spawn = new Location(world, x, y, z, yaw, pitch);
+        // Call getSpawn() method, which returns the location of the spawn
+        Location spawn = getSpawn();
 
         // Teleport player to spawn
         player.teleport(spawn);
@@ -84,5 +75,21 @@ public class SpawnSubCmd {
             return false;
         }
         return false;
+    }
+
+    public Location getSpawn() {
+        // Instance of ConfigFile
+        ConfigFile configFile = new ConfigFile(KitPvP.getInstance(), false);
+
+        // Make up a new location based on data in config
+        World world = Bukkit.getWorld(configFile.get().getString("spawn.world"));
+        double x = (Double) configFile.get().get("spawn.x");
+        double y = (Double) configFile.get().get("spawn.y");
+        double z = (Double) configFile.get().get("spawn.z");
+        float yaw = (Float) Float.parseFloat(configFile.get().getString("spawn.yaw"));
+        float pitch = (Float) Float.parseFloat(configFile.get().getString("spawn.pitch"));
+        Location spawn = new Location(world, x, y, z, yaw, pitch);
+
+        return spawn;
     }
 }

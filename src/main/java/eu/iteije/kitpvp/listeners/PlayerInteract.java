@@ -7,6 +7,7 @@ import eu.iteije.kitpvp.files.MapFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import eu.iteije.kitpvp.pluginutils.TransferMessage;
 import eu.iteije.kitpvp.utils.game.Game;
+import eu.iteije.kitpvp.utils.game.SelectKit;
 import eu.iteije.kitpvp.utils.mapsetup.CreateMap;
 import eu.iteije.kitpvp.utils.mapsetup.ToolActions;
 import org.bukkit.Material;
@@ -51,8 +52,10 @@ public class PlayerInteract implements Listener {
 
         // Cancel interact event if player is in game
         if (Game.playersInGame.containsKey(player.getUniqueId())) {
-            event.setCancelled(true);
-            return;
+            // If a players jumps on wheat or other vulnerable stuff, event is cancelled
+            if (event.getAction() == Action.PHYSICAL) {
+                event.setCancelled(true);
+            }
         }
 
         // Left/right click block check | SIGNS
@@ -74,8 +77,9 @@ public class PlayerInteract implements Listener {
                         if (mapFile.get().getConfigurationSection("maps." + mapName) != null) {
                             SpawnSubCmd spawnSubCmd = new SpawnSubCmd(instance);
                             if (spawnSubCmd.getSpawnSet()) {
-                                game = new Game(player, mapName, instance);
-                                game.join();
+                                // TODO: Give kit
+                                SelectKit selectKit = new SelectKit(player, mapName);
+                                selectKit.openMenu();
                             } else {
                                 // Send no lobbyspawn message
                                 Message.sendToPlayer(player, Message.get("interactsign_no_spawn"), true);
@@ -98,10 +102,6 @@ public class PlayerInteract implements Listener {
                     // Use setup item
                     event.setCancelled(true);
                     useTool(setupItem, player, true, event.getClickedBlock());
-                } else {
-                    if (CreateMap.savedInventories.containsKey(player.getUniqueId())) {
-                        event.setCancelled(true);
-                    }
                 }
             }
 
@@ -122,7 +122,7 @@ public class PlayerInteract implements Listener {
                     if (!setupItem.equals("none")) {
                         // Use setup item
                         event.setCancelled(true);
-                        useTool(setupItem, player, true, event.getClickedBlock());
+                        useTool(setupItem, player, false, event.getClickedBlock());
                     }
                 }
             }
@@ -130,12 +130,14 @@ public class PlayerInteract implements Listener {
 
         // Left/right click air
         if (action == Action.RIGHT_CLICK_AIR || action == Action.LEFT_CLICK_AIR) {
-            // Checking whether the clicked block is a setup block and which it is
-            String setupItem = CreateMap.checkSetupItem(player.getInventory().getItemInMainHand().getType(), player);
-            if (!setupItem.equals("none")) {
-                // Use setup item
-                event.setCancelled(true);
-                useTool(setupItem, player, false, null);
+            if (CreateMap.savedInventories.containsKey(player.getUniqueId())) {
+                // Checking whether the clicked block is a setup block and which it is
+                String setupItem = CreateMap.checkSetupItem(player.getInventory().getItemInMainHand().getType(), player);
+                if (!setupItem.equals("none")) {
+                    // Use setup item
+                    event.setCancelled(true);
+                    useTool(setupItem, player, false, null);
+                }
             }
         }
     }

@@ -2,6 +2,7 @@ package eu.iteije.kitpvp.listeners;
 
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.pluginutils.Message;
+import eu.iteije.kitpvp.utils.game.Game;
 import eu.iteije.kitpvp.utils.mapsetup.CreateMap;
 import eu.iteije.kitpvp.utils.mapsetup.SpawnPlate;
 import eu.iteije.kitpvp.utils.mapsetup.ToolActions;
@@ -32,6 +33,17 @@ public class BlockBreak implements Listener {
         // Broken block
         Block block = event.getBlock();
 
+        // If player is in game, cancel event
+        if (Game.playersInGame.containsKey(player.getUniqueId())) {
+            event.setCancelled(true);
+            return;
+        }
+
+        // If player is not a operator, cancel event
+        if (!player.isOp()) {
+            event.setCancelled(true);
+        }
+
         // Make sure player is in setup, before getting the instance of SpawnPlate from ToolActions (to prevent NullPointerException)
         if (CreateMap.savedInventories.containsKey(player.getUniqueId())) {
             // Instance of SpawnPlate from ToolActions
@@ -45,10 +57,10 @@ public class BlockBreak implements Listener {
                 return;
             }
 
+
             try {
                 // All locations of placed spawn plates
                 List<Location> locations = ToolActions.getSpawnPlate().getLocations().get(player.getUniqueId());
-                event.setCancelled(true);
                 // Loop through all locations
                 for (Location location : locations) {
                     // If block location is the same as a saved plate location, destroy it
@@ -64,8 +76,8 @@ public class BlockBreak implements Listener {
                             spawnPlate.removeLocations(player);
                         }
                     } else {
-                        // If block location is not equal to saved location, cancel event
-                        event.setCancelled(true);
+                        // If block location is not equal to saved location;
+                        event.setCancelled(false);
                     }
                 }
             } catch (NullPointerException | ConcurrentModificationException exception) {

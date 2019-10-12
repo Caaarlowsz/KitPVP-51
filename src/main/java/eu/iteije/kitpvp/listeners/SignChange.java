@@ -34,9 +34,13 @@ public class SignChange implements Listener {
         // Define registered sign prefix/header
         String signHeader = configFile.get().getString("sign_prefix");
 
+        // Check if the first line of the sign is [kitpvp] (capital/normal letters ignored)
         if (event.getLine(0).equalsIgnoreCase("[kitpvp]")) {
+            // Check whether the player who placed the sign has the permission kitpvp.admin.sign
             if (player.hasPermission("kitpvp.admin.sign")) {
+                // If map line is not empty, proceed
                 if (!event.getLine(1).isEmpty()) {
+                    // Check whether the map exists or not
                     if (mapFile.get().getConfigurationSection("maps." + event.getLine(1).toUpperCase()) != null) {
                         // Convert the sign header to a colored sign header
                         signHeader = TransferMessage.replaceColorCodes(configFile.get().getString("sign_prefix"));
@@ -45,8 +49,6 @@ public class SignChange implements Listener {
 
                         // Set the second line (line 1 or map) uppercase
                         event.setLine(1, event.getLine(1).toUpperCase());
-
-                        // Continue
                     } else {
                         // Remove the sign
                         Block block = event.getBlock();

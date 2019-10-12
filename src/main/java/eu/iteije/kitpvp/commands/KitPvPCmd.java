@@ -15,6 +15,7 @@ public class KitPvPCmd implements CommandExecutor {
 
     // Commands and explanation shown in the help list
     private List<String> commands = Arrays.asList(
+            "/kitpvp editkits",
             "/kitpvp createmap",
             "/kitpvp deletemap",
             "/kitpvp maps",
@@ -26,6 +27,7 @@ public class KitPvPCmd implements CommandExecutor {
             "/worldtp"
     );
     private List<String> explanation = Arrays.asList(
+            "Verander/maak kits",
             "Maak een nieuwe KitPvP map",
             "Verwijder een map",
             "Krijg een lijst van alle mappen",
@@ -85,6 +87,10 @@ public class KitPvPCmd implements CommandExecutor {
                 case "modifyhunger":
                     ModifyHungerSubCmd modifyHungerSubCmd = new ModifyHungerSubCmd(instance);
                     modifyHungerSubCmd.send(sender, args);
+                    break;
+                case "editkits":
+                    EditKitsSubCmd editKitsSubCmd = new EditKitsSubCmd(instance);
+                    editKitsSubCmd.send(sender);
                     break;
                 default:
                     help.send(sender);

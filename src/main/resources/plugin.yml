@@ -7,5 +7,7 @@ authors: [iTeije]
 commands:
   kitpvp:
     usage: /<command>
+    description: Krijg een lijst van alle KitPvP commands
   worldtp:
     usage: /<command>
+    description: Teleporteer naar een andere wereld

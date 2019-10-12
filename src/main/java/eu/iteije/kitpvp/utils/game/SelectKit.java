@@ -4,6 +4,7 @@ import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.files.KitFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import eu.iteije.kitpvp.pluginutils.TransferMessage;
+import eu.iteije.kitpvp.utils.InventoryItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -50,16 +51,28 @@ public class SelectKit {
         // Instance of KitFile
         KitFile kitFile = new KitFile(KitPvP.getInstance(), false);
 
+        // Close menu item
+        ItemStack closeItem = InventoryItem.createItem(Material.BARRIER, 1, "&cSluit menu"); // create new itemstack
+        inventory.setItem(49, closeItem); // assign itemstack to inventory
+
         // Put kits into inventory
         int count = 0;
+        // Loop through all kits
         for (String kitName : kitFile.get().getConfigurationSection("kits").getKeys(false)) {
+            // Check whether the amount kits in the inventory is not higher than the amount of allowed slots
             if (count < allowedSlots.length) {
+                // Get icon material from config
                 Material material = Material.getMaterial(kitFile.get().getString("kits." + kitName + ".icon").toUpperCase());
+                // Create new itemstack
                 ItemStack kitItemStack = new ItemStack(material, 1);
-                ItemMeta itemMeta = kitItemStack.getItemMeta();
+                // Get item meta from kitItemStack
+                ItemMeta kitItemMeta = kitItemStack.getItemMeta();
 
-                itemMeta.setDisplayName(TransferMessage.replaceColorCodes("&c" + kitName));
-                kitItemStack.setItemMeta(itemMeta);
+                // Change display name
+                kitItemMeta.setDisplayName(TransferMessage.replaceColorCodes("&c" + kitName));
+                // Assign new itemmeta to the itemstack
+                kitItemStack.setItemMeta(kitItemMeta);
+                // Assign itemstack to the next allowed slot
                 inventory.setItem(allowedSlots[count], kitItemStack);
                 count++;
             }
@@ -79,6 +92,7 @@ public class SelectKit {
             // Predefine a list where the item stacks are saved in
             List<ItemStack> kit = new ArrayList<>();
 
+            // Loop through each item in the 'items' section of a kit
             for (String item : kitFile.get().getConfigurationSection("kits." + kitName + ".items").getKeys(false)) {
                 kit.add(new ItemStack(Material.getMaterial(item), kitFile.get().getInt("kits." + kitName + ".items." + item + ".amount")));
             }
@@ -93,10 +107,10 @@ public class SelectKit {
             player.getInventory().setContents(kitItems);
 
             // Set gear
-            player.getInventory().setHelmet(getGearPiece(kitName, "HELMET", kitFile));
-            player.getInventory().setChestplate(getGearPiece(kitName, "CHESTPLATE", kitFile));
-            player.getInventory().setLeggings(getGearPiece(kitName, "LEGGINGS", kitFile));
-            player.getInventory().setBoots(getGearPiece(kitName, "BOOTS", kitFile));
+            player.getInventory().setHelmet(getGearPiece(kitName, "HELMET", kitFile, true));
+            player.getInventory().setChestplate(getGearPiece(kitName, "CHESTPLATE", kitFile, true));
+            player.getInventory().setLeggings(getGearPiece(kitName, "LEGGINGS", kitFile, true));
+            player.getInventory().setBoots(getGearPiece(kitName, "BOOTS", kitFile, true));
 
             // Join game
             Game game = new Game(player, map, KitPvP.getInstance());
@@ -109,15 +123,23 @@ public class SelectKit {
         }
     }
 
-    private ItemStack getGearPiece(String kit, String piece, KitFile kitFile) {
+    private ItemStack getGearPiece(String kit, String piece, KitFile kitFile, boolean unbreakable) {
         try {
+            // Get material from kit file and create new itemstack
             Material material = Material.getMaterial(kitFile.get().getString("kits." + kit + ".gear." + piece.toUpperCase()));
             ItemStack itemStack = new ItemStack(material, 1);
-            Message.broadcast(itemStack.toString(), true);
+            // If boolean unbreakable is true, assign unbreakable to the itemstack
+            if (unbreakable) {
+                ItemMeta itemMeta = itemStack.getItemMeta();
+                itemMeta.setUnbreakable(true);
+                itemStack.setItemMeta(itemMeta);
+            }
+            // Return itemstack of gear piece
             return itemStack;
-        } catch (Exception exception) {
-            exception.printStackTrace();
+        } catch (IllegalArgumentException | NullPointerException exception) {
+            // No stack trace, in case a gear piece is not assigned, you would get a ton of unnecessary errors
+            // Return empty itemstack
+            return new ItemStack(Material.AIR);
         }
-        return new ItemStack(Material.AIR);
     }
 }

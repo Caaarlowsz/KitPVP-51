@@ -1,3 +1,25 @@
+v0.1.0:
++ Fixed an issue where the database was causing huge lag spikes
++ Fixed an issue where data was not saving properly
++ Fixed an issue where players were not able to use a bow while in game
+
++ Kills/deaths will now be registered in the database
+
++ EditKitsSubCmd - sub command for opening the kit overview menu
+
++ UserCache - the server is now caching data if the user logs in (kills/deaths), which is not used that much at this moment
+
++ EditKits - main class for everything related to modifying kits
++ OpenInventory - open a 'edit kit' inventory
++ KitsOverviewInventory - a overview of all kits/available kit slots
++ SelectKitActionInventory - a menu where a player can choose whether it want to modify or delete the selected kit
+
++ InventoryItem - a easy way to generate a ItemStack (material, amount, display name, lore)
++ Scoreboard - scoreboard which loads kills, deaths and the K/D ratio (and is updated when someone is killed/killed someone)
+
++ Added new messages
+
+
 v0.0.11:
 + Fixed an issue where players without OP were not able to interact with a sign using right click
 + Fixed an issue where the food level was not restored when hunger was disabled
@@ -7,11 +29,11 @@ v0.0.11:
 / SpawnSubCmd now has a global method for retrieving the spawn location
 
 + EntityDamageByEntity - checks whether someone is abusing (creative, player ingame vs player not ingame)
-+ InventoryClose - Registers inventory someone closed
-+ PlayerDeath - Handling player death; sending message, kills/deaths saving in database is a feature for the upcoming update: v0.0.12 (tags: TODO)
-+ PlayerRespawn - Handles respawn event; returning inventory if player is ingame, teleport back to spawn
++ InventoryClose - registers inventory someone closed
++ PlayerDeath - handling player death; sending message, kills/deaths saving in database is a feature for the upcoming update: v0.1.0
++ PlayerRespawn - handles respawn event; returning inventory if player is ingame, teleport back to spawn
 
-+ SelectKit - Players can now select a kit
++ SelectKit - players can now select a kit
 
 + Players in the map setup can now break blocks, but can't place them
 

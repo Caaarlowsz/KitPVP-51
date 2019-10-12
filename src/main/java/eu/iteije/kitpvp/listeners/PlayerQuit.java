@@ -1,6 +1,7 @@
 package eu.iteije.kitpvp.listeners;
 
 import eu.iteije.kitpvp.KitPvP;
+import eu.iteije.kitpvp.data.UserCache;
 import eu.iteije.kitpvp.utils.game.Game;
 import eu.iteije.kitpvp.utils.mapsetup.CreateMap;
 import org.bukkit.entity.Player;
@@ -39,5 +40,10 @@ public class PlayerQuit implements Listener {
             // Remove the player from the 'players-ingame list'
             Game.playersInGame.remove(player.getUniqueId());
         }
+
+        // Send user cache to the database (tags: TODO)
+
+        // Remove user cache
+        UserCache.removeUUID(player.getUniqueId());
     }
 }

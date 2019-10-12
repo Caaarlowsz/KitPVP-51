@@ -11,7 +11,8 @@ import java.sql.SQLException;
 public class MySQL {
 
     private static MySQL database = new MySQL();
-    private Connection connection;
+    // By making the connection public for the entire plugin, it is not necessary to create a new connection every single time something needs access to the database
+    public static Connection connection;
 
     // Instance of KitPvP
     private KitPvP instance = KitPvP.getInstance();

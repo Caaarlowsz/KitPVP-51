@@ -75,15 +75,21 @@ public class PlayerInteract implements Listener {
                         String mapName = sign.getLine(1).toUpperCase();
                         // Check whether the map name/map data is known
                         if (mapFile.get().getConfigurationSection("maps." + mapName) != null) {
-                            SpawnSubCmd spawnSubCmd = new SpawnSubCmd(instance);
-                            if (spawnSubCmd.getSpawnSet()) {
-                                // TODO: Give kit
-                                SelectKit selectKit = new SelectKit(player, mapName);
-                                selectKit.openMenu();
+                            // Check whether the player is ingame or not
+                            if (!Game.playersInGame.containsKey(player.getUniqueId())) {
+                                SpawnSubCmd spawnSubCmd = new SpawnSubCmd(instance);
+                                if (spawnSubCmd.getSpawnSet()) {
+                                    SelectKit selectKit = new SelectKit(player, mapName);
+                                    selectKit.openMenu();
+                                } else {
+                                    // Send no lobbyspawn message
+                                    Message.sendToPlayer(player, Message.get("interactsign_no_spawn"), true);
+                                }
                             } else {
-                                // Send no lobbyspawn message
-                                Message.sendToPlayer(player, Message.get("interactsign_no_spawn"), true);
+                                // Already in game error
+                                Message.sendToPlayer(player, Message.get("interactsign_ingame_error"), true);
                             }
+
                         } else {
                             // Map doesn't exists error
                             Message.sendToPlayer(player, Message.get("interactsign_map_error"), true);

@@ -13,13 +13,15 @@ placesign_map_error: "&fDe map &e{map} &fbestaat niet!"
 interactsign_map_error: "&fDeze map bestaat niet!"
 interactsign_no_spawn: "&fEr is geen lobby spawn gezet, dus je kan niet joinen!"
 interactsign_join_loading: "&fSpawn zoeken in de map &e{map}&f..."
+interactsign_ingame_error: "&fJe zit al in een game!"
 # Help page
 help_title: "&fHelp pagina:"
 help_line_layout: "&7> &f{command} &e{explanation}"
 # World teleport
 worldtp_success: "&fJe bent geteleporteerd naar de wereld &e{world}&f!"
-# Create map command
+# Create map command/tool
 createmap_in_setup_error: "&fJe zit al in een setup!"
+createmap_in_game_error: "&fJe kan geen map maken terwijl je in een game zit!"
 createmap_name_length_error: "&fDe naam van een map mag maximaal 15 tekens bevatten!"
 createmap_command_success: "&fEen nieuwe map maken met de naam &e{mapname}&f..."
 createmap_exit_success: "&fJe bent gestopt en alle spawnpoints zijn weggehaald!"
@@ -28,6 +30,8 @@ createmap_spawnpoint_success: "&fJe hebt een spawnpoint neergezet!"
 createmap_spawnpoint_deleted: "&fJe hebt een spawnpoint weggehaald!"
 createmap_success: "&fDe map &e{map} &fis opgeslagen met &e{spawnpoints} &fspawnpoint(s)!"
 createmap_exists_error: "&fDe map &e{map} &fbestaat al!"
+# Edit kits command/tool
+editkits_openinventory_error: "&fEr is iets fout gegaan tijdens het openen van een inventory!"
 # Delete map command
 deletemap_exists_error: "&fDe map &e{map} &fbestaat niet!"
 deletemap_success: "&fJe hebt de map &e{map} &fverwijderd!"

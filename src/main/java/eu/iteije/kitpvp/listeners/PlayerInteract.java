@@ -6,6 +6,8 @@ import eu.iteije.kitpvp.files.ConfigFile;
 import eu.iteije.kitpvp.files.MapFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import eu.iteije.kitpvp.pluginutils.TransferMessage;
+import eu.iteije.kitpvp.utils.editkits.EditKits;
+import eu.iteije.kitpvp.utils.editkits.OpenInventory;
 import eu.iteije.kitpvp.utils.game.Game;
 import eu.iteije.kitpvp.utils.game.SelectKit;
 import eu.iteije.kitpvp.utils.mapsetup.CreateMap;
@@ -58,6 +60,28 @@ public class PlayerInteract implements Listener {
             }
         }
 
+        // If player is in isEditingIcon HashMap, proceed
+        if (EditKits.isEditingIcon.containsKey(player.getUniqueId())) {
+            // Server has to give a response for every action, except for the PHYSICAL one
+            if (action != Action.PHYSICAL) {
+                // Proceed if item in hand is not null
+                if (event.getItem() != null) {
+                    // Call editKitIcon method in EditKits
+                    EditKits editKits = new EditKits(player);
+                    editKits.editKitIcon(event.getItem());
+
+                    // Remove player from isEditingIcon HashMap
+                    EditKits.isEditingIcon.remove(player.getUniqueId());
+
+                    // Open EditKitInventory
+                    OpenInventory openInventory = new OpenInventory("editkit", player);
+                    openInventory.openInventory();
+                }
+            }
+            // Cancel event
+            event.setCancelled(true);
+        }
+
         // Left/right click block check | SIGNS
         if (action == Action.RIGHT_CLICK_BLOCK || action == Action.LEFT_CLICK_BLOCK) {
             // Checking whether the clicked block is a sign
@@ -77,13 +101,19 @@ public class PlayerInteract implements Listener {
                         if (mapFile.get().getConfigurationSection("maps." + mapName) != null) {
                             // Check whether the player is ingame or not
                             if (!Game.playersInGame.containsKey(player.getUniqueId())) {
-                                SpawnSubCmd spawnSubCmd = new SpawnSubCmd(instance);
-                                if (spawnSubCmd.getSpawnSet()) {
-                                    SelectKit selectKit = new SelectKit(player, mapName);
-                                    selectKit.openMenu();
+                                // Check if player is editing a kit
+                                if (!EditKits.selectedKit.containsKey(player.getUniqueId())) {
+                                    SpawnSubCmd spawnSubCmd = new SpawnSubCmd(instance);
+                                    if (spawnSubCmd.getSpawnSet()) {
+                                        SelectKit selectKit = new SelectKit(player, mapName);
+                                        selectKit.openMenu();
+                                    } else {
+                                        // Send no lobbyspawn message
+                                        Message.sendToPlayer(player, Message.get("interactsign_no_spawn"), true);
+                                    }
                                 } else {
-                                    // Send no lobbyspawn message
-                                    Message.sendToPlayer(player, Message.get("interactsign_no_spawn"), true);
+                                    // No access
+                                    Message.sendToPlayer(player, Message.get("editkits_access_error"), true);
                                 }
                             } else {
                                 // Already in game error

@@ -3,6 +3,8 @@ package eu.iteije.kitpvp.commands;
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.pluginutils.Message;
 import eu.iteije.kitpvp.utils.editkits.EditKits;
+import eu.iteije.kitpvp.utils.game.Game;
+import eu.iteije.kitpvp.utils.mapsetup.CreateMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -30,10 +32,15 @@ public class EditKitsSubCmd {
             Player player = (Player) sender;
             // Check player perms
             if (player.hasPermission("kitpvp.admin.editkits")) {
-                // Create new EditKits object
-                EditKits editKits = new EditKits(player);
-                // Open KitsOverviewInventory
-                editKits.openInventory("kitsoverview");
+                if (!Game.playersInGame.containsKey(player.getUniqueId()) && !CreateMap.savedInventories.containsKey(player.getUniqueId())) {
+                    // Create new EditKits object
+                    EditKits editKits = new EditKits(player);
+                    // Open KitsOverviewInventory
+                    editKits.openInventory("kitsoverview");
+                } else {
+                    // Player in game error
+                    Message.sendToPlayer(player, Message.get("editkits_access_error"), true);
+                }
             } else {
                 // No permission error
                 Message.sendToPlayer(player, Message.PERMISSION_ERROR, true);

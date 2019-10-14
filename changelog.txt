@@ -1,3 +1,19 @@
+v0.1.1:
++ Fixed an issue where players were not able to delete kits
++ Fixed an issue where players could execute the /kitpvp createmap/editkits command while in the EditKit menu
+
++ EditKitContentInventory - a player can modify kit items in this inventory
++ EditKitInventory - menu where a player can select what he want to edit (name/icon/items)
+
++ NewKit - data for non-existing kits is temporarily saved here
+
++ AsyncPlayerChat - makes it possible to change the name of a kit
+
++ It is now possible to change the name and icon of a existing kit, items soon
+
++ Added new messages
+
+
 v0.1.0:
 + Fixed an issue where the database was causing huge lag spikes
 + Fixed an issue where data was not saving properly

@@ -32,6 +32,18 @@ createmap_success: "&fDe map &e{map} &fis opgeslagen met &e{spawnpoints} &fspawn
 createmap_exists_error: "&fDe map &e{map} &fbestaat al!"
 # Edit kits command/tool
 editkits_openinventory_error: "&fEr is iets fout gegaan tijdens het openen van een inventory!"
+editkits_access_error: "&fOp dit moment kan je dit niet doen!"
+editkits_deleted_success: "&fJe hebt succesvol de kit &e{kit} &fverwijderd!"
+editkits_changename_exists: "&fDe naam die je hebt ingevuld bestaat al!"
+editkits_changename_too_long: "&fDe naam van de kit mag maximaal 40 tekens bevatten!"
+editkits_changename_alphanumeric_only: "&fEr mogen alleen letters in de naam zitten!"
+editkits_changename_cancelled: "&fJe hebt het veranderen van de naam geannuleerd!"
+editkits_changename_success: "&fJe hebt de naam van &e{oldname} &fveranderd naar &e{newname}&f!"
+editkits_changeicon_same: "&fHet item wat je hebt gebruikt is precies hetzelfde als het vorige icoon."
+editkits_changeicon_success: "&fJe hebt het icoon van &e{oldicon} &fveranderd naar &e{newicon}&f!"
+editkits_newkit_changename_success: "&fJe hebt een nieuwe kit de naam &e{kitname} &fgegeven! Let op, vul eerst overal wat in en verlaat daarna pas deze inventory!"
+editkits_newkit_changeicon_success: "&fJe hebt een nieuwe kit het icoon &e{icon} &fgegeven! Let op, vul eerst overal wat in en verlaat daarna pas deze inventory!"
+editkits_newkit_changeicon_same: "&fHet item wat je hebt gebruikt is precies hetzelfde als het vorige icoon."
 # Delete map command
 deletemap_exists_error: "&fDe map &e{map} &fbestaat niet!"
 deletemap_success: "&fJe hebt de map &e{map} &fverwijderd!"

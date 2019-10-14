@@ -34,6 +34,11 @@ public class KitsOverviewInventory {
     }
 
     public void open() {
+        // Remove player from selectedKit HashMap if it is in
+        if (EditKits.selectedKit.containsKey(player.getUniqueId())) EditKits.selectedKit.remove(player.getUniqueId());
+        // Remove player from newKits HashMap if it is in
+        if (EditKits.newKits.containsKey(player.getUniqueId())) EditKits.newKits.remove(player.getUniqueId());
+
         // New instance of Inventory, setting the size to 54 slots and the title
         Inventory inventory = Bukkit.createInventory(null, 54, EDIT_KIT_KITS_OVERVIEW_TITLE);
 

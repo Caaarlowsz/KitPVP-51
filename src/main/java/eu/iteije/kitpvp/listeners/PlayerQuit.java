@@ -2,6 +2,7 @@ package eu.iteije.kitpvp.listeners;
 
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.data.UserCache;
+import eu.iteije.kitpvp.utils.editkits.EditKits;
 import eu.iteije.kitpvp.utils.game.Game;
 import eu.iteije.kitpvp.utils.mapsetup.CreateMap;
 import org.bukkit.entity.Player;
@@ -41,7 +42,12 @@ public class PlayerQuit implements Listener {
             Game.playersInGame.remove(player.getUniqueId());
         }
 
-        // Send user cache to the database (tags: TODO)
+        // If user is editing a kit, delete all saved data
+        if (EditKits.newKits.containsKey(player.getUniqueId())) EditKits.newKits.remove(player.getUniqueId());
+        if (EditKits.selectedKit.containsKey(player.getUniqueId())) EditKits.selectedKit.remove(player.getUniqueId());
+        if (EditKits.isEditingName.containsKey(player.getUniqueId())) EditKits.isEditingName.remove(player.getUniqueId());
+        if (EditKits.currentInventory.containsKey(player.getUniqueId())) EditKits.currentInventory.remove(player.getUniqueId());
+        if (EditKits.isEditingIcon.containsKey(player.getUniqueId())) EditKits.isEditingIcon.remove(player.getUniqueId());
 
         // Remove user cache
         UserCache.removeUUID(player.getUniqueId());

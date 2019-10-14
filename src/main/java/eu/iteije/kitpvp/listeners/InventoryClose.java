@@ -1,6 +1,7 @@
 package eu.iteije.kitpvp.listeners;
 
 import eu.iteije.kitpvp.KitPvP;
+import eu.iteije.kitpvp.utils.editkits.EditKits;
 import eu.iteije.kitpvp.utils.game.SelectKit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,6 +27,13 @@ public class InventoryClose implements Listener {
         if (SelectKit.hasInventoryOpen.containsKey(player.getUniqueId())) {
             // Remove player from HashMap
             SelectKit.hasInventoryOpen.remove(player.getUniqueId());
+            return;
+        }
+
+        // Remove player from EditKits.currentInventory if it was in a EditKit inventory
+        if (EditKits.currentInventory.containsKey(player.getUniqueId())) {
+            // Remove player from HashMap
+            EditKits.currentInventory.remove(player.getUniqueId());
         }
     }
 }

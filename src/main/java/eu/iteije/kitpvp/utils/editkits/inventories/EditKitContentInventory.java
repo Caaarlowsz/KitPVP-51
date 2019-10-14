@@ -1,5 +1,7 @@
 package eu.iteije.kitpvp.utils.editkits.inventories;
 
+import eu.iteije.kitpvp.KitPvP;
+import eu.iteije.kitpvp.files.KitFile;
 import eu.iteije.kitpvp.pluginutils.TransferMessage;
 import eu.iteije.kitpvp.utils.InventoryItem;
 import eu.iteije.kitpvp.utils.editkits.EditKits;
@@ -9,14 +11,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-public class SelectKitActionInventory {
+public class EditKitContentInventory {
 
     // Inventory title
-    public static String EDIT_KIT_SELECT_KIT_ACTION_TITLE = TransferMessage.replaceColorCodes("&c&lSelecteer een actie");
-
-    // Edit / delete kit item slots
-    public static Integer[] editKitSlots = {10, 11, 12, 19, 20, 21, 28, 29, 30};
-    public static Integer[] deleteKitSlots = {14, 15, 16, 23, 24, 25, 32, 33, 34};
+    public static String EDIT_KIT_CONTENT_TITLE = TransferMessage.replaceColorCodes("&c&lBewerk de items");
 
     // Undefined player variable
     private Player player;
@@ -24,13 +22,13 @@ public class SelectKitActionInventory {
     /**
      * @param player player the inventory will be opened for
      */
-    public SelectKitActionInventory(Player player) {
+    public EditKitContentInventory(Player player) {
         this.player = player;
     }
 
     public void open() {
         // New instance of Inventory, setting the size to 54 slots and the title
-        Inventory inventory = Bukkit.createInventory(null, 54, EDIT_KIT_SELECT_KIT_ACTION_TITLE);
+        Inventory inventory = Bukkit.createInventory(null, 54, EDIT_KIT_CONTENT_TITLE);
 
         // Close menu item
         ItemStack closeItem = InventoryItem.createItem(Material.BARRIER, 1, "&cSluit menu"); // create new itemstack
@@ -40,24 +38,14 @@ public class SelectKitActionInventory {
         ItemStack returnItem = InventoryItem.createItem(Material.SPECTRAL_ARROW, 1, "&cGa terug"); // create new itemstack
         inventory.setItem(45, returnItem); // assign itemstack to inventory
 
-        // Edit/delete kit itemstacks
-        ItemStack editKitItem = InventoryItem.createItem(Material.GREEN_WOOL, 1, "&aBewerk kit");
-        ItemStack deleteKitItem = InventoryItem.createItem(Material.RED_WOOL, 1, "&cVerwijder kit");
+        // Instance of KitFile
+        KitFile kitFile = new KitFile(KitPvP.getInstance(), false);
 
-        // Set all 'Edit kit' slots
-        for (int slot : editKitSlots) {
-            inventory.setItem(slot, editKitItem);
-        }
 
-        // Set all 'Delete kit' slots
-        for (int slot : deleteKitSlots) {
-            inventory.setItem(slot, deleteKitItem);
-        }
-
-        // Open inventory
+        // Open inventory to the player
         player.openInventory(inventory);
 
         // Set this inventory as open inventory in the EditKits class
-        EditKits.currentInventory.put(player.getUniqueId(), "selectkitaction");
+        EditKits.currentInventory.put(player.getUniqueId(), "editkitcontent");
     }
 }

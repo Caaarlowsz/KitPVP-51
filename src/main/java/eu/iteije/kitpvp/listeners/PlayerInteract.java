@@ -25,6 +25,8 @@ public class PlayerInteract implements Listener {
 
     // Instance variable of main class
     private KitPvP instance;
+
+    // Instances of files
     private ConfigFile configFile;
     private MapFile mapFile;
 

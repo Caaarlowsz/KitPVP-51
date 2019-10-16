@@ -22,35 +22,35 @@ public class RegisterListeners {
         // SignChangeEvent
         pluginManager.registerEvents(new SignChange(instance), instance);
         // BlockPlaceEvent
-        pluginManager.registerEvents(new BlockPlace(instance), instance);
+        pluginManager.registerEvents(new BlockPlace(), instance);
         // PlayerQuitEvent
-        pluginManager.registerEvents(new PlayerQuit(instance), instance);
+        pluginManager.registerEvents(new PlayerQuit(), instance);
         // InventoryClickEvent
         pluginManager.registerEvents(new InventoryClick(instance), instance);
         // PlayerDropItemEvent
-        pluginManager.registerEvents(new PlayerDropItem(instance), instance);
+        pluginManager.registerEvents(new PlayerDropItem(), instance);
         // PlayerPickupItemEvent
-        pluginManager.registerEvents(new PlayerPickupItem(instance), instance);
+        pluginManager.registerEvents(new PlayerPickupItem(), instance);
         // BlockBreakEvent
         pluginManager.registerEvents(new BlockBreak(instance), instance);
         // PlayerSwapHandItemsEvent
-        pluginManager.registerEvents(new PlayerSwapHandItems(instance), instance);
+        pluginManager.registerEvents(new PlayerSwapHandItems(), instance);
         // PlayerJoinEvent
         pluginManager.registerEvents(new PlayerJoin(instance), instance);
         // PlayerGameModeChangeEvent
-        pluginManager.registerEvents(new PlayerGameModeChange(instance), instance);
+        pluginManager.registerEvents(new PlayerGameModeChange(), instance);
         // FoodLevelChangeEvent
         pluginManager.registerEvents(new FoodLevelChange(instance), instance);
         // InventoryCloseEvent
         pluginManager.registerEvents(new InventoryClose(instance), instance);
         // PlayerDeathEvent
-        pluginManager.registerEvents(new PlayerDeath(instance), instance);
+        pluginManager.registerEvents(new PlayerDeath(), instance);
         // PlayerRespawnEvent
         pluginManager.registerEvents(new PlayerRespawn(instance), instance);
         // EntityDamageByEntityEvent
-        pluginManager.registerEvents(new EntityDamageByEntity(instance), instance);
+        pluginManager.registerEvents(new EntityDamageByEntity(), instance);
         // AsyncPlayerChatEvent
-        pluginManager.registerEvents(new AsyncPlayerChat(instance), instance);
+        pluginManager.registerEvents(new AsyncPlayerChat(), instance);
     }
 
 }

@@ -19,11 +19,8 @@ import java.util.List;
 
 public class BlockBreak implements Listener {
 
-    // Instance variable of main class
-    private KitPvP instance;
-
     public BlockBreak(KitPvP instance) {
-        this.instance = instance;
+
     }
 
     @EventHandler

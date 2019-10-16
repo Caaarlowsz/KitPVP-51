@@ -37,7 +37,6 @@ public final class KitPvP extends JavaPlugin {
 
         // Open database connection
         MySQL.getDatabase().openConnection();
-        MySQL.getDatabase().checkTable();
 
         // Register event listeners
         new RegisterListeners(this);

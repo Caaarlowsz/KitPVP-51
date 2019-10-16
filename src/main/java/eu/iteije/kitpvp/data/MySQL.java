@@ -3,6 +3,7 @@ package eu.iteije.kitpvp.data;
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.files.ConfigFile;
 import eu.iteije.kitpvp.pluginutils.Message;
+import org.bukkit.Bukkit;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,6 +23,10 @@ public class MySQL {
 
     // Open/start connection method
     public synchronized void openConnection() {
+        if (configFile.get().getString("database.host").equals("")) {
+            Bukkit.broadcastMessage("Leeg!");
+        }
+
         instance.getServer().getScheduler().runTaskAsynchronously(instance, () -> {
             // Try establishing a connection
             try {
@@ -31,6 +36,8 @@ public class MySQL {
                         configFile.get().getString("database.database") + "?autoReconnect=false",
                         configFile.get().getString("database.username"),
                         configFile.get().getString("database.password"));
+
+                if (!checkTable()) throw new SQLException();
 
                 if (getCurrentConnection() != null && !getCurrentConnection().isClosed()) {
                     // Send success message
@@ -62,18 +69,18 @@ public class MySQL {
         });
     }
 
-    public synchronized void checkTable() {
-        instance.getServer().getScheduler().runTaskAsynchronously(instance, () -> {
-            try {
-                if (getCurrentConnection() != null && !getCurrentConnection().isClosed()) {
-                    // Create new table if it does not exists
-                    // Table details: uuid - varchar - 36, kills - int, deaths - int
-                    getCurrentConnection().createStatement().execute("CREATE TABLE IF NOT EXISTS players(uuid varchar(36), kills int, deaths int)");
-                }
-            } catch (SQLException exception) {
-                exception.printStackTrace();
+    public synchronized boolean checkTable() {
+        try {
+            if (getCurrentConnection() != null && !getCurrentConnection().isClosed()) {
+                // Create new table if it does not exists
+                // Table details: uuid - varchar - 36, kills - int, deaths - int
+                getCurrentConnection().createStatement().execute("CREATE TABLE IF NOT EXISTS players(uuid varchar(36), kills int, deaths int)");
             }
-        });
+            return true;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            return false;
+        }
     }
 
     public Connection getCurrentConnection() {

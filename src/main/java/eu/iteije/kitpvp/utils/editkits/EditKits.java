@@ -84,6 +84,9 @@ public class EditKits {
                 String message = Message.get("editkits_newkit_changename_success");
                 message = Message.replace(message, "{kitname}", newKitName);
                 Message.sendToPlayer(player, message, true);
+            } else {
+                // Send exists message
+                Message.sendToPlayer(player, Message.get("editkits_newkit_changename_exists"), true);
             }
 
         } else {
@@ -182,20 +185,6 @@ public class EditKits {
                 Message.sendToPlayer(player, Message.get("editkits_changeicon_same"), true);
             }
         }
-    }
-
-
-    // Check if a string contains only alphanumeric characters
-    public boolean isAlpha(String string) {
-        char[] chars = string.toCharArray();
-
-        for (char c : chars) {
-            if(!Character.isLetter(c)) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
 }

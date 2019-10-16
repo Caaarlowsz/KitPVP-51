@@ -1,6 +1,5 @@
 package eu.iteije.kitpvp.listeners;
 
-import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.utils.game.Game;
 import eu.iteije.kitpvp.utils.mapsetup.CreateMap;
 import org.bukkit.entity.Player;
@@ -10,11 +9,8 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 
 public class PlayerDropItem implements Listener {
 
-    // Instance variable of main class
-    private KitPvP instance;
+    public PlayerDropItem() {
 
-    public PlayerDropItem(KitPvP instance) {
-        this.instance = instance;
     }
 
     @EventHandler

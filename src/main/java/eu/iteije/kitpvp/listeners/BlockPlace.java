@@ -1,6 +1,5 @@
 package eu.iteije.kitpvp.listeners;
 
-import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.utils.mapsetup.CreateMap;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -10,11 +9,8 @@ import org.bukkit.event.block.BlockPlaceEvent;
 
 public class BlockPlace implements Listener {
 
-    // Instance variable of main class
-    private KitPvP instance;
+    public BlockPlace() {
 
-    public BlockPlace(KitPvP instance) {
-        this.instance = instance;
     }
 
     @EventHandler

@@ -39,6 +39,10 @@ public class DataHandler {
 
                     // Execute query
                     insertPlayer.executeUpdate();
+
+                    // Save playerdata (kills/deaths)
+                    UserCache.updateKills(uuid, 0);
+                    UserCache.updateDeaths(uuid, 0);
                 }
                 resultSet.close();
             } catch (SQLException exception) {

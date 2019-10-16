@@ -2,6 +2,7 @@ package eu.iteije.kitpvp.listeners;
 
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.commands.Help;
+import eu.iteije.kitpvp.files.KitFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import eu.iteije.kitpvp.pluginutils.TransferMessage;
 import eu.iteije.kitpvp.utils.editkits.EditKits;
@@ -17,14 +18,17 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class InventoryClick implements Listener {
 
     // Instance variable of main class
     private KitPvP instance;
+
+    // Temporary
+    public static HashMap<UUID, Boolean> forcedByPlayer = new HashMap<>();
 
     public InventoryClick(KitPvP instance) {
         this.instance = instance;
@@ -203,6 +207,59 @@ public class InventoryClick implements Listener {
                         OpenInventory openInventory = new OpenInventory("editkitcontent", player);
                         openInventory.openInventory();
                     }
+
+                    // Check if player is setting up a new kit
+                    if (EditKits.newKits.containsKey(player.getUniqueId())) {
+                        // Check if player is interacting with the 'finish item' slot (slot 53)
+                        if (event.getSlot() == 53) {
+                            // NewKit (of player)
+                            NewKit newKit = EditKits.newKits.get(player.getUniqueId());
+                            // Check if all required data is set
+                            if (newKit.isAllSet()) {
+                                // KitFile instance
+                                KitFile kitFile = new KitFile(instance, false);
+
+                                // Kit name
+                                String kitName = newKit.getKitName();
+
+                                // Save icon
+                                kitFile.get().set("kits." + kitName + ".icon", newKit.getKitIcon().getType().toString());
+                                // Save content
+                                ItemStack[] items = newKit.getKitContent();
+                                for (ItemStack item : items) {
+                                    String material = item.getType().toString();
+                                    int amount = item.getAmount();
+
+                                    if (material.contains("HELMET")) {
+                                        kitFile.get().set("kits." + kitName + ".gear.HELMET", material);
+                                    } else if (material.contains("CHESTPLATE")) {
+                                        kitFile.get().set("kits." + kitName + ".gear.CHESTPLATE", material);
+                                    } else if (material.contains("LEGGINGS")) {
+                                        kitFile.get().set("kits." + kitName + ".gear.LEGGINGS", material);
+                                    } else if (material.contains("BOOTS")) {
+                                        kitFile.get().set("kits." + kitName + ".gear.BOOTS", material);
+                                    } else {
+                                        kitFile.get().set("kits." + kitName + ".items." + material + ".amount", amount);
+                                    }
+                                }
+
+                                // Save file
+                                kitFile.save();
+
+                                // Send success message
+                                String message = Message.get("editkits_newkit_success");
+                                message = Message.replace(message, "{kitname}", kitName);
+                                Message.sendToPlayer(player, message, true);
+
+                                // Open KitOverviewInventory
+                                OpenInventory openInventory = new OpenInventory("kitsoverview", player);
+                                openInventory.openInventory();
+                            } else {
+                                // Failed message
+                                Message.sendToPlayer(player, Message.get("editkits_newkit_failed"), true);
+                            }
+                        }
+                    }
                 }
 
                 // In every single inventory the 'Close menu' button is at item slot 49, so if that slot is clicked, close menu
@@ -211,6 +268,15 @@ public class InventoryClick implements Listener {
                 }
                 // In all inventories, except for the KitsOverviewInventory, a 'Return' item is added at slot 45
                 if (event.getCurrentItem() != null && event.getSlot() == 45) {
+                    // If the player hits the return button, the selectedKit don't have to be deleted
+                    if (EditKits.currentInventory.get(player.getUniqueId()).equals("editkitcontent")) {
+                        // Only proceed if the player actually selected a kit
+                        if (EditKits.selectedKit.containsKey(player.getUniqueId())) {
+                            // Put the player in the HashMap
+                            forcedByPlayer.put(player.getUniqueId(), true);
+                        }
+
+                    }
                     // Save current inventory name
                     String currentInventory = EditKits.currentInventory.get(player.getUniqueId());
                     // Execute separate actions for all inventories

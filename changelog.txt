@@ -1,3 +1,13 @@
+v1.0.0:
++ Fixed an issue where a new kit could be made without items
++ Fixed an issue where players could melee-attack each other if in another map
++ Fixed an issue where the console said the database was connected if it wasn't
+
++ Cleaned up unnecessary stuff
+
++ Game is now fully playable, all errors I came across are fixed
+
+
 v0.1.1:
 + Fixed an issue where players were not able to delete kits
 + Fixed an issue where players could execute the /kitpvp createmap/editkits command while in the EditKit menu

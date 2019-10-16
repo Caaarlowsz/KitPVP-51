@@ -1,6 +1,5 @@
 package eu.iteije.kitpvp.listeners;
 
-import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.data.DataHandler;
 import eu.iteije.kitpvp.data.UserCache;
 import eu.iteije.kitpvp.pluginutils.Message;
@@ -13,11 +12,8 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class PlayerDeath implements Listener {
 
-    // Instance variable of main class
-    private KitPvP instance;
+    public PlayerDeath() {
 
-    public PlayerDeath(KitPvP instance) {
-        this.instance = instance;
     }
 
     @EventHandler

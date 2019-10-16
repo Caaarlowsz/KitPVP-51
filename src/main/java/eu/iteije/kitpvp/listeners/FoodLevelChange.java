@@ -40,6 +40,7 @@ public class FoodLevelChange implements Listener {
             } else {
                 // Hunger is disabled by default
                 event.setCancelled(true);
+                if (player.getFoodLevel() != 20) player.setFoodLevel(20);
             }
         }
 

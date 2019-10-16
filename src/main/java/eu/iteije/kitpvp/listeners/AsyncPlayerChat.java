@@ -1,6 +1,5 @@
 package eu.iteije.kitpvp.listeners;
 
-import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.pluginutils.Message;
 import eu.iteije.kitpvp.utils.editkits.EditKits;
 import eu.iteije.kitpvp.utils.editkits.OpenInventory;
@@ -11,11 +10,8 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 public class AsyncPlayerChat implements Listener {
 
-    // Instance variable of main class
-    private KitPvP instance;
+    public AsyncPlayerChat() {
 
-    public AsyncPlayerChat(KitPvP instance) {
-        this.instance = instance;
     }
 
     @EventHandler
@@ -52,6 +48,25 @@ public class AsyncPlayerChat implements Listener {
             // Open EditKitInventory
             OpenInventory openInventory = new OpenInventory("editkit", player);
             openInventory.openInventory();
+        }
+
+        // Check if the player is editing a kit icon
+        if (EditKits.isEditingIcon.containsKey(player.getUniqueId())) {
+            // If the player typed 'annuleren', then cancel and return to the EditKitInventory
+            if (message.equalsIgnoreCase("annuleren")) {
+                // Cancel event
+                event.setCancelled(true);
+
+                // Send cancelled message
+                Message.sendToPlayer(player, Message.get("editkits_changeicon_cancelled"), true);
+
+                // Remove player from isEditingIcon HashMap
+                EditKits.isEditingIcon.remove(player.getUniqueId());
+
+                // Open EditKitInventory
+                OpenInventory openInventory = new OpenInventory("editkit", player);
+                openInventory.openInventory();
+            }
         }
     }
 }

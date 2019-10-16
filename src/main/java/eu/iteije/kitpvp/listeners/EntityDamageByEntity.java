@@ -1,6 +1,5 @@
 package eu.iteije.kitpvp.listeners;
 
-import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.utils.game.Game;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Entity;
@@ -11,11 +10,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class EntityDamageByEntity implements Listener {
 
-    // Instance variable of main class
-    private KitPvP instance;
+    public EntityDamageByEntity() {
 
-    public EntityDamageByEntity(KitPvP instance) {
-        this.instance = instance;
     }
 
     @EventHandler
@@ -31,8 +27,13 @@ public class EntityDamageByEntity implements Listener {
 
             // If the either the damager and taker are in game, proceed
             if (Game.playersInGame.containsKey(taker.getUniqueId()) && Game.playersInGame.containsKey(damager.getUniqueId())) {
-                // If damager is not in survival mode (if everything works fine, this wouldn't be possible) the event has to be cancelled
-                if (damager.getGameMode() != GameMode.SURVIVAL) {
+                // Check if players are in the same map
+                if (Game.playersInGame.get(taker.getUniqueId()).equals(Game.playersInGame.get(damager.getUniqueId()))) {
+                    // If damager is not in survival mode (if everything works fine, this wouldn't be possible) the event has to be cancelled
+                    if (damager.getGameMode() != GameMode.SURVIVAL) {
+                        event.setCancelled(true);
+                    }
+                } else {
                     event.setCancelled(true);
                 }
             } else {

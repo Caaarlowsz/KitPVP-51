@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -68,6 +69,14 @@ public class SelectKit {
                 // Get item meta from kitItemStack
                 ItemMeta kitItemMeta = kitItemStack.getItemMeta();
 
+                // Try hiding the attributes
+                try {
+                    kitItemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+                } catch (NullPointerException exception) {
+                    // Leave it empty
+                }
+
+
                 // Change display name
                 kitItemMeta.setDisplayName(TransferMessage.replaceColorCodes("&c" + kitName));
                 // Assign new itemmeta to the itemstack
@@ -118,8 +127,6 @@ public class SelectKit {
         } catch (NullPointerException exception) {
             // Send error message to player
             Message.sendToPlayer(player, Message.get("joingame_kit_error"), true);
-
-            exception.printStackTrace();
         }
     }
 

@@ -1,6 +1,5 @@
 package eu.iteije.kitpvp.listeners;
 
-import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.data.UserCache;
 import eu.iteije.kitpvp.utils.editkits.EditKits;
 import eu.iteije.kitpvp.utils.game.Game;
@@ -12,11 +11,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerQuit implements Listener {
 
-    // Instance variable of main class
-    private KitPvP instance;
+    public PlayerQuit() {
 
-    public PlayerQuit(KitPvP instance) {
-        this.instance = instance;
     }
 
     @EventHandler

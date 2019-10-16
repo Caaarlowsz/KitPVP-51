@@ -1,8 +1,8 @@
 database:
-  host: 'localhost'
-  username: 'kitpvp'
-  password: 'admin'
-  database: 'kitpvp'
+  host: ''
+  username: ''
+  password: ''
+  database: ''
   port: 3306
 
 prefix: '&c[KitPvP] &r'

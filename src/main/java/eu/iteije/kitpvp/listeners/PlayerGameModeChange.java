@@ -1,6 +1,5 @@
 package eu.iteije.kitpvp.listeners;
 
-import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.pluginutils.Message;
 import eu.iteije.kitpvp.utils.game.Game;
 import org.bukkit.entity.Player;
@@ -10,11 +9,8 @@ import org.bukkit.event.player.PlayerGameModeChangeEvent;
 
 public class PlayerGameModeChange implements Listener {
 
-    // Instance variable of main class
-    private KitPvP instance;
+    public PlayerGameModeChange() {
 
-    public PlayerGameModeChange(KitPvP instance) {
-        this.instance = instance;
     }
 
     @EventHandler

@@ -46,4 +46,9 @@ public class NewKit {
     public void setKitContent(ItemStack[] kitContent) {
         this.kitContent = kitContent;
     }
+
+
+    public boolean isAllSet() {
+        return getKitIcon() != null && getKitName() != null && getKitContent() != null && !getKitName().equals("&oniet ingesteld");
+    }
 }

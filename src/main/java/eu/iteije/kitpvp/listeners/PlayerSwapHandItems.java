@@ -1,6 +1,5 @@
 package eu.iteije.kitpvp.listeners;
 
-import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.utils.mapsetup.CreateMap;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,11 +8,8 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
 public class PlayerSwapHandItems implements Listener {
 
-    // Instance variable of main class
-    private KitPvP instance;
+    public PlayerSwapHandItems() {
 
-    public PlayerSwapHandItems(KitPvP instance) {
-        this.instance = instance;
     }
 
     @EventHandler

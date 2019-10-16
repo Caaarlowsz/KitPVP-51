@@ -82,5 +82,22 @@ public class EditKitInventory {
 
         // Set this inventory as open inventory in the EditKits class
         EditKits.currentInventory.put(player.getUniqueId(), "editkit");
+
+        // Add finish item to new kit inventory if everything is set
+        if (EditKits.newKits.containsKey(player.getUniqueId())) {
+            NewKit newKit = EditKits.newKits.get(player.getUniqueId());
+
+            // Set 'finish' item if everything is set
+            KitPvP.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(KitPvP.getInstance(), new Runnable() {
+                @Override
+                public void run() {
+                    if (newKit.isAllSet()) {
+                        // New spectral arrow ItemStack
+                        ItemStack finishItem = InventoryItem.createItem(Material.SPECTRAL_ARROW, 1, "&cVoeg kit toe");
+                        inventory.setItem(53, finishItem);
+                    }
+                }
+            }, 20L); // wait 1 sec so previous running methods can be finished
+        }
     }
 }

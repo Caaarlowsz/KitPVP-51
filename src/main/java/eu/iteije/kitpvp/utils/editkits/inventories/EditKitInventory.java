@@ -39,7 +39,7 @@ public class EditKitInventory {
         inventory.setItem(49, closeItem); // assign itemstack to inventory
 
         // Return to previous menu item
-        ItemStack returnItem = InventoryItem.createItem(Material.SPECTRAL_ARROW, 1, "&cGa terug"); // create new itemstack
+        ItemStack returnItem = InventoryItem.createItem(Material.ARROW, 1, "&cGa terug"); // create new itemstack
         inventory.setItem(45, returnItem); // assign itemstack to inventory
 
         // Instance of KitFile
@@ -93,7 +93,7 @@ public class EditKitInventory {
                 public void run() {
                     if (newKit.isAllSet()) {
                         // New spectral arrow ItemStack
-                        ItemStack finishItem = InventoryItem.createItem(Material.SPECTRAL_ARROW, 1, "&cVoeg kit toe");
+                        ItemStack finishItem = InventoryItem.createItem(Material.ARROW, 1, "&cVoeg kit toe");
                         inventory.setItem(53, finishItem);
                     }
                 }

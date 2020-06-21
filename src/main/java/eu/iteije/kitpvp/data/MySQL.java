@@ -61,6 +61,7 @@ public class MySQL {
                 if ((!connection.isClosed()) || (connection != null)) {
                     // Close connection
                     connection.close();
+                    Bukkit.broadcastMessage("Closed connection!!!");
                 }
             } catch (SQLException exception) {
                 // Print stack trace

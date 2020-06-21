@@ -43,7 +43,7 @@ public class Scoreboard {
 
 
         // Create new Objective, display name is defined later
-        Objective objective = scoreboard.registerNewObjective("KitPvP", "", "");
+        Objective objective = scoreboard.registerNewObjective("KitPvP", "");
         // Make it a sidebar scoreboard
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
         // Set display name

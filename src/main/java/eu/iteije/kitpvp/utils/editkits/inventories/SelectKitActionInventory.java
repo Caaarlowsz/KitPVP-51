@@ -4,6 +4,7 @@ import eu.iteije.kitpvp.pluginutils.TransferMessage;
 import eu.iteije.kitpvp.utils.InventoryItem;
 import eu.iteije.kitpvp.utils.editkits.EditKits;
 import org.bukkit.Bukkit;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -37,12 +38,12 @@ public class SelectKitActionInventory {
         inventory.setItem(49, closeItem); // assign itemstack to inventory
 
         // Return to previous menu item
-        ItemStack returnItem = InventoryItem.createItem(Material.SPECTRAL_ARROW, 1, "&cGa terug"); // create new itemstack
+        ItemStack returnItem = InventoryItem.createItem(Material.ARROW, 1, "&cGa terug"); // create new itemstack
         inventory.setItem(45, returnItem); // assign itemstack to inventory
 
         // Edit/delete kit itemstacks
-        ItemStack editKitItem = InventoryItem.createItem(Material.GREEN_WOOL, 1, "&aBewerk kit");
-        ItemStack deleteKitItem = InventoryItem.createItem(Material.RED_WOOL, 1, "&cVerwijder kit");
+        ItemStack editKitItem = InventoryItem.createItem(new ItemStack(Material.WOOL, 1, DyeColor.GREEN.getData()).getType(), 1, "&aBewerk kit");
+        ItemStack deleteKitItem = InventoryItem.createItem(new ItemStack(Material.WOOL, 1, DyeColor.RED.getData()).getType(), 1, "&cVerwijder kit");
 
         // Set all 'Edit kit' slots
         for (int slot : editKitSlots) {

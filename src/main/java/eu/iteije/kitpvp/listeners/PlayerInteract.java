@@ -135,7 +135,7 @@ public class PlayerInteract implements Listener {
         if (action == Action.RIGHT_CLICK_BLOCK) {
             if (CreateMap.savedInventories.containsKey(player.getUniqueId())) {
                 // Checking whether the clicked block is a setup block and which it is
-                String setupItem = CreateMap.checkSetupItem(player.getInventory().getItemInMainHand().getType(), player);
+                String setupItem = CreateMap.checkSetupItem(player.getInventory().getItemInHand().getType(), player);
                 if (!setupItem.equals("none")) {
                     // Use setup item
                     event.setCancelled(true);
@@ -148,7 +148,7 @@ public class PlayerInteract implements Listener {
         // Left click block only
         if (action == Action.LEFT_CLICK_BLOCK) {
             if (CreateMap.savedInventories.containsKey(player.getUniqueId())) {
-                if (event.getClickedBlock().getType() != Material.LIGHT_WEIGHTED_PRESSURE_PLATE) {
+                if (event.getClickedBlock().getType() != Material.GOLD_PLATE) {
                     // Redirect to BlockBreak if block is not solid
                     if (!event.getClickedBlock().getType().isSolid()) {
                         event.setCancelled(false);
@@ -156,7 +156,7 @@ public class PlayerInteract implements Listener {
                     }
 
                     // Checking whether the clicked block is a setup block and which it is
-                    String setupItem = CreateMap.checkSetupItem(player.getInventory().getItemInMainHand().getType(), player);
+                    String setupItem = CreateMap.checkSetupItem(player.getInventory().getItemInHand().getType(), player);
                     if (!setupItem.equals("none")) {
                         // Use setup item
                         event.setCancelled(true);
@@ -170,7 +170,7 @@ public class PlayerInteract implements Listener {
         if (action == Action.RIGHT_CLICK_AIR || action == Action.LEFT_CLICK_AIR) {
             if (CreateMap.savedInventories.containsKey(player.getUniqueId())) {
                 // Checking whether the clicked block is a setup block and which it is
-                String setupItem = CreateMap.checkSetupItem(player.getInventory().getItemInMainHand().getType(), player);
+                String setupItem = CreateMap.checkSetupItem(player.getInventory().getItemInHand().getType(), player);
                 if (!setupItem.equals("none")) {
                     // Use setup item
                     event.setCancelled(true);

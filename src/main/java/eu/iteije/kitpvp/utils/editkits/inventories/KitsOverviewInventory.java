@@ -20,7 +20,7 @@ public class KitsOverviewInventory {
     public static String EDIT_KIT_KITS_OVERVIEW_TITLE = TransferMessage.replaceColorCodes("&c&lOverzicht van de kits");
 
     // Undefined kit item
-    public static ItemStack undefinedKitItem = InventoryItem.createItem(Material.GREEN_WOOL, 1, "&aBeschikbare plek",
+    public static ItemStack undefinedKitItem = InventoryItem.createItem(Material.ARROW, 1, "&aBeschikbare plek",
             Arrays.asList(TransferMessage.replaceColorCodes("&7Klik om te bewerken")));
 
     // Undefined player variable

@@ -48,7 +48,7 @@ public final class KitPvP extends JavaPlugin {
         getServer().getScheduler().scheduleSyncDelayedTask(this, () -> {
             // Loop through all players
             for (Player player : Bukkit.getOnlinePlayers()) {
-                // Remove existing player data
+                // Remove existing player data.
                 UserCache.removeUUID(player.getUniqueId());
                 // Load player
                 DataHandler.getHandler().loadPlayer(player.getUniqueId());
@@ -66,6 +66,7 @@ public final class KitPvP extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        new MySQL().closeConnection();
         // Loop through all online players
         for (Player player : Bukkit.getOnlinePlayers()) {
             try {

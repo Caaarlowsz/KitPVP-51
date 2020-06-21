@@ -138,7 +138,6 @@ public class SelectKit {
             // If boolean unbreakable is true, assign unbreakable to the itemstack
             if (unbreakable) {
                 ItemMeta itemMeta = itemStack.getItemMeta();
-                itemMeta.setUnbreakable(true);
                 itemStack.setItemMeta(itemMeta);
             }
             // Return itemstack of gear piece

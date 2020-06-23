@@ -9,10 +9,20 @@ kits:
       ARROW:
         amount: 16
     gear:
-      HELMET: LEATHER_HELMET
-      CHESTPLATE: IRON_CHESTPLATE
-      LEGGINGS: LEATHER_LEGGINGS
-      BOOTS: LEATHER_BOOTS
+      HELMET:
+        item: LEATHER_HELMET
+        enchantments: []
+      CHESTPLATE:
+        item: IRON_CHESTPLATE
+        enchantments:
+          - "PROTECTION:2"
+          - "UNBREAKING:3"
+      LEGGINGS:
+        item: LEATHER_LEGGINGS
+        enchantments: []
+      BOOTS:
+        item: LEATHER_BOOTS
+        enchantments: []
   Archer:
     icon: BOW
     items:

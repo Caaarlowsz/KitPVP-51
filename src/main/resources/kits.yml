@@ -2,12 +2,19 @@ kits:
   Knight:
     icon: DIAMOND_SWORD
     items:
-      DIAMOND_SWORD:
+      '1':
+        item: DIAMOND_SWORD
         amount: 1
-      BOW:
+        enchantments:
+          - "SHARPNESS:1"
+      '2':
+        item: BOW
         amount: 1
-      ARROW:
+        enchantments: []
+      '3':
+        item: ARROW
         amount: 16
+        enchantments: []
     gear:
       HELMET:
         item: LEATHER_HELMET
@@ -26,13 +33,31 @@ kits:
   Archer:
     icon: BOW
     items:
-      IRON_SWORD:
+      '1':
+        item: IRON_SWORD
         amount: 1
-      BOW:
+        enchantments: []
+      '2':
+        item: BOW
         amount: 1
-      ARROW:
-        amount: 64
+        enchantments: []
+        '3':
+          item: ARROW
+          amount: 1
+          enchantments:
+            - "INFINITY:1"
     gear:
-      CHESTPLATE: IRON_CHESTPLATE
-      LEGGINGS: IRON_LEGGINGS
-      BOOTS: LEATHER_BOOTS
+      HELMET:
+        item: LEATHER_HELMET
+        enchantments: []
+      CHESTPLATE:
+        item: IRON_CHESTPLATE
+        enchantments:
+          - "PROTECTION:2"
+          - "UNBREAKING:3"
+      LEGGINGS:
+        item: IRON_LEGGINGS
+        enchantments: []
+      BOOTS:
+        item: IRON_BOOTS
+        enchantments: []

@@ -105,7 +105,23 @@ public class SelectKit {
 
             // Loop through each item in the 'items' section of a kit
             for (String item : kitFile.get().getConfigurationSection("kits." + kitName + ".items").getKeys(false)) {
-                kit.add(new ItemStack(Material.getMaterial(item), kitFile.get().getInt("kits." + kitName + ".items." + item + ".amount")));
+                ItemStack kitItem = new ItemStack(Material.getMaterial(kitFile.get().getString("kits." + kitName + ".items." + item + ".item")),
+                        kitFile.get().getInt("kits." + kitName + ".items." + item + ".amount"));
+                ItemMeta meta = kitItem.getItemMeta();
+                List<String> enchantments = kitFile.get().getStringList("kits." + kitName + ".items." + item + ".enchantments");
+
+                for (String enchantmentItem : enchantments) {
+                    try {
+                        String[] data = enchantmentItem.split(":");
+                        Enchantment enchantment = Enchantment.getByKey(NamespacedKey.minecraft(data[0].toLowerCase()));
+                        meta.addEnchant(enchantment, Integer.parseInt(data[1]), true);
+                    } catch (NullPointerException exception) {
+                        exception.printStackTrace();
+                    }
+                }
+                kitItem.setItemMeta(meta);
+
+                kit.add(kitItem);
             }
 
             // Save player inventory in a HashMap (located in Game class)
@@ -118,10 +134,15 @@ public class SelectKit {
             player.getInventory().setContents(kitItems);
 
             // Set gear
-            player.getInventory().setHelmet(getGearPiece(kitName, "HELMET", kitFile, true));
-            player.getInventory().setChestplate(getGearPiece(kitName, "CHESTPLATE", kitFile, true));
-            player.getInventory().setLeggings(getGearPiece(kitName, "LEGGINGS", kitFile, true));
-            player.getInventory().setBoots(getGearPiece(kitName, "BOOTS", kitFile, true));
+            try {
+                player.getInventory().setHelmet(getGearPiece(kitName, "HELMET", kitFile, true));
+                player.getInventory().setChestplate(getGearPiece(kitName, "CHESTPLATE", kitFile, true));
+                player.getInventory().setLeggings(getGearPiece(kitName, "LEGGINGS", kitFile, true));
+                player.getInventory().setBoots(getGearPiece(kitName, "BOOTS", kitFile, true));
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+
 
             // Join game
             Game game = new Game(player, map, KitPvP.getInstance());

@@ -3,7 +3,6 @@ package eu.iteije.kitpvp.data;
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.files.ConfigFile;
 import eu.iteije.kitpvp.pluginutils.Message;
-import org.bukkit.Bukkit;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -24,7 +23,7 @@ public class MySQL {
     // Open/start connection method
     public synchronized void openConnection() {
         if (configFile.get().getString("database.host").equals("")) {
-            Bukkit.broadcastMessage("Leeg!");
+            // Well, please don't broadcast random hardcoded messages
         }
 
         instance.getServer().getScheduler().runTaskAsynchronously(instance, () -> {
@@ -74,7 +73,7 @@ public class MySQL {
             if (getCurrentConnection() != null && !getCurrentConnection().isClosed()) {
                 // Create new table if it does not exists
                 // Table details: uuid - varchar - 36, kills - int, deaths - int
-                getCurrentConnection().createStatement().execute("CREATE TABLE IF NOT EXISTS players(uuid varchar(36), kills int, deaths int)");
+                getCurrentConnection().createStatement().execute("CREATE TABLE IF NOT EXISTS players(uuid varchar(36), username varchar(36), kills int, deaths int)");
             }
             return true;
         } catch (SQLException exception) {

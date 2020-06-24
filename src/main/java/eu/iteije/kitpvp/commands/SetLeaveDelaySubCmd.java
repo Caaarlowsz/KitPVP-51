@@ -16,10 +16,10 @@ public class SetLeaveDelaySubCmd {
 
     // Commands and explanation shown in the help list
     private List<String> commands = Arrays.asList(
-            "/kitpvp setleavedelay <seconden>"
+            "/kitpvp setleavedelay <delay in seconds>"
     );
     private List<String> explanation = Arrays.asList(
-            "Verander de wachttijd als je uit een game gaat"
+            "Modify leave delay"
     );
 
     // Help class / CreateMap instances

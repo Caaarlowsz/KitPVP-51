@@ -36,11 +36,6 @@ public class BlockBreak implements Listener {
             return;
         }
 
-        // If player is not a operator, cancel event
-        if (!player.isOp()) {
-            event.setCancelled(true);
-        }
-
         // Make sure player is in setup, before getting the instance of SpawnPlate from ToolActions (to prevent NullPointerException)
         if (CreateMap.savedInventories.containsKey(player.getUniqueId())) {
             // Instance of SpawnPlate from ToolActions

@@ -1,4 +1,4 @@
-name: KitPvP
+name: ZeroxPvP
 version: ${project.version}
 main: eu.iteije.kitpvp.KitPvP
 api-version: 1.13

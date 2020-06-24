@@ -12,7 +12,11 @@
     <name>KitPvP</name>
 
     <properties>
+<<<<<<< HEAD
         <java.version>8</java.version>
+=======
+        <java.version>1.8</java.version>
+>>>>>>> modern
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 

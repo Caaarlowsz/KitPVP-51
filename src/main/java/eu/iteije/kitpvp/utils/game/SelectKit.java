@@ -7,6 +7,8 @@ import eu.iteije.kitpvp.pluginutils.TransferMessage;
 import eu.iteije.kitpvp.utils.InventoryItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
@@ -21,7 +23,7 @@ import java.util.UUID;
 public class SelectKit {
 
     // Title of select menu
-    public static String SELECT_KIT_INVENTORY_TITLE = TransferMessage.replaceColorCodes("&c&lSelecteer een kit");
+    public static String SELECT_KIT_INVENTORY_TITLE = TransferMessage.replaceColorCodes("&c&lSelect a kit");
 
     // Assigned player
     private Player player;
@@ -133,17 +135,34 @@ public class SelectKit {
     private ItemStack getGearPiece(String kit, String piece, KitFile kitFile, boolean unbreakable) {
         try {
             // Get material from kit file and create new itemstack
-            Material material = Material.getMaterial(kitFile.get().getString("kits." + kit + ".gear." + piece.toUpperCase()));
+            Material material = Material.getMaterial(kitFile.get().getString("kits." + kit + ".gear." + piece.toUpperCase() + ".item"));
             ItemStack itemStack = new ItemStack(material, 1);
             // If boolean unbreakable is true, assign unbreakable to the itemstack
+            ItemMeta itemMeta = itemStack.getItemMeta();
             if (unbreakable) {
+<<<<<<< HEAD
                 ItemMeta itemMeta = itemStack.getItemMeta();
                 itemStack.setItemMeta(itemMeta);
+=======
+                itemMeta.setUnbreakable(true);
+>>>>>>> modern
             }
+
+            List<String> enchantments = kitFile.get().getStringList("kits." + kit + ".gear." + piece.toUpperCase() + ".enchantments");
+
+            for (String enchantmentItem : enchantments) {
+                String[] data = enchantmentItem.split(":");
+                Enchantment enchantment = Enchantment.getByKey(NamespacedKey.minecraft(data[0].toLowerCase()));
+                itemMeta.addEnchant(enchantment, Integer.parseInt(data[1]), true);
+            }
+
+            // Set item meta
+            itemStack.setItemMeta(itemMeta);
             // Return itemstack of gear piece
             return itemStack;
         } catch (IllegalArgumentException | NullPointerException exception) {
             // No stack trace, in case a gear piece is not assigned, you would get a ton of unnecessary errors
+            exception.printStackTrace(); // well, we do have an stack trace :)
             // Return empty itemstack
             return new ItemStack(Material.AIR);
         }

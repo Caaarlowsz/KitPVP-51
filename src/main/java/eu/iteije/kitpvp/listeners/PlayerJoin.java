@@ -47,7 +47,9 @@ public class PlayerJoin implements Listener {
             Message.sendToPlayer(player, Message.get("spawn_failed"), true);
         }
 
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "effect clear " + player.getName());
+        if (player.getActivePotionEffects().size() > 0) {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "effect clear " + player.getName());
+        }
 
         // Wait a few seconds, to prevent NullPointerExceptions (it can take a few seconds to load player data)
         instance.getServer().getScheduler().scheduleSyncDelayedTask(instance, () -> Scoreboard.load(player), 40L); // delay / 20 = seconds

@@ -204,8 +204,10 @@ public class InventoryClick implements Listener {
                     }
                     // Slot 24 is the chest (change kit contents)
                     if (event.getSlot() == 24) {
-                        OpenInventory openInventory = new OpenInventory("editkitcontent", player);
-                        openInventory.openInventory();
+                        player.sendMessage("Editing content is disabled due to huge changes in kit storage.");
+                        player.closeInventory();
+//                        OpenInventory openInventory = new OpenInventory("editkitcontent", player);
+//                        openInventory.openInventory();
                     }
 
                     // Check if player is setting up a new kit

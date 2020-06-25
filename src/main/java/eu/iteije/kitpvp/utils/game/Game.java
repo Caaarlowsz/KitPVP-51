@@ -137,6 +137,7 @@ public class Game {
     }
 
     public static void leave(Player player) {
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "effect clear " + player.getName());
         // Return inventory
         player.getInventory().clear();
         // Return old inventory contents

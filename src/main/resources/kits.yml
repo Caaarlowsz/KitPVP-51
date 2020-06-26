@@ -1,38 +1,26 @@
 kits:
-  Knight:
+  Beast:
     icon: DIAMOND_SWORD
+    effects: []
     items:
-      DIAMOND_SWORD:
+      '1':
+        item: DIAMOND_SWORD
         amount: 1
-      BOW:
-        amount: 1
-      ARROW:
-        amount: 16
+        enchantments: []
     gear:
       HELMET:
-        item: LEATHER_HELMET
-        enchantments: []
+        item: DIAMOND_HELMET
+        enchantments:
+          - "PROTECTION:1"
       CHESTPLATE:
-        item: IRON_CHESTPLATE
+        item: DIAMOND_CHESTPLATE
         enchantments:
           - "PROTECTION:2"
-          - "UNBREAKING:3"
       LEGGINGS:
-        item: LEATHER_LEGGINGS
-        enchantments: []
+        item: DIAMOND_LEGGINGS
+        enchantments:
+          - "PROTECTION:2"
       BOOTS:
-        item: LEATHER_BOOTS
-        enchantments: []
-  Archer:
-    icon: BOW
-    items:
-      IRON_SWORD:
-        amount: 1
-      BOW:
-        amount: 1
-      ARROW:
-        amount: 64
-    gear:
-      CHESTPLATE: IRON_CHESTPLATE
-      LEGGINGS: IRON_LEGGINGS
-      BOOTS: LEATHER_BOOTS
+        item: DIAMOND_BOOTS
+        enchantments:
+          - "PROTECTION:1"

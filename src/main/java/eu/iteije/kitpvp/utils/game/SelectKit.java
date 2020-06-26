@@ -14,6 +14,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -105,7 +106,33 @@ public class SelectKit {
 
             // Loop through each item in the 'items' section of a kit
             for (String item : kitFile.get().getConfigurationSection("kits." + kitName + ".items").getKeys(false)) {
-                kit.add(new ItemStack(Material.getMaterial(item), kitFile.get().getInt("kits." + kitName + ".items." + item + ".amount")));
+                ItemStack kitItem = new ItemStack(Material.getMaterial(kitFile.get().getString("kits." + kitName + ".items." + item + ".item")),
+                        kitFile.get().getInt("kits." + kitName + ".items." + item + ".amount"));
+                ItemMeta meta = kitItem.getItemMeta();
+                List<String> enchantments = kitFile.get().getStringList("kits." + kitName + ".items." + item + ".enchantments");
+
+                for (String enchantmentItem : enchantments) {
+                    try {
+                        String[] data = enchantmentItem.split(":");
+                        Enchantment enchantment = Enchantment.getByKey(NamespacedKey.minecraft(data[0].toLowerCase()));
+                        meta.addEnchant(enchantment, Integer.parseInt(data[1]), true);
+                    } catch (NullPointerException exception) {
+                        exception.printStackTrace();
+                    }
+                }
+                kitItem.setItemMeta(meta);
+
+                kit.add(kitItem);
+            }
+
+            for (String effect : kitFile.get().getStringList("kits." + kitName + ".effects")) {
+                String[] data = effect.split(":");
+                PotionEffectType effectType = PotionEffectType.getByName(data[0]);
+                if (effectType == null) continue;
+
+                int amp = data[1] != null ? Integer.parseInt(data[1]) - 1 : 1;
+
+                player.addPotionEffect(effectType.createEffect(3600 * 20, amp));
             }
 
             // Save player inventory in a HashMap (located in Game class)
@@ -117,16 +144,41 @@ public class SelectKit {
             ItemStack[] kitItems = kit.toArray(new ItemStack[0]);
             player.getInventory().setContents(kitItems);
 
+
+
             // Set gear
-            player.getInventory().setHelmet(getGearPiece(kitName, "HELMET", kitFile, true));
-            player.getInventory().setChestplate(getGearPiece(kitName, "CHESTPLATE", kitFile, true));
-            player.getInventory().setLeggings(getGearPiece(kitName, "LEGGINGS", kitFile, true));
-            player.getInventory().setBoots(getGearPiece(kitName, "BOOTS", kitFile, true));
+            // AFTER SEEING THIS CODE, I'M SURE YOU THINK I JUST STARTED LEARNING JAVA OR SOMETHING
+            try {
+                player.getInventory().setHelmet(getGearPiece(kitName, "HELMET", kitFile, true));
+            } catch (Exception exception) {
+
+            }
+
+            try {
+                player.getInventory().setChestplate(getGearPiece(kitName, "CHESTPLATE", kitFile, true));
+            } catch (Exception exception) {
+
+            }
+
+            try {
+                player.getInventory().setLeggings(getGearPiece(kitName, "LEGGINGS", kitFile, true));
+            } catch (Exception exception) {
+
+            }
+
+            try {
+                player.getInventory().setBoots(getGearPiece(kitName, "BOOTS", kitFile, true));
+            } catch (Exception exception) {
+
+            }
+            player.setAllowFlight(false);
+            player.setFlying(false);
 
             // Join game
             Game game = new Game(player, map, KitPvP.getInstance());
             game.join();
         } catch (NullPointerException exception) {
+            exception.printStackTrace();
             // Send error message to player
             Message.sendToPlayer(player, Message.get("joingame_kit_error"), true);
         }
@@ -162,7 +214,6 @@ public class SelectKit {
             return itemStack;
         } catch (IllegalArgumentException | NullPointerException exception) {
             // No stack trace, in case a gear piece is not assigned, you would get a ton of unnecessary errors
-            exception.printStackTrace(); // well, we do have an stack trace :)
             // Return empty itemstack
             return new ItemStack(Material.AIR);
         }

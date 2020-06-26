@@ -1,6 +1,7 @@
 package eu.iteije.kitpvp;
 
 import eu.iteije.kitpvp.commands.KitPvPCmd;
+import eu.iteije.kitpvp.commands.LeaderboardCmd;
 import eu.iteije.kitpvp.commands.WorldTpCmd;
 
 public class RegisterCommands {
@@ -19,6 +20,8 @@ public class RegisterCommands {
         instance.getCommand("kitpvp").setExecutor(new KitPvPCmd(instance));
         // WorldTp command
         instance.getCommand("worldtp").setExecutor(new WorldTpCmd(instance));
+        // Leaderboard command
+        instance.getCommand("leaderboard").setExecutor(new LeaderboardCmd(instance));
     }
 
 }

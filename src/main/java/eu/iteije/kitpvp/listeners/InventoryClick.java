@@ -60,9 +60,13 @@ public class InventoryClick implements Listener {
                         event.setCancelled(true);
                         // Kit name
                         String kitName = TransferMessage.removeColors(event.getCurrentItem().getItemMeta().getDisplayName());
-                        // Head back to SelectKit class to give the kit
-                        SelectKit selectKit = new SelectKit(player, SelectKit.hasInventoryOpen.get(player.getUniqueId()));
-                        selectKit.giveKit(player, kitName);
+                        if (player.hasPermission("kitpvp.kit." + kitName.toLowerCase())) {
+                            // Head back to SelectKit class to give the kit
+                            SelectKit selectKit = new SelectKit(player, SelectKit.hasInventoryOpen.get(player.getUniqueId()));
+                            selectKit.giveKit(player, kitName);
+                        } else {
+                            Message.sendToPlayer(player, "Insufficient permissions.", true);
+                        }
                     }
                 }
             }
@@ -204,8 +208,10 @@ public class InventoryClick implements Listener {
                     }
                     // Slot 24 is the chest (change kit contents)
                     if (event.getSlot() == 24) {
-                        OpenInventory openInventory = new OpenInventory("editkitcontent", player);
-                        openInventory.openInventory();
+                        player.sendMessage("Editing content is disabled due to huge changes in kit storage.");
+                        player.closeInventory();
+//                        OpenInventory openInventory = new OpenInventory("editkitcontent", player);
+//                        openInventory.openInventory();
                     }
 
                     // Check if player is setting up a new kit

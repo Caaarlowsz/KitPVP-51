@@ -16,10 +16,10 @@ public class ModifyHungerSubCmd {
 
     // Commands and explanation shown in the help list
     private List<String> commands = Arrays.asList(
-            "/kitpvp modifyhunger <aan/uit>"
+            "/kitpvp modifyhunger <on/off>"
     );
     private List<String> explanation = Arrays.asList(
-            "Zet honger in game aan of uit"
+            "Toggle hunger ingame"
     );
 
     // Help class / CreateMap instances
@@ -41,7 +41,7 @@ public class ModifyHungerSubCmd {
             // Check whether the amount of arguments is correct
             if (args.length == 2) {
                 // Check second argument
-                if (args[1].toLowerCase().equals("aan") || args[1].toLowerCase().equals("uit")) {
+                if (args[1].toLowerCase().equals("on") || args[1].toLowerCase().equals("off")) {
                     // Instance of ConfigFile
                     ConfigFile configFile = new ConfigFile(instance, false);
 
@@ -49,8 +49,8 @@ public class ModifyHungerSubCmd {
                     boolean oldHunger = configFile.get().getBoolean("game_hunger");
                     // New hunger modification
                     boolean hunger = true;
-                    if (args[1].toLowerCase().equals("aan")) hunger = true;
-                    if (args[1].toLowerCase().equals("uit")) hunger = false;
+                    if (args[1].toLowerCase().equals("on")) hunger = true;
+                    if (args[1].toLowerCase().equals("off")) hunger = false;
 
                     if (oldHunger != hunger) {
                         // Modify hunger value

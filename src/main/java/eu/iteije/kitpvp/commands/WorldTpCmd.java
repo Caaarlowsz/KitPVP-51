@@ -22,10 +22,10 @@ public class WorldTpCmd implements CommandExecutor {
 
     // Commands and explanation shown in the help list
     private List<String> commands = Arrays.asList(
-            "/worldtp <wereldnaam> <x> <y> <z>"
+            "/worldtp <world> <x> <y> <z>"
     );
     private List<String> explanation = Arrays.asList(
-            "Teleporteer naar een andere map"
+            "Teleport to a world"
     );
 
     // Help class / CreateMap instances
@@ -68,11 +68,11 @@ public class WorldTpCmd implements CommandExecutor {
                         Message.sendToPlayer(player, message, true);
                     } catch (Exception exception) {
                         // Unable to teleport / wrong usage
-                        help.sendWrongUsage(sender, "/worldtp <wereldnaam> <x> <y> <z>");
+                        help.sendWrongUsage(sender, "/worldtp <world> <x> <y> <z>");
                     }
                 } else {
                     // Wrong usage
-                    help.sendWrongUsage(sender, "/worldtp <wereldnaam> <x> <y> <z>");
+                    help.sendWrongUsage(sender, "/worldtp <world> <x> <y> <z>");
                 }
             } else {
                 // Permission error
@@ -92,7 +92,7 @@ public class WorldTpCmd implements CommandExecutor {
             player.teleport(location);
         } catch (Exception exception) {
             // Unable to teleport / wrong usage
-            help.sendWrongUsage(player, "/worldtp <wereldnaam> <x> <y> <z>");
+            help.sendWrongUsage(player, "/worldtp <world> <x> <y> <z>");
         }
     }
 }

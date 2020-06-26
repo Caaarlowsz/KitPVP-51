@@ -6,6 +6,7 @@ import eu.iteije.kitpvp.data.DataHandler;
 import eu.iteije.kitpvp.files.ConfigFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import eu.iteije.kitpvp.utils.Scoreboard;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -44,6 +45,10 @@ public class PlayerJoin implements Listener {
         } catch (NullPointerException | IllegalArgumentException exception) {
             // Send failed message
             Message.sendToPlayer(player, Message.get("spawn_failed"), true);
+        }
+
+        if (player.getActivePotionEffects().size() > 0) {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "effect clear " + player.getName());
         }
 
         // Wait a few seconds, to prevent NullPointerExceptions (it can take a few seconds to load player data)

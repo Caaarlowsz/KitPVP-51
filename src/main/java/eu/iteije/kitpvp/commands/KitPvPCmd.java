@@ -24,19 +24,21 @@ public class KitPvPCmd implements CommandExecutor {
             "/kitpvp leave",
             "/kitpvp setleavedelay",
             "/kitpvp modifyhunger",
-            "/worldtp"
+            "/worldtp",
+            "/leaderboard"
     );
     private List<String> explanation = Arrays.asList(
-            "Verander/maak kits",
-            "Maak een nieuwe KitPvP map",
-            "Verwijder een map",
-            "Krijg een lijst van alle mappen",
-            "Verander de spawn van de lobby",
-            "Teleporteer naar de spawn/lobby",
-            "Ga terug naar de lobby als je in een game zit",
-            "Verander de wachttijd als je uit een game gaat",
-            "Zet honger in game aan of uit",
-            "Teleporteer naar een specifieke wereld"
+            "Modify/create kits",
+            "Create a new map",
+            "Delete a map",
+            "List of all maps",
+            "Change the lobby spawn",
+            "Teleport to the spawn",
+            "Head back to the spawn while ingame",
+            "Modify leave delay",
+            "Toggle hunger ingame",
+            "Teleport to a specific world",
+            "A list of players with the most kills"
     );
 
     // Help class instance

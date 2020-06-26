@@ -45,6 +45,8 @@ public class PlayerDeath implements Listener {
                 // Broadcast death message
                 Message.broadcast(message, true);
 
+                killer.setHealth(20);
+
                 // Add kill to the killer and a death to the target
                 dataHandler.addKill(killer.getUniqueId());
                 dataHandler.addDeath(player.getUniqueId());

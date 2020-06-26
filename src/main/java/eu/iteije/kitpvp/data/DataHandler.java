@@ -2,10 +2,12 @@ package eu.iteije.kitpvp.data;
 
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.pluginutils.Message;
+import org.bukkit.Bukkit;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.UUID;
 
 @SuppressWarnings("DuplicatedCode")
@@ -32,10 +34,11 @@ public class DataHandler {
                     DataHandler.getHandler().saveCurrentDeaths(uuid);
                 } else {
                     // Create new player with default data
-                    PreparedStatement insertPlayer = MySQL.connection.prepareStatement("INSERT INTO players (uuid, kills, deaths) VALUES (?,?,?)");
+                    PreparedStatement insertPlayer = MySQL.connection.prepareStatement("INSERT INTO players (uuid, username, kills, deaths) VALUES (?,?,?,?)");
                     insertPlayer.setString(1, uuid.toString());
-                    insertPlayer.setInt(2, 0);
+                    insertPlayer.setString(2, Objects.requireNonNull(Bukkit.getPlayer(uuid)).getName());
                     insertPlayer.setInt(3, 0);
+                    insertPlayer.setInt(4, 0);
 
                     // Execute query
                     insertPlayer.executeUpdate();
@@ -43,7 +46,11 @@ public class DataHandler {
                     // Save playerdata (kills/deaths)
                     UserCache.updateKills(uuid, 0);
                     UserCache.updateDeaths(uuid, 0);
+
+                    // I remember getting comments about not closing prepared statements
+                    insertPlayer.close();
                 }
+                statement.close();
                 resultSet.close();
             } catch (SQLException exception) {
                 // Send failed message
@@ -71,6 +78,7 @@ public class DataHandler {
                     int kills = resultSet.getInt(1);
                     UserCache.updateKills(uuid, kills);
                 }
+                statement.close();
             } catch (SQLException exception) {
                 // Send failed message
                 Message.sendToConsole(Message.get("mysql_no_connection"), true);
@@ -96,6 +104,7 @@ public class DataHandler {
                     int deaths = resultSet.getInt(1);
                     UserCache.updateDeaths(uuid, deaths);
                 }
+                statement.close();
             } catch (SQLException exception) {
                 // Send failed message
                 Message.sendToConsole(Message.get("mysql_no_connection"), true);

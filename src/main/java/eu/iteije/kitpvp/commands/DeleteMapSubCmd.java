@@ -15,10 +15,10 @@ public class DeleteMapSubCmd {
 
     // Commands and explanation shown in the help list
     private List<String> commands = Arrays.asList(
-            "/kitpvp deletemap <mapnaam>"
+            "/kitpvp deletemap <name>"
     );
     private List<String> explanation = Arrays.asList(
-            "Verwijder een map"
+            "Delete a map"
     );
 
     // Help class instance

@@ -19,10 +19,10 @@ public class CreateMapSubCmd {
 
     // Commands and explanation shown in the help list
     private List<String> commands = Arrays.asList(
-            "/kitpvp createmap <mapnaam>"
+            "/kitpvp createmap <name>"
     );
     private List<String> explanation = Arrays.asList(
-            "Maak een nieuwe map in je huidige wereld"
+            "Create a map in your current world"
     );
 
     // Help class instance

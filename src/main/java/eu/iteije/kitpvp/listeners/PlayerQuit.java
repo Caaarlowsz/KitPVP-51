@@ -33,7 +33,7 @@ public class PlayerQuit implements Listener {
         // Return inventory to player if the player logs out
         if (Game.savedInventories.containsKey(player.getUniqueId()) && Game.playersInGame.containsKey(player.getUniqueId())) {
             // Combat log thing
-            if (player.getHealth() <= 7) {
+            if (player.getHealth() <= 10) {
                 for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                     if (onlinePlayer.hasPermission("kitpvp.notify.combatlog")) {
                         DecimalFormat decimalFormat = new DecimalFormat("#.#");

@@ -60,9 +60,13 @@ public class InventoryClick implements Listener {
                         event.setCancelled(true);
                         // Kit name
                         String kitName = TransferMessage.removeColors(event.getCurrentItem().getItemMeta().getDisplayName());
-                        // Head back to SelectKit class to give the kit
-                        SelectKit selectKit = new SelectKit(player, SelectKit.hasInventoryOpen.get(player.getUniqueId()));
-                        selectKit.giveKit(player, kitName);
+                        if (player.hasPermission("kitpvp.kit." + kitName.toLowerCase())) {
+                            // Head back to SelectKit class to give the kit
+                            SelectKit selectKit = new SelectKit(player, SelectKit.hasInventoryOpen.get(player.getUniqueId()));
+                            selectKit.giveKit(player, kitName);
+                        } else {
+                            Message.sendToPlayer(player, "Insufficient permissions.", true);
+                        }
                     }
                 }
             }

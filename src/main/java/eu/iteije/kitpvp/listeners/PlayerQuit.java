@@ -11,6 +11,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.text.DecimalFormat;
+
 public class PlayerQuit implements Listener {
 
     public PlayerQuit() {
@@ -31,10 +33,12 @@ public class PlayerQuit implements Listener {
         // Return inventory to player if the player logs out
         if (Game.savedInventories.containsKey(player.getUniqueId()) && Game.playersInGame.containsKey(player.getUniqueId())) {
             // Combat log thing
-            if (player.getHealth() <= 3.5 * 2.0) {
+            if (player.getHealth() <= 7) {
                 for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                     if (onlinePlayer.hasPermission("kitpvp.notify.combatlog")) {
-                        Message.sendToPlayer(player, "&fCombat log notify: &e" + player.getName() + "&f logged out while at " + (player.getHealth() / 2.0) + " health.", true);
+                        DecimalFormat decimalFormat = new DecimalFormat("#.#");
+                        Message.sendToPlayer(onlinePlayer, "&fCombat log notify: &e" + player.getName() + "&f logged out while at " +
+                                decimalFormat.format(player.getHealth() / 2.0) + " health.", true);
                     }
                 }
             }

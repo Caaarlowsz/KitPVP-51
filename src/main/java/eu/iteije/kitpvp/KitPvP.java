@@ -8,6 +8,7 @@ import eu.iteije.kitpvp.files.KitFile;
 import eu.iteije.kitpvp.files.MapFile;
 import eu.iteije.kitpvp.files.MessageFile;
 import eu.iteije.kitpvp.pluginutils.Message;
+import eu.iteije.kitpvp.runnables.LeaderboardUpdater;
 import eu.iteije.kitpvp.utils.Scoreboard;
 import eu.iteije.kitpvp.utils.editkits.EditKits;
 import eu.iteije.kitpvp.utils.game.Game;
@@ -17,6 +18,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public final class KitPvP extends JavaPlugin {
@@ -24,7 +27,9 @@ public final class KitPvP extends JavaPlugin {
     // Create private instance variable
     private static KitPvP instance;
 
-    @Override
+    public List<Integer> tasks = new ArrayList<>();
+
+    @Override @Deprecated
     public void onEnable() {
         // Define instance
         instance = this;
@@ -43,6 +48,8 @@ public final class KitPvP extends JavaPlugin {
 
         // Register commands
         new RegisterCommands(this);
+
+        tasks.add(new LeaderboardUpdater(this).start());
 
         // Reload player data and scoreboard (rip tps)
         getServer().getScheduler().scheduleSyncDelayedTask(this, () -> {

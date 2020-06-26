@@ -2,13 +2,18 @@ package eu.iteije.kitpvp.commands;
 
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.data.DataHandler;
+import eu.iteije.kitpvp.data.UserCache;
 import eu.iteije.kitpvp.pluginutils.Message;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class LeaderboardCmd implements CommandExecutor {
 
@@ -42,7 +47,7 @@ public class LeaderboardCmd implements CommandExecutor {
         // Check player permissions
         if (sender.hasPermission("kitpvp.leaderboard")) {
 
-            DataHandler.getHandler().sendTop(sender);
+            sendTop(sender);
 
         } else {
             // Permission error
@@ -51,6 +56,26 @@ public class LeaderboardCmd implements CommandExecutor {
 
 
         return true;
+    }
+
+    private void sendTop(CommandSender sender) {
+        Map<String, Integer> leaderboard = UserCache.leaderboard;
+        sendMessage(sender, "&3&lTop 10:");
+        int count = 1;
+        for (String user : leaderboard.keySet()) {
+            sendMessage(sender, "&b" + count + "&7 - &b" + user + " &f(" + leaderboard.get(user) + " kills)");
+            count++;
+        }
+    }
+
+    // Why is this in the datahandler?
+    private void sendMessage(CommandSender sender, String message) {
+        if (sender instanceof Player) {
+            Player player = (Player) sender;
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+        } else {
+            Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+        }
     }
 
 

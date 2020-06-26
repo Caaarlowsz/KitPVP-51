@@ -1,12 +1,16 @@
 package eu.iteije.kitpvp.data;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class UserCache {
 
     public static HashMap<UUID, Integer> kills = new HashMap<>();
     public static HashMap<UUID, Integer> deaths = new HashMap<>();
+
+    public static Map<String, Integer> leaderboard = new LinkedHashMap<>();
 
     // Update cache
     public static void updateKills(UUID uuid, int increment) {

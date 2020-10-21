@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class LeaderboardUpdater {
 
@@ -24,62 +23,59 @@ public class LeaderboardUpdater {
     public Integer start() {
         return instance.getServer().getScheduler().scheduleAsyncRepeatingTask(instance, () -> {
             Map<String, Integer> leaderboard = new LinkedHashMap<>();
-            // blocking main thread yah
-            AtomicBoolean done= new AtomicBoolean(false);
-            instance.getServer().getScheduler().runTaskAsynchronously(instance, () -> {
-                try {
-                    // Try receiving player data from database
-                    PreparedStatement statement = MySQL.connection.prepareStatement("SELECT uuid FROM players ORDER BY kills DESC LIMIT 10");
 
-                    ResultSet resultSet = statement.executeQuery();
+            try {
+                // Try receiving player data from database
+                PreparedStatement statement = MySQL.connection.prepareStatement("SELECT uuid FROM players ORDER BY kills DESC LIMIT 10");
 
-                    String previous = "";
-                    while (resultSet.next()) {
-                        String uuid = resultSet.getString(1);
-                        if (uuid.equals(previous)) break;
-                        previous = uuid;
+                ResultSet resultSet = statement.executeQuery();
 
-                        PreparedStatement usernameStatement = MySQL.connection.prepareStatement("SELECT username FROM players WHERE uuid=?");
-                        usernameStatement.setString(1, uuid);
+                String previous = "";
+                while (resultSet.next()) {
+                    String uuid = resultSet.getString(1);
+                    if (uuid.equals(previous)) break;
+                    previous = uuid;
 
-                        ResultSet userNameSet = usernameStatement.executeQuery();
-                        String userName = "";
-                        if (userNameSet.next()) {
-                            userName = userNameSet.getString(1);
-                        }
+                    PreparedStatement usernameStatement = MySQL.connection.prepareStatement("SELECT username FROM players WHERE uuid=?");
+                    usernameStatement.setString(1, uuid);
 
-                        usernameStatement.close();
-
-                        PreparedStatement killsStatement = MySQL.connection.prepareStatement("SELECT kills FROM players WHERE uuid=?");
-                        killsStatement.setString(1, uuid);
-
-                        ResultSet killsSet = killsStatement.executeQuery();
-                        int kills = 0;
-                        if (killsSet.next()) {
-                            kills = killsSet.getInt(1);
-                        }
-
-
-                        leaderboard.put(userName, kills);
-
-                        usernameStatement.close();
-                        userNameSet.close();
-                        killsStatement.close();
-                        killsSet.close();
+                    ResultSet userNameSet = usernameStatement.executeQuery();
+                    String userName = "";
+                    if (userNameSet.next()) {
+                        userName = userNameSet.getString(1);
                     }
 
-                    UserCache.leaderboard = leaderboard;
+                    usernameStatement.close();
 
-                    statement.close();
-                    resultSet.close();
-                } catch (SQLException exception) {
-                    // Send failed message
-                    Message.sendToConsole(Message.get("mysql_no_connection"), true);
-                    // Print stack trace to track errors
-                    exception.printStackTrace();
+                    PreparedStatement killsStatement = MySQL.connection.prepareStatement("SELECT kills FROM players WHERE uuid=?");
+                    killsStatement.setString(1, uuid);
+
+                    ResultSet killsSet = killsStatement.executeQuery();
+                    int kills = 0;
+                    if (killsSet.next()) {
+                        kills = killsSet.getInt(1);
+                    }
+
+
+                    leaderboard.put(userName, kills);
+
+                    usernameStatement.close();
+                    userNameSet.close();
+                    killsStatement.close();
+                    killsSet.close();
                 }
 
-            });
+                UserCache.leaderboard = leaderboard;
+
+                statement.close();
+                resultSet.close();
+            } catch (SQLException exception) {
+                // Send failed message
+                Message.sendToConsole(Message.get("mysql_no_connection"), true);
+                // Print stack trace to track errors
+                exception.printStackTrace();
+            }
+
         }, 30 * 20L, 20L);
     }
 }

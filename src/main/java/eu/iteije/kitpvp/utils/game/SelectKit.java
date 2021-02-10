@@ -3,6 +3,7 @@ package eu.iteije.kitpvp.utils.game;
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.files.KitFile;
 import eu.iteije.kitpvp.pluginutils.Message;
+import eu.iteije.kitpvp.pluginutils.PotionTypes;
 import eu.iteije.kitpvp.pluginutils.TransferMessage;
 import eu.iteije.kitpvp.utils.InventoryItem;
 import org.bukkit.Bukkit;
@@ -14,8 +15,11 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.material.MaterialData;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.Potion;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -107,18 +111,27 @@ public class SelectKit {
 
             // Loop through each item in the 'items' section of a kit
             for (String item : kitFile.get().getConfigurationSection("kits." + kitName + ".items").getKeys(false)) {
-                ItemStack kitItem;
+                ItemStack kitItem = new ItemStack(Material.getMaterial(kitFile.get().getString("kits." + kitName + ".items." + item + ".item")),
+                        kitFile.get().getInt("kits." + kitName + ".items." + item + ".amount"));
 
-                try {
-                    int itemDataInt = kitFile.get().getInt("kits." + kitName + ".items." + item + ".itemdata");
+                if (kitFile.get().getString("kits." + kitName + ".items." + item + ".potionmeta") != null) {
+                    try {
+                        PotionMeta potionMeta = (PotionMeta) kitItem.getItemMeta();
+                        String[] potionMetaArray = kitFile.get().getString("kits." + kitName + ".items." + item + ".potionmeta").split(":");
+                        // "POTIONEFFECTTYPE:DURATION:APLIFIER"
+                        PotionEffectType effectType = PotionEffectType.getByName(potionMetaArray[0]);
+                        potionMeta.addCustomEffect(new PotionEffect(
+                                effectType, Integer.parseInt(potionMetaArray[1]) * 20, Integer.parseInt(potionMetaArray[2])
+                        ), true);
 
-                    kitItem = new ItemStack(Material.getMaterial(kitFile.get().getString("kits." + kitName + ".items." + item + ".item")),
-                            kitFile.get().getInt("kits." + kitName + ".items." + item + ".amount"), (short) 0, (byte) itemDataInt);
-                } catch (NullPointerException exception) {
-                    exception.printStackTrace();
+                        // get and set color
+                        potionMeta.setColor(PotionTypes.getByEffect(effectType).getColor());
 
-                    kitItem = new ItemStack(Material.getMaterial(kitFile.get().getString("kits." + kitName + ".items." + item + ".item")),
-                            kitFile.get().getInt("kits." + kitName + ".items." + item + ".amount"));
+                        kitItem.setItemMeta(potionMeta);
+                    } catch (NullPointerException | NumberFormatException exception) {
+                        exception.printStackTrace();
+                        System.out.println("UNABLE TO LOAD POTION META: " + kitFile.get().getString("kits." + kitName + ".items." + item + ".potionmeta"));
+                    }
                 }
 
                 ItemMeta meta = kitItem.getItemMeta();

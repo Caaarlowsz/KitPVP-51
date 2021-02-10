@@ -1,26 +1,207 @@
 kits:
-  Beast:
+  newkitname:
     icon: DIAMOND_SWORD
-    effects: []
+    effects: [ ]
     items:
       '1':
         item: DIAMOND_SWORD
         amount: 1
-        enchantments: []
+        enchantments:
+          - "SHARPNESS:4"
+          - "UNBREAKING:2"
+      '2':
+        item: SPLASH_POTION
+        potionmeta: "INCREASE_DAMAGE:90:1"
+        amount: 1
+        enchantments: [ ]
+      '3':
+        item: SPLASH_POTION
+        potionmeta: "SPEED:90:1"
+        amount: 1
+        enchantments: [ ]
+      '4':
+        item: SPLASH_POTION
+        potionmeta: "REGENERATION:90:0"
+        amount: 1
+        enchantments: [ ]
+      '5':
+        item: SPLASH_POTION
+        potionmeta: "HEAL:1:1"
+        amount: 1
+        enchantments: [ ]
+      '6':
+        item: SPLASH_POTION
+        potionmeta: "HEAL:1:1"
+        amount: 1
+        enchantments: [ ]
+      '7':
+        item: SPLASH_POTION
+        potionmeta: "HEAL:1:1"
+        amount: 1
+        enchantments: [ ]
+      '8':
+        item: SPLASH_POTION
+        potionmeta: "HEAL:1:1"
+        amount: 1
+        enchantments: [ ]
+      '9':
+        item: COOKED_PORKCHOP
+        amount: 1
+        enchantments: [ ]
+      '10':
+        item: SPLASH_POTION
+        potionmeta: "HEAL:1:1"
+        amount: 1
+        enchantments: [ ]
+      '11':
+        item: SPLASH_POTION
+        potionmeta: "HEAL:1:1"
+        amount: 1
+        enchantments: [ ]
+      '12':
+        item: SPLASH_POTION
+        potionmeta: "HEAL:1:1"
+        amount: 1
+        enchantments: [ ]
+      '13':
+        item: SPLASH_POTION
+        potionmeta: "HEAL:1:1"
+        amount: 1
+        enchantments: [ ]
+      '14':
+        item: SPLASH_POTION
+        potionmeta: "HEAL:1:1"
+        amount: 1
+        enchantments: [ ]
+      '15':
+        item: SPLASH_POTION
+        potionmeta: "HEAL:1:1"
+        amount: 1
+        enchantments: [ ]
+      '16':
+        item: SPLASH_POTION
+        potionmeta: "INCREASE_DAMAGE:90:1"
+        amount: 1
+        enchantments: [ ]
+      '17':
+        item: SPLASH_POTION
+        potionmeta: "INCREASE_DAMAGE:90:1"
+        amount: 1
+        enchantments: [ ]
+      '18':
+        item: SPLASH_POTION
+        potionmeta: "INCREASE_DAMAGE:90:1"
+        amount: 1
+        enchantments: [ ]
+      '19':
+        item: SPLASH_POTION
+        potionmeta: "HEAL:1:1"
+        amount: 1
+        enchantments: [ ]
+      '20':
+        item: SPLASH_POTION
+        potionmeta: "HEAL:1:1"
+        amount: 1
+        enchantments: [ ]
+      '21':
+        item: SPLASH_POTION
+        potionmeta: "HEAL:1:1"
+        amount: 1
+        enchantments: [ ]
+      '22':
+        item: SPLASH_POTION
+        potionmeta: "HEAL:1:1"
+        amount: 1
+        enchantments: [ ]
+      '23':
+        item: SPLASH_POTION
+        potionmeta: "HEAL:1:1"
+        amount: 1
+        enchantments: [ ]
+      '24':
+        item: SPLASH_POTION
+        potionmeta: "HEAL:1:1"
+        amount: 1
+        enchantments: [ ]
+      '25':
+        item: SPLASH_POTION
+        potionmeta: "REGENERATION:90:0"
+        amount: 1
+        enchantments: [ ]
+      '26':
+        item: SPLASH_POTION
+        potionmeta: "REGENERATION:90:0"
+        amount: 1
+        enchantments: [ ]
+      '27':
+        item: SPLASH_POTION
+        potionmeta: "REGENERATION:90:0"
+        amount: 1
+        enchantments: [ ]
+      '28':
+        item: SPLASH_POTION
+        potionmeta: "HEAL:1:1"
+        amount: 1
+        enchantments: [ ]
+      '29':
+        item: SPLASH_POTION
+        potionmeta: "HEAL:1:1"
+        amount: 1
+        enchantments: [ ]
+      '30':
+        item: SPLASH_POTION
+        potionmeta: "HEAL:1:1"
+        amount: 1
+        enchantments: [ ]
+      '31':
+        item: SPLASH_POTION
+        potionmeta: "HEAL:1:1"
+        amount: 1
+        enchantments: [ ]
+      '32':
+        item: SPLASH_POTION
+        potionmeta: "HEAL:1:1"
+        amount: 1
+        enchantments: [ ]
+      '33':
+        item: SPLASH_POTION
+        potionmeta: "HEAL:1:1"
+        amount: 1
+        enchantments: [ ]
+      '34':
+        item: SPLASH_POTION
+        potionmeta: "SPEED:90:1"
+        amount: 1
+        enchantments: [ ]
+      '35':
+        item: SPLASH_POTION
+        potionmeta: "SPEED:90:1"
+        amount: 1
+        enchantments: [ ]
+      '36':
+        item: SPLASH_POTION
+        potionmeta: "SPEED:90:1"
+        amount: 1
+        enchantments: [ ]
     gear:
       HELMET:
         item: DIAMOND_HELMET
         enchantments:
-          - "PROTECTION:1"
+          - "PROTECTION:3"
+          - "UNBREAKING:2"
       CHESTPLATE:
         item: DIAMOND_CHESTPLATE
         enchantments:
-          - "PROTECTION:2"
+          - "PROTECTION:3"
+          - "UNBREAKING:2"
       LEGGINGS:
         item: DIAMOND_LEGGINGS
         enchantments:
-          - "PROTECTION:2"
+          - "PROTECTION:3"
+          - "UNBREAKING:2"
       BOOTS:
         item: DIAMOND_BOOTS
         enchantments:
-          - "PROTECTION:1"
+          - "PROTECTION:3"
+          - "UNBREAKING:2"
+          - "DEPTH_STRIDER:2"

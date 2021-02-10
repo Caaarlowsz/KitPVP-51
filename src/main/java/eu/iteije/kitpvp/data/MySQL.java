@@ -3,6 +3,7 @@ package eu.iteije.kitpvp.data;
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.files.ConfigFile;
 import eu.iteije.kitpvp.pluginutils.Message;
+import org.bukkit.Bukkit;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

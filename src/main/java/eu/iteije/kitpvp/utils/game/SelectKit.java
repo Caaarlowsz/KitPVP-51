@@ -14,6 +14,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.material.MaterialData;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
@@ -106,8 +107,20 @@ public class SelectKit {
 
             // Loop through each item in the 'items' section of a kit
             for (String item : kitFile.get().getConfigurationSection("kits." + kitName + ".items").getKeys(false)) {
-                ItemStack kitItem = new ItemStack(Material.getMaterial(kitFile.get().getString("kits." + kitName + ".items." + item + ".item")),
-                        kitFile.get().getInt("kits." + kitName + ".items." + item + ".amount"));
+                ItemStack kitItem;
+
+                try {
+                    int itemDataInt = kitFile.get().getInt("kits." + kitName + ".items." + item + ".itemdata");
+
+                    kitItem = new ItemStack(Material.getMaterial(kitFile.get().getString("kits." + kitName + ".items." + item + ".item")),
+                            kitFile.get().getInt("kits." + kitName + ".items." + item + ".amount"), (short) 0, (byte) itemDataInt);
+                } catch (NullPointerException exception) {
+                    exception.printStackTrace();
+
+                    kitItem = new ItemStack(Material.getMaterial(kitFile.get().getString("kits." + kitName + ".items." + item + ".item")),
+                            kitFile.get().getInt("kits." + kitName + ".items." + item + ".amount"));
+                }
+
                 ItemMeta meta = kitItem.getItemMeta();
                 List<String> enchantments = kitFile.get().getStringList("kits." + kitName + ".items." + item + ".enchantments");
 
@@ -150,27 +163,20 @@ public class SelectKit {
             // AFTER SEEING THIS CODE, I'M SURE YOU THINK I JUST STARTED LEARNING JAVA OR SOMETHING
             try {
                 player.getInventory().setHelmet(getGearPiece(kitName, "HELMET", kitFile, true));
-            } catch (Exception exception) {
-
-            }
+            } catch (Exception exception) {}
 
             try {
                 player.getInventory().setChestplate(getGearPiece(kitName, "CHESTPLATE", kitFile, true));
-            } catch (Exception exception) {
-
-            }
+            } catch (Exception exception) {}
 
             try {
                 player.getInventory().setLeggings(getGearPiece(kitName, "LEGGINGS", kitFile, true));
-            } catch (Exception exception) {
-
-            }
+            } catch (Exception exception) {}
 
             try {
                 player.getInventory().setBoots(getGearPiece(kitName, "BOOTS", kitFile, true));
-            } catch (Exception exception) {
+            } catch (Exception exception) {}
 
-            }
             player.setAllowFlight(false);
             player.setFlying(false);
 
@@ -192,12 +198,8 @@ public class SelectKit {
             // If boolean unbreakable is true, assign unbreakable to the itemstack
             ItemMeta itemMeta = itemStack.getItemMeta();
             if (unbreakable) {
-<<<<<<< HEAD
-                ItemMeta itemMeta = itemStack.getItemMeta();
                 itemStack.setItemMeta(itemMeta);
-=======
                 itemMeta.setUnbreakable(true);
->>>>>>> modern
             }
 
             List<String> enchantments = kitFile.get().getStringList("kits." + kit + ".gear." + piece.toUpperCase() + ".enchantments");

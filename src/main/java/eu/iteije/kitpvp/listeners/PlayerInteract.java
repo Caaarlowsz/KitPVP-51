@@ -148,7 +148,7 @@ public class PlayerInteract implements Listener {
         // Left click block only
         if (action == Action.LEFT_CLICK_BLOCK) {
             if (CreateMap.savedInventories.containsKey(player.getUniqueId())) {
-                if (event.getClickedBlock().getType() != Material.GOLD_PLATE) {
+                if (event.getClickedBlock().getType() != Material.LIGHT_WEIGHTED_PRESSURE_PLATE) {
                     // Redirect to BlockBreak if block is not solid
                     if (!event.getClickedBlock().getType().isSolid()) {
                         event.setCancelled(false);

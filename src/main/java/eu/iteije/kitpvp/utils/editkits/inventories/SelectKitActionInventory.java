@@ -42,8 +42,8 @@ public class SelectKitActionInventory {
         inventory.setItem(45, returnItem); // assign itemstack to inventory
 
         // Edit/delete kit itemstacks
-        ItemStack editKitItem = InventoryItem.createItem(new ItemStack(Material.WOOL, 1, DyeColor.GREEN.getData()).getType(), 1, "&aBewerk kit");
-        ItemStack deleteKitItem = InventoryItem.createItem(new ItemStack(Material.WOOL, 1, DyeColor.RED.getData()).getType(), 1, "&cVerwijder kit");
+        ItemStack editKitItem = InventoryItem.createItem(new ItemStack(Material.GREEN_WOOL, 1).getType(), 1, "&aBewerk kit");
+        ItemStack deleteKitItem = InventoryItem.createItem(new ItemStack(Material.RED_WOOL, 1).getType(), 1, "&cVerwijder kit");
 
         // Set all 'Edit kit' slots
         for (int slot : editKitSlots) {

@@ -66,11 +66,11 @@ public class CreateMap {
         // Create new itemstacks (setup tools, including exit/finish block);
 
         // Exit block
-        exitTool = new Tool(new ItemStack(Material.WOOL, 1, DyeColor.RED.getData()).getType(), 0, configFile.get().getString("mapsetup.tools.exit.name")); // red wool
+        exitTool = new Tool(new ItemStack(Material.RED_WOOL, 1).getType(), 0, configFile.get().getString("mapsetup.tools.exit.name")); // red wool
         // Spawnpoint block
-        spawnpointTool = new Tool(Material.GOLD_PLATE, 4, configFile.get().getString("mapsetup.tools.spawnpoint.name")); // gold pressure plate
+        spawnpointTool = new Tool(Material.LIGHT_WEIGHTED_PRESSURE_PLATE, 4, configFile.get().getString("mapsetup.tools.spawnpoint.name")); // gold pressure plate
         // Finish block
-        finishTool = new Tool(new ItemStack(Material.WOOL, 1, DyeColor.RED.getData()).getType(), 8, configFile.get().getString("mapsetup.tools.finish.name")); // lime wool
+        finishTool = new Tool(new ItemStack(Material.RED_WOOL, 1).getType(), 8, configFile.get().getString("mapsetup.tools.finish.name")); // lime wool
 
         // Save player inventory
         savedInventories.put(player.getUniqueId(), player.getInventory().getContents());

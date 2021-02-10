@@ -35,7 +35,7 @@ public class SpawnPlate {
                 // Make up a new location out of block data, increment Y by 1 block, where the plate will be placed on
                 Location plateLocation = new Location(block.getWorld(), block.getX(), block.getY() + 1, block.getZ());
                 // Spawn block at location
-                plateLocation.getBlock().setType(Material.GOLD_PLATE);
+                plateLocation.getBlock().setType(Material.LIGHT_WEIGHTED_PRESSURE_PLATE);
                 // Add new plate to locations Map
                 List<Location> locationList = locations.get(player.getUniqueId());
 

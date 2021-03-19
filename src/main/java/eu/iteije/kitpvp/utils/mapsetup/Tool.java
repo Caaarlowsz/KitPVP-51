@@ -9,9 +9,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class Tool {
 
     // Data needed for itemstack/itemmeta
-    private Material material;
-    private int inventorySlot;
-    private String displayName;
+    private final Material material;
+    private final int inventorySlot;
+    private final String displayName;
 
     /**
      * @param material material of the tool
@@ -47,7 +47,7 @@ public class Tool {
         } catch (NullPointerException exception) {
             exception.printStackTrace();
         }
-        // Put the itemmeta on the itemstack
+        // Apply the updated itemmeta to the itemstack
         itemStack.setItemMeta(itemMeta);
 
         return itemStack;

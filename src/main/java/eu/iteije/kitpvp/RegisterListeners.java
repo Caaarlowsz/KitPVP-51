@@ -5,16 +5,12 @@ import org.bukkit.plugin.PluginManager;
 
 public class RegisterListeners {
 
-    // Instance variable of main class
-    private KitPvP instance;
-
     public RegisterListeners(KitPvP instance) {
-        this.instance = instance;
-        registerListeners();
+        registerListeners(instance);
     }
 
     // Register all listeners
-    private void registerListeners() {
+    private void registerListeners(KitPvP instance) {
         PluginManager pluginManager = instance.getServer().getPluginManager();
 
         // PlayerInteractEvent

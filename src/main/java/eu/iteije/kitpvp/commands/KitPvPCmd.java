@@ -82,14 +82,6 @@ public class KitPvPCmd implements CommandExecutor {
                     LeaveSubCmd leaveSubCmd = new LeaveSubCmd(instance);
                     leaveSubCmd.send(sender);
                     break;
-                case "setleavedelay":
-                    SetLeaveDelaySubCmd setLeaveDelaySubCmd = new SetLeaveDelaySubCmd(instance);
-                    setLeaveDelaySubCmd.send(sender, args);
-                    break;
-                case "modifyhunger":
-                    ModifyHungerSubCmd modifyHungerSubCmd = new ModifyHungerSubCmd(instance);
-                    modifyHungerSubCmd.send(sender, args);
-                    break;
                 case "editkits":
                     EditKitsSubCmd editKitsSubCmd = new EditKitsSubCmd(instance);
                     editKitsSubCmd.send(sender);

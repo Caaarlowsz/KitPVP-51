@@ -22,24 +22,10 @@ public class Scoreboard {
         // Get player data
         Integer kills = UserCache.getKills(player.getUniqueId());
         Integer deaths = UserCache.getDeaths(player.getUniqueId());
+        deaths = deaths == 0 ? 1 : deaths;
 
         // Calculate K/D ratio (WARNING: this can output unlimited digits)
-        String killDeathRatio;
-
-        try {
-            // In case a integer is 0 (it is not possible to divide by 0, remember?)
-            if (kills == 0 && deaths == 0) {
-                killDeathRatio = String.valueOf(0.00);
-            } else if (kills != 0 && deaths == 0) {
-                killDeathRatio = String.valueOf(kills);
-            } else if (kills == 0 && deaths != 0) {
-                killDeathRatio = String.valueOf(0);
-            } else {
-                killDeathRatio = String.format(Locale.US, "%.2f", (double) kills / deaths);
-            }
-        } catch (NullPointerException exception) {
-            killDeathRatio = "Log opnieuw in";
-        }
+        String killDeathRatio = String.format(Locale.US, "%.2f", (double) kills / deaths);
 
 
         // Create new Objective, display name is defined later
@@ -47,24 +33,20 @@ public class Scoreboard {
         // Make it a sidebar scoreboard
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
         // Set display name
-        objective.setDisplayName(TransferMessage.replaceColorCodes("       &c&lKitPvP      "));
+        objective.setDisplayName(TransferMessage.replaceColorCodes("       &5&lVioletPvP      "));
 
         List<Score> scores = new ArrayList<>();
 
         // Scores
         // Kills score
-        scores.add(objective.getScore(TransferMessage.replaceColorCodes("&7Kills:"))); // Title > Kills
-        scores.add(objective.getScore(TransferMessage.replaceColorCodes("&f" + kills + "&1"))); // Content > Kills
-        // Blank line score
-        scores.add(objective.getScore("§1")); // Blank line
+        scores.add(objective.getScore(TransferMessage.replaceColorCodes("&fKills: &d" + kills)));
         // Deaths score
-        scores.add(objective.getScore(TransferMessage.replaceColorCodes("&7Deaths:"))); // Title > Deaths
-        scores.add(objective.getScore(TransferMessage.replaceColorCodes("&f" + deaths + "&2"))); // Content > Deaths
-        // Blank line score
-        scores.add(objective.getScore("§2")); // Blank line
+        scores.add(objective.getScore(TransferMessage.replaceColorCodes("&fDeaths: &d" + deaths)));
         // Kill/death ratio score
-        scores.add(objective.getScore(TransferMessage.replaceColorCodes("&7K/D:"))); // Title > KD ratio
-        scores.add(objective.getScore(TransferMessage.replaceColorCodes("&f" + killDeathRatio + "&3"))); // Content > KD ratio
+        scores.add(objective.getScore(TransferMessage.replaceColorCodes("&fK/D ratio: &d" + killDeathRatio)));
+
+        scores.add(objective.getScore("§1"));
+        scores.add(objective.getScore("&dplay.violetpvp.net"));
 
 
         // Set all scores

@@ -34,11 +34,11 @@ public class UserCache {
 
     // Get cache
     public static Integer getKills(UUID uuid) {
-        return kills.get(uuid);
+        return kills.getOrDefault(uuid, 0);
     }
 
     public static Integer getDeaths(UUID uuid) {
-        return deaths.get(uuid);
+        return deaths.getOrDefault(uuid, 1);
     }
 
 

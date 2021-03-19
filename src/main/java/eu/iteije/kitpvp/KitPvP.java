@@ -77,7 +77,7 @@ public final class KitPvP extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        this.sqlModule.closeConnection();
+        this.sqlModule.closeConnection(true);
         // Loop through all online players
         for (Player player : Bukkit.getOnlinePlayers()) {
             try {

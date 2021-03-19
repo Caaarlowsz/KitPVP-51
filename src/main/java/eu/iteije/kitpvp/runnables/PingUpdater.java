@@ -29,8 +29,10 @@ public class PingUpdater {
                         | SecurityException | NoSuchFieldException exception) {
                     exception.printStackTrace();
                 }
+
+                Scoreboard.load(player);
             }
-        }, 5 * 20L, 20L);
+        }, 4 * 20L, 20L);
     }
 
 }

@@ -3,7 +3,6 @@ package eu.iteije.kitpvp.data;
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.files.ConfigFile;
 import eu.iteije.kitpvp.pluginutils.Message;
-import org.bukkit.Bukkit;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -54,20 +53,26 @@ public class MySQL {
     }
 
     // Close connection method
-    public synchronized void closeConnection() {
-        instance.getServer().getScheduler().runTaskAsynchronously(instance, () -> {
-            try {
-                // Check whether the connection is already closed or not
-                if ((!connection.isClosed()) || (connection != null)) {
-                    // Close connection
-                    connection.close();
-                    Bukkit.broadcastMessage("Closed connection!!!");
-                }
-            } catch (SQLException exception) {
-                // Print stack trace
-                exception.printStackTrace();
+    public synchronized void closeConnection(boolean sync) {
+        if (!sync) {
+            instance.getServer().getScheduler().runTaskAsynchronously(instance, (Runnable) this::closeConnection);
+            return;
+        }
+        closeConnection();
+    }
+
+    private synchronized void closeConnection() {
+        try {
+            // Check whether the connection is already closed or not
+            if ((!connection.isClosed()) || (connection != null)) {
+                // Close connection
+                connection.close();
+                Message.sendToConsole("&cDatabase connection has been closed", true);
             }
-        });
+        } catch (SQLException exception) {
+            // Print stack trace
+            exception.printStackTrace();
+        }
     }
 
     public synchronized boolean checkTable() {

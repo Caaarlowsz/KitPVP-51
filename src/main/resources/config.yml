@@ -11,11 +11,11 @@ sign_prefix: '&4&l[KitPvP]'
 mapsetup:
   tools:
     exit:
-      name: "&cStoppen"
+      name: "&cCancel"
     spawnpoint:
       name: "&eSpawnpoint"
     finish:
-      name: "&aKlaar"
+      name: "&aFinish"
 
 spawn_join: true
 

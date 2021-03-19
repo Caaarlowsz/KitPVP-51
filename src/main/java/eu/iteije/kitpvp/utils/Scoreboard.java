@@ -1,5 +1,6 @@
 package eu.iteije.kitpvp.utils;
 
+import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.data.UserCache;
 import eu.iteije.kitpvp.pluginutils.TransferMessage;
 import org.bukkit.Bukkit;
@@ -19,50 +20,55 @@ public class Scoreboard {
     public static HashMap<UUID, Integer> ping = new HashMap<>();
 
     public static void load(Player player) {
-        ScoreboardManager scoreboardManager = Bukkit.getScoreboardManager();
-        org.bukkit.scoreboard.Scoreboard scoreboard = scoreboardManager.getNewScoreboard();
+        KitPvP.getInstance().getServer().getScheduler().runTask(KitPvP.getInstance(), () -> {
+            ScoreboardManager scoreboardManager = Bukkit.getScoreboardManager();
+            org.bukkit.scoreboard.Scoreboard scoreboard = scoreboardManager.getNewScoreboard();
 
-        // Get player data
-        Integer kills = UserCache.getKills(player.getUniqueId());
-        Integer deaths = UserCache.getDeaths(player.getUniqueId());
-        deaths = deaths == 0 ? 1 : deaths;
+            // Get player data
+            Integer kills = UserCache.getKills(player.getUniqueId());
+            Integer deaths = UserCache.getDeaths(player.getUniqueId());
+            int kdDeaths = deaths == 0 ? 1 : deaths;
 
-        // Calculate K/D ratio (WARNING: this can output unlimited digits)
-        String killDeathRatio = String.format(Locale.US, "%.2f", (double) kills / deaths);
+            // Calculate K/D ratio (WARNING: this can output unlimited digits)
+            String killDeathRatio = String.format(Locale.US, "%.2f", (double) kills / kdDeaths);
 
 
-        // Create new Objective, display name is defined later
-        Objective objective = scoreboard.registerNewObjective("KitPvP", "");
-        // Make it a sidebar scoreboard
-        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-        // Set display name
-        objective.setDisplayName(TransferMessage.replaceColorCodes("       &5&lVioletPvP      "));
+            // Create new Objective, display name is defined later
+            Objective objective = scoreboard.registerNewObjective("KitPvP", "");
+            // Make it a sidebar scoreboard
+            objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+            // Set display name
+            objective.setDisplayName(TransferMessage.replaceColorCodes("       &5&lVioletPvP      "));
 
+            int playerPing = ping.getOrDefault(player.getUniqueId(), -1);
+            List<Score> scores = generateScores(objective,
+                    "&0",
+                    "&fKills: &d" + kills,
+                    "&fDeaths: &d" + deaths,
+                    "&fK/D ratio: &d" + killDeathRatio,
+                    "&1",
+                    "&fPing: &d" + (playerPing != -1 ? playerPing : "updating..."),
+                    "&2",
+                    "&dplay.violetpvp.net"
+            );
+
+            // Set all scores
+            for (int i = 0; i <= ((scores.size()) - 1); i++) {
+                scores.get(i).setScore((scores.size()) - i - 1);
+            }
+
+            // Set scoreboard
+            player.setScoreboard(scoreboard);
+        });
+
+    }
+
+    private static List<Score> generateScores(Objective objective, String... input) {
         List<Score> scores = new ArrayList<>();
-
-        // Scores
-        // Kills score
-        scores.add(objective.getScore(TransferMessage.replaceColorCodes("&fKills: &d" + kills)));
-        // Deaths score
-        scores.add(objective.getScore(TransferMessage.replaceColorCodes("&fDeaths: &d" + deaths)));
-        // Kill/death ratio score
-        scores.add(objective.getScore(TransferMessage.replaceColorCodes("&fK/D ratio: &d" + killDeathRatio)));
-
-        scores.add(objective.getScore("§1"));
-        int playerPing = ping.getOrDefault(player.getUniqueId(), -1);
-        scores.add(objective.getScore("&fPing: &d" + (playerPing != -1 ? playerPing : "updating...")));
-
-        scores.add(objective.getScore("§2"));
-        scores.add(objective.getScore("&dplay.violetpvp.net"));
-
-
-        // Set all scores
-        for (int i = 0; i <= ((scores.size()) - 1); i++) {
-            scores.get(i).setScore((scores.size()) - i - 1);
+        for (String line : input) {
+            scores.add(objective.getScore(TransferMessage.replaceColorCodes(line)));
         }
-
-        // Set scoreboard
-        player.setScoreboard(scoreboard);
+        return scores;
     }
 
 }

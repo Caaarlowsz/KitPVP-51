@@ -10,11 +10,11 @@ import java.util.List;
 public class Help {
 
     // Commands and explanations will be saved here
-    private List<String> commands;
-    private List<String> explanation;
+    private final List<String> commands;
+    private final List<String> explanation;
 
     /**
-     * @param commands commands given from a (sub)command class
+     * @param commands    commands given from a (sub)command class
      * @param explanation explanation of commands from a (sub)command class
      */
     public Help(List<String> commands, List<String> explanation) {

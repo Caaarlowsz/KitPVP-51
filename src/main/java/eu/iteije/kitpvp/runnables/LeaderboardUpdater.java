@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class LeaderboardUpdater {
 
-    private KitPvP instance;
+    private final KitPvP instance;
 
     public LeaderboardUpdater(KitPvP instance) {
         this.instance = instance;

@@ -25,7 +25,7 @@ public class SpawnPlate {
 
     /**
      * @param player player who placed the block
-     * @param block block the plate location is made up of
+     * @param block  block the plate location is made up of
      * @return whether a new plate is set or not
      */
     public boolean addNewLocation(Player player, Block block) {

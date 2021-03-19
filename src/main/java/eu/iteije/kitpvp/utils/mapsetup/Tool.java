@@ -14,9 +14,9 @@ public class Tool {
     private final String displayName;
 
     /**
-     * @param material material of the tool
+     * @param material      material of the tool
      * @param inventorySlot slot the tool has to be in if calling setToInventory()
-     * @param displayName display name of the tool
+     * @param displayName   display name of the tool
      */
     public Tool(Material material, int inventorySlot, String displayName) {
         this.material = material;

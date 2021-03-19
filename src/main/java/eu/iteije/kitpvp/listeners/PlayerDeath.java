@@ -21,7 +21,7 @@ public class PlayerDeath implements Listener {
         // Player who died
         Player player = event.getEntity();
 
-        // If player is killed while ingame, clear drops
+        // If player is killed while in game, clear drops
         if (Game.playersInGame.containsKey(player.getUniqueId())) {
             // Clear item drops
             event.getDrops().clear();

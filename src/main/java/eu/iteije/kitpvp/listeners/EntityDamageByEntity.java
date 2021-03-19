@@ -31,7 +31,7 @@ public class EntityDamageByEntity implements Listener {
                 if (damager.getGameMode() != GameMode.SURVIVAL) {
                     event.setCancelled(true);
                 }
-                
+
 //                Check if players are in the same map
 //                if (Game.playersInGame.get(taker.getUniqueId()).equals(Game.playersInGame.get(damager.getUniqueId()))) {
 //                    // If damager is not in survival mode (if everything works fine, this wouldn't be possible) the event has to be cancelled

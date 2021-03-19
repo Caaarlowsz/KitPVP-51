@@ -9,11 +9,14 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.ScoreboardManager;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public class Scoreboard {
+
+    // I feel like I have to explain myself. I have yet to find a single line
+    // of worthy code in this plugin. I am not gonna rewrite everything just
+    // for it to be good at this point.
+    public static HashMap<UUID, Integer> ping = new HashMap<>();
 
     public static void load(Player player) {
         ScoreboardManager scoreboardManager = Bukkit.getScoreboardManager();
@@ -46,6 +49,10 @@ public class Scoreboard {
         scores.add(objective.getScore(TransferMessage.replaceColorCodes("&fK/D ratio: &d" + killDeathRatio)));
 
         scores.add(objective.getScore("§1"));
+        int playerPing = ping.getOrDefault(player.getUniqueId(), -1);
+        scores.add(objective.getScore("&fPing: &d" + (playerPing != -1 ? playerPing : "updating...")));
+
+        scores.add(objective.getScore("§2"));
         scores.add(objective.getScore("&dplay.violetpvp.net"));
 
 

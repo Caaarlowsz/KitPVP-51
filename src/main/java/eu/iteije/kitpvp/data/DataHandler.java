@@ -115,72 +115,70 @@ public class DataHandler {
     }
 
 
-
-
     // Add a death for a specific player
     public void addDeath(UUID uuid) {
         instance.getServer().getScheduler().runTaskAsynchronously(instance, () -> {
-                try {
-                    // Try receiving current deaths from database
-                    PreparedStatement currentDeathsStatement = MySQL.connection.prepareStatement("SELECT deaths FROM players WHERE uuid=?");
-                    currentDeathsStatement.setString(1, uuid.toString());
+            try {
+                // Try receiving current deaths from database
+                PreparedStatement currentDeathsStatement = MySQL.connection.prepareStatement("SELECT deaths FROM players WHERE uuid=?");
+                currentDeathsStatement.setString(1, uuid.toString());
 
-                    // Execute PreparedStatement and save results
-                    ResultSet resultSet = currentDeathsStatement.executeQuery();
+                // Execute PreparedStatement and save results
+                ResultSet resultSet = currentDeathsStatement.executeQuery();
 
-                    // If resultSet has content, update deaths
-                    if (resultSet.next()) {
-                        // Define current (old) amount of deaths
-                        int currentDeaths = resultSet.getInt(1);
-                        // Add kill to database
-                        PreparedStatement insertDeath = MySQL.connection.prepareStatement("UPDATE players SET deaths=? WHERE uuid=?");
-                        insertDeath.setInt(1, currentDeaths + 1);
-                        insertDeath.setString(2, uuid.toString());
+                // If resultSet has content, update deaths
+                if (resultSet.next()) {
+                    // Define current (old) amount of deaths
+                    int currentDeaths = resultSet.getInt(1);
+                    // Add kill to database
+                    PreparedStatement insertDeath = MySQL.connection.prepareStatement("UPDATE players SET deaths=? WHERE uuid=?");
+                    insertDeath.setInt(1, currentDeaths + 1);
+                    insertDeath.setString(2, uuid.toString());
 
-                        // Execute query
-                        insertDeath.executeUpdate();
-                    }
-
-                } catch (SQLException exception) {
-                    // Send failed message
-                    Message.sendToConsole(Message.get("mysql_no_connection"), true);
-                    // Print stack trace to track errors
-                    exception.printStackTrace();
+                    // Execute query
+                    insertDeath.executeUpdate();
                 }
+
+            } catch (SQLException exception) {
+                // Send failed message
+                Message.sendToConsole(Message.get("mysql_no_connection"), true);
+                // Print stack trace to track errors
+                exception.printStackTrace();
+            }
         });
     }
 
     // Add a kill for a specific player
     public void addKill(UUID uuid) {
         instance.getServer().getScheduler().runTaskAsynchronously(instance, () -> {
-                try {
-                    // Try receiving current kills from database
-                    PreparedStatement currentKillsStatement = MySQL.connection.prepareStatement("SELECT kills FROM players WHERE uuid=?");
-                    currentKillsStatement.setString(1, uuid.toString());
+            try {
+                // Try receiving current kills from database
+                PreparedStatement currentKillsStatement = MySQL.connection.prepareStatement("SELECT kills FROM players WHERE uuid=?");
+                currentKillsStatement.setString(1, uuid.toString());
 
-                    // Execute PreparedStatement and save results
-                    ResultSet resultSet = currentKillsStatement.executeQuery();
+                // Execute PreparedStatement and save results
+                ResultSet resultSet = currentKillsStatement.executeQuery();
 
-                    // If resultSet has content, update kills
-                    if (resultSet.next()) {
-                        // Define current (old) amount of kills
-                        int currentKills = resultSet.getInt(1);
-                        // Add kill to database
-                        PreparedStatement insertKill = MySQL.connection.prepareStatement("UPDATE players SET kills=? WHERE uuid=?");
-                        insertKill.setInt(1, currentKills + 1);
-                        insertKill.setString(2, uuid.toString());
+                // If resultSet has content, update kills
+                if (resultSet.next()) {
+                    // Define current (old) amount of kills
+                    int currentKills = resultSet.getInt(1);
+                    // Add kill to database
+                    PreparedStatement insertKill = MySQL.connection.prepareStatement("UPDATE players SET kills=? WHERE uuid=?");
+                    insertKill.setInt(1, currentKills + 1);
+                    insertKill.setString(2, uuid.toString());
 
-                        // Execute query
-                        insertKill.executeUpdate();
-                    }
-
-
-                } catch (SQLException exception) {
-                    // Send failed message
-                    Message.sendToConsole(Message.get("mysql_no_connection"), true);
-                    // Print stack trace to track errors
-                    exception.printStackTrace();
+                    // Execute query
+                    insertKill.executeUpdate();
                 }
+
+
+            } catch (SQLException exception) {
+                // Send failed message
+                Message.sendToConsole(Message.get("mysql_no_connection"), true);
+                // Print stack trace to track errors
+                exception.printStackTrace();
+            }
         });
     }
 

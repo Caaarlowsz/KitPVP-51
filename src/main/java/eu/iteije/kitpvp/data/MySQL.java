@@ -31,9 +31,9 @@ public class MySQL {
             // Try establishing a connection
             try {
                 connection = DriverManager.getConnection("jdbc:mysql://" +
-                        configFile.get().getString("database.host") + ":" +
-                        configFile.get().get("database.port") + "/" +
-                        configFile.get().getString("database.database") + "?autoReconnect=false",
+                                configFile.get().getString("database.host") + ":" +
+                                configFile.get().get("database.port") + "/" +
+                                configFile.get().getString("database.database") + "?autoReconnect=false",
                         configFile.get().getString("database.username"),
                         configFile.get().getString("database.password"));
 
@@ -88,9 +88,9 @@ public class MySQL {
         // Try making up updated location
         try {
             connection = DriverManager.getConnection("jdbc:mysql://" +
-                    configFile.get().getString("database.host") + ":" +
-                    configFile.get().get("database.port") + "/" +
-                    configFile.get().getString("database.database") + "?autoReconnect=false",
+                            configFile.get().getString("database.host") + ":" +
+                            configFile.get().get("database.port") + "/" +
+                            configFile.get().getString("database.database") + "?autoReconnect=false",
                     configFile.get().getString("database.username"),
                     configFile.get().getString("database.password"));
         } catch (Exception exception) { // again, way too many types of exception which could occur here
@@ -105,7 +105,6 @@ public class MySQL {
     public static MySQL getDatabase() {
         return database;
     }
-
 
 
 }

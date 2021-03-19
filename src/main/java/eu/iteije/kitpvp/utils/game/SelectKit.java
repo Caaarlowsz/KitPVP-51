@@ -16,10 +16,8 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.potion.PotionType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,7 +42,7 @@ public class SelectKit {
 
     /**
      * @param player player who clicked on a KitPvP sign
-     * @param map the map showed on the clicked sign
+     * @param map    the map showed on the clicked sign
      */
     public SelectKit(Player player, String map) {
         this.player = player;
@@ -171,24 +169,27 @@ public class SelectKit {
             player.getInventory().setContents(kitItems);
 
 
-
             // Set gear
             // AFTER SEEING THIS CODE, I'M SURE YOU THINK I JUST STARTED LEARNING JAVA OR SOMETHING
             try {
                 player.getInventory().setHelmet(getGearPiece(kitName, "HELMET", kitFile, true));
-            } catch (Exception exception) {}
+            } catch (Exception exception) {
+            }
 
             try {
                 player.getInventory().setChestplate(getGearPiece(kitName, "CHESTPLATE", kitFile, true));
-            } catch (Exception exception) {}
+            } catch (Exception exception) {
+            }
 
             try {
                 player.getInventory().setLeggings(getGearPiece(kitName, "LEGGINGS", kitFile, true));
-            } catch (Exception exception) {}
+            } catch (Exception exception) {
+            }
 
             try {
                 player.getInventory().setBoots(getGearPiece(kitName, "BOOTS", kitFile, true));
-            } catch (Exception exception) {}
+            } catch (Exception exception) {
+            }
 
             player.setAllowFlight(false);
             player.setFlying(false);

@@ -2,17 +2,13 @@ package eu.iteije.kitpvp.pluginutils;
 
 import org.bukkit.Color;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.potion.PotionType;
 
 public enum PotionTypes {
 
     HEAL(PotionEffectType.HEAL, Color.fromRGB(255, 38, 67)),
     REGENERATION(PotionEffectType.REGENERATION, Color.fromRGB(242, 56, 146)),
     INCREASE_DAMAGE(PotionEffectType.INCREASE_DAMAGE, Color.fromRGB(156, 20, 38)),
-    SPEED(PotionEffectType.SPEED, Color.fromRGB(104, 142, 237))
-
-
-    ;
+    SPEED(PotionEffectType.SPEED, Color.fromRGB(104, 142, 237));
 
     private final PotionEffectType type;
     private final Color color;

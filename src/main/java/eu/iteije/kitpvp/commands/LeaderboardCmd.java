@@ -17,10 +17,6 @@ import java.util.Map;
 
 public class LeaderboardCmd implements CommandExecutor {
 
-    // Instance of main class
-    private KitPvP instance;
-
-
     // Commands and explanation shown in the help list
     private List<String> commands = Arrays.asList(
             "/leaderboard"
@@ -37,7 +33,7 @@ public class LeaderboardCmd implements CommandExecutor {
      * @param instance instance of KitPvP (main) class
      */
     public LeaderboardCmd(KitPvP instance) {
-        this.instance = instance;
+        // Instance of main class
         this.dataHandler = new DataHandler();
     }
 

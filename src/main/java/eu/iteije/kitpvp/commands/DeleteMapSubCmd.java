@@ -36,7 +36,7 @@ public class DeleteMapSubCmd {
 
     /**
      * @param sender command executor
-     * @param args given arguments from the original command
+     * @param args   given arguments from the original command
      */
     public void send(CommandSender sender, String[] args) {
         // Define MapFile instance

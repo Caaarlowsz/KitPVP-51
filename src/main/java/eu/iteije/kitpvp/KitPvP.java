@@ -9,8 +9,8 @@ import eu.iteije.kitpvp.files.MapFile;
 import eu.iteije.kitpvp.files.MessageFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import eu.iteije.kitpvp.runnables.LeaderboardUpdater;
+import eu.iteije.kitpvp.runnables.PingUpdater;
 import eu.iteije.kitpvp.utils.Scoreboard;
-import eu.iteije.kitpvp.utils.editkits.EditKits;
 import eu.iteije.kitpvp.utils.game.Game;
 import eu.iteije.kitpvp.utils.game.SelectKit;
 import eu.iteije.kitpvp.utils.mapsetup.CreateMap;
@@ -27,9 +27,12 @@ public final class KitPvP extends JavaPlugin {
     // Create private instance variable
     private static KitPvP instance;
 
+    private MySQL sqlModule;
+
     public List<Integer> tasks = new ArrayList<>();
 
-    @Override @Deprecated
+    @Override
+    @Deprecated
     public void onEnable() {
         // Define instance
         instance = this;
@@ -41,7 +44,8 @@ public final class KitPvP extends JavaPlugin {
         new KitFile(this, true);
 
         // Open database connection
-        MySQL.getDatabase().openConnection();
+        this.sqlModule = MySQL.getDatabase(); // never do this folks
+        this.sqlModule.openConnection();
 
         // Register event listeners
         new RegisterListeners(this);
@@ -50,6 +54,7 @@ public final class KitPvP extends JavaPlugin {
         new RegisterCommands(this);
 
         tasks.add(new LeaderboardUpdater(this).start());
+        tasks.add(new PingUpdater(this).start());
 
         // Reload player data and scoreboard (rip tps)
         getServer().getScheduler().scheduleSyncDelayedTask(this, () -> {
@@ -66,14 +71,13 @@ public final class KitPvP extends JavaPlugin {
         }, 60L); // delay / 20 = seconds
 
 
-
         // Send enabled message to console
         Message.sendToConsole("&fPlugin enabled!", true);
     }
 
     @Override
     public void onDisable() {
-        new MySQL().closeConnection();
+        this.sqlModule.closeConnection();
         // Loop through all online players
         for (Player player : Bukkit.getOnlinePlayers()) {
             try {
@@ -81,15 +85,13 @@ public final class KitPvP extends JavaPlugin {
                 // If player is in setup, force stop and return inventory
                 if (CreateMap.savedInventories.containsKey(uuid)) CreateMap.stopSetup(player, true);
 
-                // If player has the select kit/edit kit menu open -> close it
-                if (SelectKit.hasInventoryOpen.containsKey(uuid) || EditKits.currentInventory.containsKey(uuid)) player.closeInventory();
+                // If player has the select kit kit menu open -> close it
+                if (SelectKit.hasInventoryOpen.containsKey(uuid)) player.closeInventory();
 
                 // If player is in game, force stop and return inventory
                 if (Game.playersInGame.containsKey(uuid)) Game.leave(player);
 
-            } catch (NoClassDefFoundError exception) {
-                // Empty catch block, you're right, this is just to prevent console spam in case something doesn't work, it does what it is intended to do
-                // Put a printStackTrace() here if suspicious activity is detected
+            } catch (NoClassDefFoundError ignored) {
             }
         }
 

@@ -12,10 +12,10 @@ public class InventoryItem {
 
 
     /**
-     * @param material material of the itemstack
-     * @param amount amount of the material
+     * @param material    material of the itemstack
+     * @param amount      amount of the material
      * @param displayName display name of the itemstack
-     * @param lore lore of the itemstack
+     * @param lore        lore of the itemstack
      * @return itemstack with all parameters applied
      */
     public static ItemStack createItem(Material material, int amount, String displayName, List<String> lore) {
@@ -30,8 +30,8 @@ public class InventoryItem {
     }
 
     /**
-     * @param material material of the itemstack
-     * @param amount amount of the material
+     * @param material    material of the itemstack
+     * @param amount      amount of the material
      * @param displayName display name of the itemstack
      * @return itemstack with all parameters applied
      */
@@ -47,7 +47,7 @@ public class InventoryItem {
 
     /**
      * @param material material of the itemstack
-     * @param amount amount of the material
+     * @param amount   amount of the material
      * @return itemstack with all parameters applied
      */
     public static ItemStack createItem(Material material, int amount) {

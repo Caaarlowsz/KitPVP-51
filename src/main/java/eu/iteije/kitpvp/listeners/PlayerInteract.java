@@ -6,8 +6,6 @@ import eu.iteije.kitpvp.files.ConfigFile;
 import eu.iteije.kitpvp.files.MapFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import eu.iteije.kitpvp.pluginutils.TransferMessage;
-import eu.iteije.kitpvp.utils.editkits.EditKits;
-import eu.iteije.kitpvp.utils.editkits.OpenInventory;
 import eu.iteije.kitpvp.utils.game.Game;
 import eu.iteije.kitpvp.utils.game.SelectKit;
 import eu.iteije.kitpvp.utils.mapsetup.CreateMap;
@@ -49,7 +47,7 @@ public class PlayerInteract implements Listener {
         // Clicked material > AIR by default
         Material clickedBlock = Material.AIR;
         try {
-             clickedBlock = event.getClickedBlock().getType();
+            clickedBlock = event.getClickedBlock().getType();
         } catch (NullPointerException exception) {
             // Handle NullPointerException > If player is hitting the air, NullPointerException (.getType()) will be triggered
         }
@@ -60,28 +58,6 @@ public class PlayerInteract implements Listener {
             if (event.getAction() == Action.PHYSICAL) {
                 event.setCancelled(true);
             }
-        }
-
-        // If player is in isEditingIcon HashMap, proceed
-        if (EditKits.isEditingIcon.containsKey(player.getUniqueId())) {
-            // Server has to give a response for every action, except for the PHYSICAL one
-            if (action != Action.PHYSICAL) {
-                // Proceed if item in hand is not null
-                if (event.getItem() != null) {
-                    // Call editKitIcon method in EditKits
-                    EditKits editKits = new EditKits(player);
-                    editKits.editKitIcon(event.getItem());
-
-                    // Remove player from isEditingIcon HashMap
-                    EditKits.isEditingIcon.remove(player.getUniqueId());
-
-                    // Open EditKitInventory
-                    OpenInventory openInventory = new OpenInventory("editkit", player);
-                    openInventory.openInventory();
-                }
-            }
-            // Cancel event
-            event.setCancelled(true);
         }
 
         // Left/right click block check | SIGNS
@@ -104,18 +80,13 @@ public class PlayerInteract implements Listener {
                             // Check whether the player is ingame or not
                             if (!Game.playersInGame.containsKey(player.getUniqueId())) {
                                 // Check if player is editing a kit
-                                if (!EditKits.selectedKit.containsKey(player.getUniqueId())) {
-                                    SpawnSubCmd spawnSubCmd = new SpawnSubCmd(instance);
-                                    if (spawnSubCmd.getSpawnSet()) {
-                                        SelectKit selectKit = new SelectKit(player, mapName);
-                                        selectKit.openMenu();
-                                    } else {
-                                        // Send no lobbyspawn message
-                                        Message.sendToPlayer(player, Message.get("interactsign_no_spawn"), true);
-                                    }
+                                SpawnSubCmd spawnSubCmd = new SpawnSubCmd(instance);
+                                if (spawnSubCmd.getSpawnSet()) {
+                                    SelectKit selectKit = new SelectKit(player, mapName);
+                                    selectKit.openMenu();
                                 } else {
-                                    // No access
-                                    Message.sendToPlayer(player, Message.get("editkits_access_error"), true);
+                                    // Send no lobbyspawn message
+                                    Message.sendToPlayer(player, Message.get("interactsign_no_spawn"), true);
                                 }
                             } else {
                                 // Already in game error

@@ -82,10 +82,6 @@ public class KitPvPCmd implements CommandExecutor {
                     LeaveSubCmd leaveSubCmd = new LeaveSubCmd(instance);
                     leaveSubCmd.send(sender);
                     break;
-                case "editkits":
-                    EditKitsSubCmd editKitsSubCmd = new EditKitsSubCmd(instance);
-                    editKitsSubCmd.send(sender);
-                    break;
                 default:
                     help.send(sender);
                     break;

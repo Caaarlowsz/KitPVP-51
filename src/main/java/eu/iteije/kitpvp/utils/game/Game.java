@@ -32,8 +32,8 @@ public class Game {
     public MapFile mapFile;
 
     /**
-     * @param player player in game
-     * @param mapName map player is in
+     * @param player   player in game
+     * @param mapName  map player is in
      * @param instance instance of KitPvP (main class)
      */
     public Game(Player player, String mapName, KitPvP instance) {

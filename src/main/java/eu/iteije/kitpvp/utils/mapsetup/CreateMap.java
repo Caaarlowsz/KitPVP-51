@@ -4,7 +4,6 @@ import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.commands.Help;
 import eu.iteije.kitpvp.files.ConfigFile;
 import eu.iteije.kitpvp.pluginutils.Message;
-import org.bukkit.DyeColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -129,7 +128,7 @@ public class CreateMap {
 
     /**
      * @param material material to check
-     * @param player player to get held item slot from
+     * @param player   player to get held item slot from
      * @return true if material is setup block
      * Check if the material is a setup item and returns the tool
      */
@@ -139,7 +138,8 @@ public class CreateMap {
 
         if (savedInventories.containsKey(player.getUniqueId())) {
             if (material == exitTool.getMaterial() && heldItemSlot == exitTool.getInventorySlot()) return "exit";
-            if (material == spawnpointTool.getMaterial() && heldItemSlot == spawnpointTool.getInventorySlot()) return "spawnpoint";
+            if (material == spawnpointTool.getMaterial() && heldItemSlot == spawnpointTool.getInventorySlot())
+                return "spawnpoint";
             if (material == finishTool.getMaterial() && heldItemSlot == finishTool.getInventorySlot()) return "finish";
         }
 

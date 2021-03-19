@@ -3,7 +3,6 @@ package eu.iteije.kitpvp.commands;
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.files.MapFile;
 import eu.iteije.kitpvp.pluginutils.Message;
-import eu.iteije.kitpvp.utils.editkits.EditKits;
 import eu.iteije.kitpvp.utils.game.Game;
 import eu.iteije.kitpvp.utils.mapsetup.CreateMap;
 import org.bukkit.command.CommandSender;
@@ -42,7 +41,7 @@ public class CreateMapSubCmd {
 
     /**
      * @param sender command executor (which in this case, only would be a player)
-     * @param args given arguments from the original command
+     * @param args   given arguments from the original command
      */
     public void send(CommandSender sender, String[] args) {
         // Define MapFile instance
@@ -56,41 +55,35 @@ public class CreateMapSubCmd {
             if (player.hasPermission("kitpvp.admin.createmap")) {
                 // Make sure the player is not in game
                 if (!Game.playersInGame.containsKey(player.getUniqueId())) {
-                    // Check if player is editing a kit
-                    if (!EditKits.selectedKit.containsKey(player.getUniqueId())) {
-                        // Check list length of args
-                        if (args.length == 2) {
-                            // Make sure map name is less or equal to 15
-                            if (args[1].length() <= 15) {
-                                if (!CreateMap.savedInventories.containsKey(player.getUniqueId())) {
-                                    if (!mapFile.get().contains("maps." + args[1].toUpperCase())) {
-                                        // Creating new map message
-                                        String message = Message.get("createmap_command_success");
-                                        message = Message.replace(message, "{mapname}", args[1].toUpperCase());
-                                        Message.sendToPlayer(player, message, true);
-                                        // Starting new map setup
-                                        createMap.startSetup(player, args);
-                                    } else {
-                                        // Map exists error
-                                        String message = Message.get("createmap_exists_error");
-                                        message = Message.replace(message, "{map}", args[1].toUpperCase());
-                                        Message.sendToPlayer(player, message, true);
-                                    }
+                    // Check list length of args
+                    if (args.length == 2) {
+                        // Make sure map name is less or equal to 15
+                        if (args[1].length() <= 15) {
+                            if (!CreateMap.savedInventories.containsKey(player.getUniqueId())) {
+                                if (!mapFile.get().contains("maps." + args[1].toUpperCase())) {
+                                    // Creating new map message
+                                    String message = Message.get("createmap_command_success");
+                                    message = Message.replace(message, "{mapname}", args[1].toUpperCase());
+                                    Message.sendToPlayer(player, message, true);
+                                    // Starting new map setup
+                                    createMap.startSetup(player, args);
                                 } else {
-                                    // Already in setup error
-                                    Message.sendToPlayer(player, Message.get("createmap_in_setup_error"), true);
+                                    // Map exists error
+                                    String message = Message.get("createmap_exists_error");
+                                    message = Message.replace(message, "{map}", args[1].toUpperCase());
+                                    Message.sendToPlayer(player, message, true);
                                 }
                             } else {
-                                // Map name too long error
-                                Message.sendToPlayer(player, Message.get("createmap_name_length_error"), true);
+                                // Already in setup error
+                                Message.sendToPlayer(player, Message.get("createmap_in_setup_error"), true);
                             }
                         } else {
-                            // Help/wrong usage
-                            help.send(sender);
+                            // Map name too long error
+                            Message.sendToPlayer(player, Message.get("createmap_name_length_error"), true);
                         }
                     } else {
-                        // No access message
-                        Message.sendToPlayer(player, Message.get("editkits_access_error"), true);
+                        // Help/wrong usage
+                        help.send(sender);
                     }
                 } else {
                     // No access while in game error

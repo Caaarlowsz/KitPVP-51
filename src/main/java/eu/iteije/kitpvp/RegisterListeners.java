@@ -43,8 +43,6 @@ public class RegisterListeners {
         pluginManager.registerEvents(new PlayerRespawn(instance), instance);
         // EntityDamageByEntityEvent
         pluginManager.registerEvents(new EntityDamageByEntity(), instance);
-        // AsyncPlayerChatEvent
-        pluginManager.registerEvents(new AsyncPlayerChat(), instance);
     }
 
 }

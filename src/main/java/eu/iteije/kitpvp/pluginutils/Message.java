@@ -22,8 +22,8 @@ public class Message {
     public static String PLAYER_ONLY = Message.get("player_only");
 
     /**
-     * @param player target Player to send the message to
-     * @param message message which will be sent to the targeted player
+     * @param player    target Player to send the message to
+     * @param message   message which will be sent to the targeted player
      * @param hasPrefix if true, the plugin prefix will be applied to the message
      */
     public static void sendToPlayer(Player player, String message, boolean hasPrefix) {
@@ -40,7 +40,7 @@ public class Message {
     }
 
     /**
-     * @param message message which will be sent to the console
+     * @param message   message which will be sent to the console
      * @param hasPrefix if true, the plugin prefix will be applied to the message
      */
     public static void sendToConsole(String message, boolean hasPrefix) {
@@ -57,8 +57,8 @@ public class Message {
     }
 
     /**
-     * @param sender CommandSender (so it isn't necessary to use 'instanceof' over and over again)
-     * @param message message which will be sent to the sender
+     * @param sender    CommandSender (so it isn't necessary to use 'instanceof' over and over again)
+     * @param message   message which will be sent to the sender
      * @param hasPrefix if true, the plugin prefix will be applied to the message
      */
     public static void sendToSender(CommandSender sender, String message, boolean hasPrefix) {
@@ -71,7 +71,7 @@ public class Message {
     }
 
     /**
-     * @param message message which will be broadcasted
+     * @param message   message which will be broadcasted
      * @param hasPrefix if true, the plugin prefix will be applied to the message
      */
     public static void broadcast(String message, boolean hasPrefix) {
@@ -111,7 +111,7 @@ public class Message {
     }
 
     /**
-     * @param message message where a certain part has to be replaced from
+     * @param message   message where a certain part has to be replaced from
      * @param oldString old String
      * @param newString String the old string will be replaced by
      * @return converted message

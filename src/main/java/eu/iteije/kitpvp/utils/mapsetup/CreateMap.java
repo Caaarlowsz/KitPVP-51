@@ -15,7 +15,7 @@ import java.util.*;
 public class CreateMap {
 
     // Main class instance
-    private KitPvP instance;
+    private final KitPvP instance;
 
     // Here is the inventory of the player saved while in setup
     // If this HashMap contains the UUID of a player, the player is in setup
@@ -25,19 +25,18 @@ public class CreateMap {
     public static HashMap<UUID, String> mapNames = new HashMap<>();
 
     // In this case, only a explanation is given, so the second thing isn't used whatsoever
-    private List<String> explanation = Arrays.asList(
-            "Om spawnpoints te maken/verwijderen, moet je gold pressure plates plaatsen/weghalen.",
-            "Als je klaar bent, druk je op het &agroene &fwol blok. Als je wil stoppen en alles wil verwijderen, druk je op het &crode &fwol blok.",
-            "Alle spawns zijn later nog te veranderen met /kitpvp editmap <mapnaam>"
+    private final List<String> explanation = Arrays.asList(
+            "&fPlace and remove &6gold pressure plates &ffor creating spawnpoints.",
+            "&fIf you're done and want to save the map, click &aFinish&f. If you want to remove everything and stop the setup process, click &cCancel&f."
     );
-    private List<String> empty = Arrays.asList(
+    private final List<String> empty = Arrays.asList(
             "",
             "",
             ""
     );
 
     // Help class / CreateMap instances
-    private Help help = new Help(explanation, empty);
+    private final Help help = new Help(explanation, empty);
 
     public CreateMap(KitPvP instance) {
         this.instance = instance;
@@ -69,7 +68,7 @@ public class CreateMap {
         // Spawnpoint block
         spawnpointTool = new Tool(Material.LIGHT_WEIGHTED_PRESSURE_PLATE, 4, configFile.get().getString("mapsetup.tools.spawnpoint.name")); // gold pressure plate
         // Finish block
-        finishTool = new Tool(new ItemStack(Material.RED_WOOL, 1).getType(), 8, configFile.get().getString("mapsetup.tools.finish.name")); // lime wool
+        finishTool = new Tool(new ItemStack(Material.LIME_WOOL, 1).getType(), 8, configFile.get().getString("mapsetup.tools.finish.name")); // lime wool
 
         // Save player inventory
         savedInventories.put(player.getUniqueId(), player.getInventory().getContents());

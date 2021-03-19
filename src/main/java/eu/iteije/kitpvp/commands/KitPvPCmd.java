@@ -11,33 +11,25 @@ import java.util.List;
 public class KitPvPCmd implements CommandExecutor {
 
     // Instance of main class
-    private KitPvP instance;
+    private final KitPvP instance;
 
     // Commands and explanation shown in the help list
     private List<String> commands = Arrays.asList(
-            "/kitpvp editkits",
             "/kitpvp createmap",
             "/kitpvp deletemap",
             "/kitpvp maps",
             "/kitpvp setspawn",
             "/kitpvp spawn",
             "/kitpvp leave",
-            "/kitpvp setleavedelay",
-            "/kitpvp modifyhunger",
-            "/worldtp",
             "/leaderboard"
     );
     private List<String> explanation = Arrays.asList(
-            "Modify/create kits",
             "Create a new map",
             "Delete a map",
             "List of all maps",
             "Change the lobby spawn",
             "Teleport to the spawn",
             "Head back to the spawn while ingame",
-            "Modify leave delay",
-            "Toggle hunger ingame",
-            "Teleport to a specific world",
             "A list of players with the most kills"
     );
 

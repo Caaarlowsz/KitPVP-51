@@ -41,9 +41,10 @@ public class PlayerDeath implements Listener {
                 String message = Message.get("game_death_by_player");
                 message = Message.replace(message, "{target}", player.getName());
                 message = Message.replace(message, "{killer}", killer.getName());
+                message = Message.replace(message, "{health}", String.format("%.2f", (killer.getHealth() / 2)));
 
                 // Broadcast death message
-                Message.broadcast(message, true);
+                Message.broadcast(message, false);
 
                 killer.setHealth(20);
 
@@ -64,7 +65,7 @@ public class PlayerDeath implements Listener {
                 message = Message.replace(message, "{target}", player.getName());
 
                 // Broadcast death message
-                Message.broadcast(message, true);
+                Message.broadcast(message, false);
 
                 // Add a death to the target
                 dataHandler.addDeath(player.getUniqueId());

@@ -1,7 +1,7 @@
 package eu.iteije.kitpvp.commands;
 
 import eu.iteije.kitpvp.KitPvP;
-import eu.iteije.kitpvp.files.MapFile;
+import eu.iteije.kitpvp.files.PluginFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import org.bukkit.command.CommandSender;
 
@@ -13,7 +13,7 @@ public class MapsSubCmd {
     // No help page for this command
 
     // Maps.yml
-    private MapFile mapFile;
+    private PluginFile mapFile;
 
     /**
      * @param instance instance of KitPvP (main) class
@@ -27,7 +27,7 @@ public class MapsSubCmd {
      */
     public void send(CommandSender sender) {
         // Define instance of MapFile
-        mapFile = new MapFile(instance, false);
+        this.mapFile = KitPvP.getInstance().getMapFile();
 
         if (!mapFile.get().getConfigurationSection("maps").getKeys(false).isEmpty()) {
             // Title message

@@ -3,7 +3,7 @@ package eu.iteije.kitpvp.listeners;
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.commands.SpawnSubCmd;
 import eu.iteije.kitpvp.data.DataHandler;
-import eu.iteije.kitpvp.files.ConfigFile;
+import eu.iteije.kitpvp.files.PluginFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import eu.iteije.kitpvp.utils.Scoreboard;
 import org.bukkit.Bukkit;
@@ -31,7 +31,7 @@ public class PlayerJoin implements Listener {
         // Try teleporting player to spawn if spawn_join = true
         try {
             // Instance of configFile
-            ConfigFile configFile = new ConfigFile(instance, false);
+            PluginFile configFile = KitPvP.getInstance().getConfigFile();
             // Check whether the joining player has to be teleported or not
             boolean spawnJoin = configFile.get().getBoolean("spawn_join");
             // If spawnJoin is true, try teleporting player to spawn

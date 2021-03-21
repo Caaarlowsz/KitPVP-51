@@ -1,7 +1,7 @@
 package eu.iteije.kitpvp.listeners;
 
 import eu.iteije.kitpvp.KitPvP;
-import eu.iteije.kitpvp.files.ConfigFile;
+import eu.iteije.kitpvp.files.PluginFile;
 import eu.iteije.kitpvp.utils.game.Game;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,7 +26,7 @@ public class FoodLevelChange implements Listener {
 
             if (Game.playersInGame.containsKey(player.getUniqueId())) {
                 // Instance of ConfigFile
-                ConfigFile configFile = new ConfigFile(instance, false);
+                PluginFile configFile = KitPvP.getInstance().getConfigFile();
                 // Look for food level change boolean in config
                 try {
                     boolean foodLevelsChange = configFile.get().getBoolean("game_hunger");

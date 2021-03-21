@@ -1,7 +1,7 @@
 package eu.iteije.kitpvp.commands;
 
 import eu.iteije.kitpvp.KitPvP;
-import eu.iteije.kitpvp.files.ConfigFile;
+import eu.iteije.kitpvp.files.PluginFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import eu.iteije.kitpvp.utils.game.Game;
 import org.bukkit.Bukkit;
@@ -68,7 +68,7 @@ public class SpawnSubCmd {
     public boolean getSpawnSet() {
         try {
             // Instance of ConfigFile
-            ConfigFile configFile = new ConfigFile(instance, false);
+            PluginFile configFile = KitPvP.getInstance().getConfigFile();
 
             if (configFile.get().contains("spawn")) return true;
         } catch (Exception exception) {
@@ -79,7 +79,7 @@ public class SpawnSubCmd {
 
     public Location getSpawn() {
         // Instance of ConfigFile
-        ConfigFile configFile = new ConfigFile(KitPvP.getInstance(), false);
+        PluginFile configFile = KitPvP.getInstance().getConfigFile();
 
         // Make up a new location based on data in config
         World world = Bukkit.getWorld(configFile.get().getString("spawn.world"));

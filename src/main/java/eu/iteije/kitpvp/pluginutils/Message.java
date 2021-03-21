@@ -1,8 +1,7 @@
 package eu.iteije.kitpvp.pluginutils;
 
 import eu.iteije.kitpvp.KitPvP;
-import eu.iteije.kitpvp.files.ConfigFile;
-import eu.iteije.kitpvp.files.MessageFile;
+import eu.iteije.kitpvp.files.PluginFile;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -13,8 +12,8 @@ public class Message {
     private static KitPvP instance = KitPvP.getInstance();
 
     // Instances of files
-    private static ConfigFile configFile = new ConfigFile(instance, false);
-    private static MessageFile messageFile = new MessageFile(instance, false);
+    private static PluginFile configFile = KitPvP.getInstance().getConfigFile();
+    private static PluginFile messageFile = KitPvP.getInstance().getMessageFile();
 
     // Global messages
     public static String PERMISSION_ERROR = Message.get("permission_error");

@@ -2,8 +2,7 @@ package eu.iteije.kitpvp.listeners;
 
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.commands.SpawnSubCmd;
-import eu.iteije.kitpvp.files.ConfigFile;
-import eu.iteije.kitpvp.files.MapFile;
+import eu.iteije.kitpvp.files.PluginFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import eu.iteije.kitpvp.pluginutils.TransferMessage;
 import eu.iteije.kitpvp.utils.game.Game;
@@ -25,8 +24,8 @@ public class PlayerInteract implements Listener {
     private KitPvP instance;
 
     // Instances of files
-    private ConfigFile configFile;
-    private MapFile mapFile;
+    private PluginFile configFile;
+    private PluginFile mapFile;
 
     // Instance of Game
     public static Game game;
@@ -37,8 +36,8 @@ public class PlayerInteract implements Listener {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
-        configFile = new ConfigFile(instance, false);
-        mapFile = new MapFile(instance, false);
+        configFile = KitPvP.getInstance().getConfigFile();
+        this.mapFile = KitPvP.getInstance().getMapFile();
 
         // Define player executing this event
         Player player = event.getPlayer();

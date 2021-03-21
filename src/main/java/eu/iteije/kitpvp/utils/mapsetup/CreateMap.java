@@ -2,7 +2,7 @@ package eu.iteije.kitpvp.utils.mapsetup;
 
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.commands.Help;
-import eu.iteije.kitpvp.files.ConfigFile;
+import eu.iteije.kitpvp.files.PluginFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -59,7 +59,7 @@ public class CreateMap {
     // Give setup tools to player
     private void giveTools(Player player) {
         // Instance of ConfigFile
-        ConfigFile configFile = new ConfigFile(instance, false);
+        PluginFile configFile = KitPvP.getInstance().getConfigFile();
 
         // Create new itemstacks (setup tools, including exit/finish block);
 

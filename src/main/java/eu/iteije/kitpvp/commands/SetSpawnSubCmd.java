@@ -1,7 +1,7 @@
 package eu.iteije.kitpvp.commands;
 
 import eu.iteije.kitpvp.KitPvP;
-import eu.iteije.kitpvp.files.ConfigFile;
+import eu.iteije.kitpvp.files.PluginFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
@@ -15,7 +15,7 @@ public class SetSpawnSubCmd {
     // No help page for this command
 
     // Config.yml
-    private ConfigFile configFile;
+    private PluginFile configFile;
 
     /**
      * @param instance instance of KitPvP (main) class
@@ -29,7 +29,7 @@ public class SetSpawnSubCmd {
      */
     public void send(CommandSender sender) {
         // Define ConfigFile instance
-        configFile = new ConfigFile(instance, false);
+        configFile = KitPvP.getInstance().getConfigFile();
         // Command executor have to be a player
         if (sender instanceof Player) {
             // Check permissions

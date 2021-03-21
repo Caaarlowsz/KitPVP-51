@@ -1,8 +1,7 @@
 package eu.iteije.kitpvp.listeners;
 
 import eu.iteije.kitpvp.KitPvP;
-import eu.iteije.kitpvp.files.ConfigFile;
-import eu.iteije.kitpvp.files.MapFile;
+import eu.iteije.kitpvp.files.PluginFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import eu.iteije.kitpvp.pluginutils.TransferMessage;
 import org.bukkit.Material;
@@ -17,8 +16,8 @@ public class SignChange implements Listener {
     // Instance variable of main class
     private KitPvP instance;
 
-    private ConfigFile configFile;
-    private MapFile mapFile;
+    private PluginFile configFile;
+    private PluginFile mapFile;
 
     public SignChange(KitPvP instance) {
         this.instance = instance;
@@ -26,8 +25,8 @@ public class SignChange implements Listener {
 
     @EventHandler
     public void onSignChange(SignChangeEvent event) {
-        configFile = new ConfigFile(instance, false);
-        mapFile = new MapFile(instance, false);
+        configFile = KitPvP.getInstance().getConfigFile();
+        this.mapFile = KitPvP.getInstance().getMapFile();
 
         // Define player executing this event
         Player player = event.getPlayer();

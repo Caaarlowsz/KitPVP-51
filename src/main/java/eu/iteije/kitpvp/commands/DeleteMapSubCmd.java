@@ -1,7 +1,7 @@
 package eu.iteije.kitpvp.commands;
 
 import eu.iteije.kitpvp.KitPvP;
-import eu.iteije.kitpvp.files.MapFile;
+import eu.iteije.kitpvp.files.PluginFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import org.bukkit.command.CommandSender;
 
@@ -25,7 +25,7 @@ public class DeleteMapSubCmd {
     private Help help = new Help(commands, explanation);
 
     // Maps.yml
-    private MapFile mapFile;
+    private PluginFile mapFile;
 
     /**
      * @param instance instance of KitPvP (main) class
@@ -40,7 +40,7 @@ public class DeleteMapSubCmd {
      */
     public void send(CommandSender sender, String[] args) {
         // Define MapFile instance
-        mapFile = new MapFile(instance, false);
+        this.mapFile = KitPvP.getInstance().getMapFile();
         // Check permissions of sender
         if (sender.hasPermission("kitpvp.admin.deletemap")) {
             if (args.length == 2) {

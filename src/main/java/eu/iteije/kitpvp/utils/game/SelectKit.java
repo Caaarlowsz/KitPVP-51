@@ -1,7 +1,7 @@
 package eu.iteije.kitpvp.utils.game;
 
 import eu.iteije.kitpvp.KitPvP;
-import eu.iteije.kitpvp.files.KitFile;
+import eu.iteije.kitpvp.files.PluginFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import eu.iteije.kitpvp.pluginutils.PotionTypes;
 import eu.iteije.kitpvp.pluginutils.TransferMessage;
@@ -56,7 +56,7 @@ public class SelectKit {
 
         // Add kits to inventory
         // Instance of KitFile
-        KitFile kitFile = new KitFile(KitPvP.getInstance(), false);
+        PluginFile kitFile = KitPvP.getInstance().getKitFile();
 
         // Close menu item
         ItemStack closeItem = InventoryItem.createItem(Material.BARRIER, 1, "&cSluit menu"); // create new itemstack
@@ -102,7 +102,7 @@ public class SelectKit {
     public void giveKit(Player player, String kitName) {
         try {
             // Instance of KitFile
-            KitFile kitFile = new KitFile(KitPvP.getInstance(), false);
+            PluginFile kitFile = KitPvP.getInstance().getKitFile();
 
             // Predefine a list where the item stacks are saved in
             List<ItemStack> kit = new ArrayList<>();
@@ -204,7 +204,7 @@ public class SelectKit {
         }
     }
 
-    private ItemStack getGearPiece(String kit, String piece, KitFile kitFile, boolean unbreakable) {
+    private ItemStack getGearPiece(String kit, String piece, PluginFile kitFile, boolean unbreakable) {
         try {
             // Get material from kit file and create new itemstack
             Material material = Material.getMaterial(kitFile.get().getString("kits." + kit + ".gear." + piece.toUpperCase() + ".item"));

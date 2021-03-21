@@ -1,7 +1,7 @@
 package eu.iteije.kitpvp.data;
 
 import eu.iteije.kitpvp.KitPvP;
-import eu.iteije.kitpvp.files.ConfigFile;
+import eu.iteije.kitpvp.files.PluginFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 
 import java.sql.Connection;
@@ -18,7 +18,7 @@ public class MySQL {
     private KitPvP instance = KitPvP.getInstance();
 
     // Instance of ConfigFile
-    private ConfigFile configFile = new ConfigFile(instance, false);
+    private PluginFile configFile = KitPvP.getInstance().getConfigFile();
 
     // Open/start connection method
     public synchronized void openConnection() {

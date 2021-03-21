@@ -1,12 +1,11 @@
 package eu.iteije.kitpvp;
 
+import eu.iteije.kitpvp.commands.KitPvPCmd;
+import eu.iteije.kitpvp.commands.LeaderboardCmd;
 import eu.iteije.kitpvp.data.DataHandler;
 import eu.iteije.kitpvp.data.MySQL;
 import eu.iteije.kitpvp.data.UserCache;
-import eu.iteije.kitpvp.files.ConfigFile;
-import eu.iteije.kitpvp.files.KitFile;
-import eu.iteije.kitpvp.files.MapFile;
-import eu.iteije.kitpvp.files.MessageFile;
+import eu.iteije.kitpvp.files.PluginFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import eu.iteije.kitpvp.runnables.LeaderboardUpdater;
 import eu.iteije.kitpvp.runnables.PingUpdater;
@@ -14,6 +13,7 @@ import eu.iteije.kitpvp.utils.Scoreboard;
 import eu.iteije.kitpvp.utils.game.Game;
 import eu.iteije.kitpvp.utils.game.SelectKit;
 import eu.iteije.kitpvp.utils.mapsetup.CreateMap;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,6 +31,12 @@ public final class KitPvP extends JavaPlugin {
 
     public List<Integer> tasks = new ArrayList<>();
 
+    // Files
+    @Getter private PluginFile kitFile;
+    @Getter private PluginFile messageFile;
+    @Getter private PluginFile mapFile;
+    @Getter private PluginFile configFile;
+
     @Override
     @Deprecated
     public void onEnable() {
@@ -38,20 +44,19 @@ public final class KitPvP extends JavaPlugin {
         instance = this;
 
         // Load files
-        new ConfigFile(this, true);
-        new MessageFile(this, true);
-        new MapFile(this, true);
-        new KitFile(this, true);
+        this.configFile = new PluginFile(this, "config.yml");
+        this.messageFile = new PluginFile(this, "messages.yml");
+        this.mapFile = new PluginFile(this, "maps.yml");
+        this.kitFile = new PluginFile(this, "kits.yml");
 
         // Open database connection
         this.sqlModule = MySQL.getDatabase(); // never do this folks
         this.sqlModule.openConnection();
 
+        this.registerCommands();
+
         // Register event listeners
         new RegisterListeners(this);
-
-        // Register commands
-        new RegisterCommands(this);
 
         tasks.add(new LeaderboardUpdater(this).start());
         tasks.add(new PingUpdater(this).start());
@@ -102,5 +107,14 @@ public final class KitPvP extends JavaPlugin {
     // Global KitPvP (main) class instance method
     public static KitPvP getInstance() {
         return instance;
+    }
+
+
+    // Register all listeners
+    private void registerCommands() {
+        // KitPvP command
+        getCommand("kitpvp").setExecutor(new KitPvPCmd(this));
+        // Leaderboard command
+        getCommand("leaderboard").setExecutor(new LeaderboardCmd(this));
     }
 }

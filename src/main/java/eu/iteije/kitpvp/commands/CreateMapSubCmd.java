@@ -1,7 +1,7 @@
 package eu.iteije.kitpvp.commands;
 
 import eu.iteije.kitpvp.KitPvP;
-import eu.iteije.kitpvp.files.MapFile;
+import eu.iteije.kitpvp.files.PluginFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import eu.iteije.kitpvp.utils.game.Game;
 import eu.iteije.kitpvp.utils.mapsetup.CreateMap;
@@ -30,7 +30,7 @@ public class CreateMapSubCmd {
     private CreateMap createMap;
 
     // Maps.yml
-    private MapFile mapFile;
+    private PluginFile mapFile;
 
     /**
      * @param instance instance of KitPvP (main) class
@@ -45,7 +45,7 @@ public class CreateMapSubCmd {
      */
     public void send(CommandSender sender, String[] args) {
         // Define MapFile instance
-        mapFile = new MapFile(instance, false);
+        this.mapFile = KitPvP.getInstance().getMapFile();
         // Define createMap (instance of CreateMap)
         createMap = new CreateMap(instance);
         // Command executor has to be a player

@@ -1,7 +1,7 @@
 package eu.iteije.kitpvp.utils.mapsetup;
 
 import eu.iteije.kitpvp.KitPvP;
-import eu.iteije.kitpvp.files.MapFile;
+import eu.iteije.kitpvp.files.PluginFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -15,7 +15,7 @@ public class ToolActions {
     private static KitPvP instance = KitPvP.getInstance();
 
     // Undefined intsance of MapFile
-    private static MapFile mapFile;
+    private static PluginFile mapFile;
 
     // Instance of SpawnPlate
     private static SpawnPlate spawnPlate = new SpawnPlate(instance);
@@ -40,7 +40,7 @@ public class ToolActions {
     // Finish tool
     public static void useFinishTool(Player player) {
         // Define instance of MapFile
-        mapFile = new MapFile(instance, false);
+        mapFile = KitPvP.getInstance().getMapFile();
 
         // Saving map name has to be placed higher than stopSetup(), because the player is removed from the mapNames HashMap there
         String mapName = CreateMap.getMapName(player);

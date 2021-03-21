@@ -2,8 +2,7 @@ package eu.iteije.kitpvp.utils.game;
 
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.commands.SpawnSubCmd;
-import eu.iteije.kitpvp.files.ConfigFile;
-import eu.iteije.kitpvp.files.MapFile;
+import eu.iteije.kitpvp.files.PluginFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -29,7 +28,7 @@ public class Game {
     public static HashMap<UUID, ItemStack[]> savedInventories = new HashMap<>();
 
     // File instances
-    public MapFile mapFile;
+    public PluginFile mapFile;
 
     /**
      * @param player   player in game
@@ -42,7 +41,7 @@ public class Game {
         this.instance = instance;
 
         // Define mapFile
-        mapFile = new MapFile(instance, false);
+        this.mapFile = KitPvP.getInstance().getMapFile();
     }
 
     public void join() {
@@ -92,7 +91,7 @@ public class Game {
 
     public static void delayedLeave(Player player, boolean delay) {
         if (delay) {
-            ConfigFile configFile = new ConfigFile(KitPvP.getInstance(), false);
+            PluginFile configFile = KitPvP.getInstance().getConfigFile();
             int delayInSeconds = configFile.get().getInt("game_leave_delay");
             // Check whether the number is valid
             if (delayInSeconds >= 0) {

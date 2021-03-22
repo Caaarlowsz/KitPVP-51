@@ -1,7 +1,7 @@
 package eu.iteije.kitpvp.listeners;
 
 import eu.iteije.kitpvp.KitPvP;
-import eu.iteije.kitpvp.commands.SpawnSubCmd;
+import eu.iteije.kitpvp.commands.subcommands.SpawnSubCmd;
 import eu.iteije.kitpvp.utils.game.Game;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

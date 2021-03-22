@@ -1,4 +1,4 @@
-package eu.iteije.kitpvp.commands;
+package eu.iteije.kitpvp.commands.objects;
 
 import eu.iteije.kitpvp.pluginutils.Message;
 import org.bukkit.command.CommandSender;

@@ -1,7 +1,7 @@
 package eu.iteije.kitpvp.utils.mapsetup;
 
 import eu.iteije.kitpvp.KitPvP;
-import eu.iteije.kitpvp.commands.Help;
+import eu.iteije.kitpvp.commands.objects.Help;
 import eu.iteije.kitpvp.files.PluginFile;
 import eu.iteije.kitpvp.pluginutils.Message;
 import org.bukkit.GameMode;

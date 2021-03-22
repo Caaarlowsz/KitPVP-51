@@ -54,5 +54,7 @@ public class PlayerQuit implements Listener {
 
         // Remove user cache
         UserCache.removeUUID(player.getUniqueId());
+
+        EntityDamageByEntity.removeCombatLog(player.getUniqueId());
     }
 }

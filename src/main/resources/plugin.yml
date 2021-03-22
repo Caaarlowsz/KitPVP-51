@@ -11,3 +11,5 @@ commands:
     usage: /<command>
   leaderboard:
     usage: /<command>
+  kill:
+    usage: /<command>

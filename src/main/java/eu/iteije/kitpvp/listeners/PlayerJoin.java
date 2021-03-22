@@ -1,7 +1,7 @@
 package eu.iteije.kitpvp.listeners;
 
 import eu.iteije.kitpvp.KitPvP;
-import eu.iteije.kitpvp.commands.SpawnSubCmd;
+import eu.iteije.kitpvp.commands.subcommands.SpawnSubCmd;
 import eu.iteije.kitpvp.data.DataHandler;
 import eu.iteije.kitpvp.files.PluginFile;
 import eu.iteije.kitpvp.pluginutils.Message;

@@ -1,4 +1,4 @@
-package eu.iteije.kitpvp.commands;
+package eu.iteije.kitpvp.commands.subcommands;
 
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.pluginutils.Message;

@@ -8,10 +8,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 public class EntityDamageByEntity implements Listener {
 
-    public EntityDamageByEntity() {
+    private static Map<UUID, Long> combatLog; // bad practice
 
+    public EntityDamageByEntity() {
+        combatLog = new HashMap<>();
     }
 
     @EventHandler
@@ -32,19 +38,26 @@ public class EntityDamageByEntity implements Listener {
                     event.setCancelled(true);
                 }
 
-//                Check if players are in the same map
-//                if (Game.playersInGame.get(taker.getUniqueId()).equals(Game.playersInGame.get(damager.getUniqueId()))) {
-//                    // If damager is not in survival mode (if everything works fine, this wouldn't be possible) the event has to be cancelled
-//                    if (damager.getGameMode() != GameMode.SURVIVAL) {
-//                        event.setCancelled(true);
-//                    }
-//                } else {
-//                    event.setCancelled(true);
-//                }
+                // Combat log
+                combatLog.put(damager.getUniqueId(), System.currentTimeMillis());
+                combatLog.put(taker.getUniqueId(), System.currentTimeMillis());
             } else {
                 // If damagetaker is ingame, but the damager isn't, cancel event
                 event.setCancelled(true);
             }
         }
+    }
+
+    /**
+     * @param uuid uuid of the player to check combat activity for
+     * @param delay time in seconds the player has to be out of combat
+     * @return whether the last registered combat activity is past the certain period
+     */
+    public static boolean outOfCombat(UUID uuid, int delay) {
+        return System.currentTimeMillis() - (delay * 1000L) >= combatLog.getOrDefault(uuid, 0L);
+    }
+
+    public static void removeCombatLog(UUID uuid) {
+        combatLog.remove(uuid);
     }
 }

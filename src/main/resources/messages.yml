@@ -51,3 +51,6 @@ game_gamemode_change: "&cYou're not permitted to change your gamemode while in-g
 game_leave_delay: "&aTeleporting in &e{seconds} &aseconds."
 game_death_by_player: "&e{target} &awas slain by &e{killer} &c{health}❤"
 game_death_unknown_cause: "&e{target} &adied."
+
+# Leave messages
+leave_in_combat: "&cYou're still in combat!"

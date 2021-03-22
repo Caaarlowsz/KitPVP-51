@@ -1,6 +1,8 @@
 package eu.iteije.kitpvp.commands;
 
 import eu.iteije.kitpvp.KitPvP;
+import eu.iteije.kitpvp.commands.objects.Help;
+import eu.iteije.kitpvp.commands.subcommands.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -15,12 +17,13 @@ public class KitPvPCmd implements CommandExecutor {
 
     // Commands and explanation shown in the help list
     private final List<String> commands = Arrays.asList(
-            "/kitpvp createmap",
-            "/kitpvp deletemap",
+            "/kitpvp createmap <mapname>",
+            "/kitpvp deletemap <mapname>",
             "/kitpvp maps",
             "/kitpvp setspawn",
             "/kitpvp spawn",
-            "/kitpvp leave",
+            "/kitpvp placenpc <mapname>",
+            "/kill",
             "/leaderboard"
     );
     private final List<String> explanation = Arrays.asList(
@@ -29,7 +32,8 @@ public class KitPvPCmd implements CommandExecutor {
             "List of all maps",
             "Change the lobby spawn",
             "Teleport to the spawn",
-            "Head back to the spawn while ingame",
+            "Place a join NPC at your current location",
+            "Kill yourself while not in combat",
             "A list of players with the most kills"
     );
 
@@ -69,10 +73,6 @@ public class KitPvPCmd implements CommandExecutor {
                 case "spawn":
                     SpawnSubCmd spawnSubCmd = new SpawnSubCmd();
                     spawnSubCmd.send(sender);
-                    break;
-                case "leave":
-                    LeaveSubCmd leaveSubCmd = new LeaveSubCmd();
-                    leaveSubCmd.send(sender);
                     break;
                 case "placenpc":
                     PlaceNpcSubCmd placeNpcSubCmd = new PlaceNpcSubCmd();

@@ -1,5 +1,6 @@
 package eu.iteije.kitpvp;
 
+import eu.iteije.kitpvp.commands.KillCmd;
 import eu.iteije.kitpvp.commands.KitPvPCmd;
 import eu.iteije.kitpvp.commands.LeaderboardCmd;
 import eu.iteije.kitpvp.data.DataHandler;
@@ -124,5 +125,7 @@ public final class KitPvP extends JavaPlugin {
         getCommand("kitpvp").setExecutor(new KitPvPCmd(this));
         // Leaderboard command
         getCommand("leaderboard").setExecutor(new LeaderboardCmd());
+        // Kill command
+        getCommand("kill").setExecutor(new KillCmd());
     }
 }

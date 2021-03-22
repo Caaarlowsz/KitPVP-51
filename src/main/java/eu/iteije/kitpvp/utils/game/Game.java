@@ -145,7 +145,7 @@ public class Game {
         savedInventories.remove(player.getUniqueId());
 
         // Teleport back to spawn
-        SpawnSubCmd spawnSubCmd = new SpawnSubCmd(KitPvP.getInstance());
+        SpawnSubCmd spawnSubCmd = new SpawnSubCmd();
         try {
             spawnSubCmd.teleportToSpawn(player);
         } catch (IllegalArgumentException exception) {

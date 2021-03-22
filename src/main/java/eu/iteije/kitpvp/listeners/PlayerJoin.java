@@ -37,7 +37,7 @@ public class PlayerJoin implements Listener {
             // If spawnJoin is true, try teleporting player to spawn
             if (spawnJoin) {
                 // Instance of SpawnSubCmd
-                SpawnSubCmd spawnSubCmd = new SpawnSubCmd(instance);
+                SpawnSubCmd spawnSubCmd = new SpawnSubCmd();
                 spawnSubCmd.teleportToSpawn(player);
                 // Send success message
                 Message.sendToPlayer(player, Message.get("spawn_success"), true);

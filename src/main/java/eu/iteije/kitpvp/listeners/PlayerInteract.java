@@ -79,7 +79,7 @@ public class PlayerInteract implements Listener {
                             // Check whether the player is ingame or not
                             if (!Game.playersInGame.containsKey(player.getUniqueId())) {
                                 // Check if player is editing a kit
-                                SpawnSubCmd spawnSubCmd = new SpawnSubCmd(instance);
+                                SpawnSubCmd spawnSubCmd = new SpawnSubCmd();
                                 if (spawnSubCmd.getSpawnSet()) {
                                     SelectKit selectKit = new SelectKit(player, mapName);
                                     selectKit.openMenu();

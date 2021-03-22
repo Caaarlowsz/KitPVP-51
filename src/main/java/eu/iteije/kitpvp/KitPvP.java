@@ -6,6 +6,7 @@ import eu.iteije.kitpvp.data.DataHandler;
 import eu.iteije.kitpvp.data.MySQL;
 import eu.iteije.kitpvp.data.UserCache;
 import eu.iteije.kitpvp.files.PluginFile;
+import eu.iteije.kitpvp.npcs.NpcModule;
 import eu.iteije.kitpvp.pluginutils.Message;
 import eu.iteije.kitpvp.runnables.LeaderboardUpdater;
 import eu.iteije.kitpvp.runnables.PingUpdater;
@@ -28,6 +29,7 @@ public final class KitPvP extends JavaPlugin {
     private static KitPvP instance;
 
     private MySQL sqlModule;
+    @Getter private NpcModule npcModule;
 
     public List<Integer> tasks = new ArrayList<>();
 
@@ -48,6 +50,8 @@ public final class KitPvP extends JavaPlugin {
         this.messageFile = new PluginFile(this, "messages.yml");
         this.mapFile = new PluginFile(this, "maps.yml");
         this.kitFile = new PluginFile(this, "kits.yml");
+
+        this.npcModule = new NpcModule(this, mapFile);
 
         // Open database connection
         this.sqlModule = MySQL.getDatabase(); // never do this folks
@@ -75,6 +79,8 @@ public final class KitPvP extends JavaPlugin {
             }
         }, 60L); // delay / 20 = seconds
 
+        // Define instance
+        instance = this;
 
         // Send enabled message to console
         Message.sendToConsole("&fPlugin enabled!", true);
@@ -82,6 +88,8 @@ public final class KitPvP extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        this.npcModule.unload();
+
         this.sqlModule.closeConnection(true);
         // Loop through all online players
         for (Player player : Bukkit.getOnlinePlayers()) {
@@ -115,6 +123,6 @@ public final class KitPvP extends JavaPlugin {
         // KitPvP command
         getCommand("kitpvp").setExecutor(new KitPvPCmd(this));
         // Leaderboard command
-        getCommand("leaderboard").setExecutor(new LeaderboardCmd(this));
+        getCommand("leaderboard").setExecutor(new LeaderboardCmd());
     }
 }

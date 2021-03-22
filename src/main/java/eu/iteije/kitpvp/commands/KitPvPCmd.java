@@ -55,25 +55,28 @@ public class KitPvPCmd implements CommandExecutor {
                     createMapSubCmd.send(sender, args);
                     break;
                 case "deletemap":
-                    DeleteMapSubCmd deleteMapSubCmd = new DeleteMapSubCmd(instance);
+                    DeleteMapSubCmd deleteMapSubCmd = new DeleteMapSubCmd();
                     deleteMapSubCmd.send(sender, args);
                     break;
                 case "maps":
-                    MapsSubCmd mapsSubCmd = new MapsSubCmd(instance);
+                    MapsSubCmd mapsSubCmd = new MapsSubCmd();
                     mapsSubCmd.send(sender);
                     break;
                 case "setspawn":
-                    SetSpawnSubCmd setSpawnSubCmd = new SetSpawnSubCmd(instance);
+                    SetSpawnSubCmd setSpawnSubCmd = new SetSpawnSubCmd();
                     setSpawnSubCmd.send(sender);
                     break;
                 case "spawn":
-                    SpawnSubCmd spawnSubCmd = new SpawnSubCmd(instance);
+                    SpawnSubCmd spawnSubCmd = new SpawnSubCmd();
                     spawnSubCmd.send(sender);
                     break;
                 case "leave":
-                    LeaveSubCmd leaveSubCmd = new LeaveSubCmd(instance);
+                    LeaveSubCmd leaveSubCmd = new LeaveSubCmd();
                     leaveSubCmd.send(sender);
                     break;
+                case "placenpc":
+                    PlaceNpcSubCmd placeNpcSubCmd = new PlaceNpcSubCmd();
+                    placeNpcSubCmd.send(sender, args);
                 default:
                     help.send(sender);
                     break;

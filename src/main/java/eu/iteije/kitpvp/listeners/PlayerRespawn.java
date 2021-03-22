@@ -30,7 +30,7 @@ public class PlayerRespawn implements Listener {
             // Let the player leave
             Game.leave(player);
             // Set respawn location to the lobby spawn
-            SpawnSubCmd spawnSubCmd = new SpawnSubCmd(instance);
+            SpawnSubCmd spawnSubCmd = new SpawnSubCmd();
             event.setRespawnLocation(spawnSubCmd.getSpawn());
         }
     }

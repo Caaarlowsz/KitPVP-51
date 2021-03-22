@@ -11,7 +11,6 @@ placenpc_map_error: "&cThe map &4{map} &cdoes not exist!"
 # Interact sign messages
 interactsign_map_error: "&cThis map is no longer available."
 interactsign_no_spawn: "&cUnable to join game: lobby spawn has not been set."
-interactsign_join_loading: "&aTeleporting to random spawn..."
 interactsign_ingame_error: "&cYou're already in a game!"
 # Help page
 help_title: "&fHelp:"

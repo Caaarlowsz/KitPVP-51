@@ -7,6 +7,7 @@ import eu.iteije.kitpvp.data.DataHandler;
 import eu.iteije.kitpvp.data.MySQL;
 import eu.iteije.kitpvp.data.UserCache;
 import eu.iteije.kitpvp.files.PluginFile;
+import eu.iteije.kitpvp.memory.GameLocations;
 import eu.iteije.kitpvp.npcs.NpcModule;
 import eu.iteije.kitpvp.pluginutils.Message;
 import eu.iteije.kitpvp.runnables.LeaderboardUpdater;
@@ -17,12 +18,11 @@ import eu.iteije.kitpvp.utils.game.SelectKit;
 import eu.iteije.kitpvp.utils.mapsetup.CreateMap;
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public final class KitPvP extends JavaPlugin {
 
@@ -33,6 +33,7 @@ public final class KitPvP extends JavaPlugin {
     @Getter private NpcModule npcModule;
 
     public List<Integer> tasks = new ArrayList<>();
+    @Getter public Map<String, GameLocations> gameLocations = new HashMap<>();
 
     // Files
     @Getter private PluginFile kitFile;
@@ -51,6 +52,13 @@ public final class KitPvP extends JavaPlugin {
         this.messageFile = new PluginFile(this, "messages.yml");
         this.mapFile = new PluginFile(this, "maps.yml");
         this.kitFile = new PluginFile(this, "kits.yml");
+
+        ConfigurationSection maps = mapFile.get().getConfigurationSection("maps");
+        if (maps != null) {
+            for (String map : maps.getKeys(false)) {
+                this.gameLocations.put(map, new GameLocations(map, mapFile));
+            }
+        }
 
         this.npcModule = new NpcModule(this, mapFile);
 

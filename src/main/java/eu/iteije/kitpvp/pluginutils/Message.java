@@ -8,12 +8,9 @@ import org.bukkit.entity.Player;
 
 public class Message {
 
-    // Instance of KitPvP (main) class
-    private static KitPvP instance = KitPvP.getInstance();
-
     // Instances of files
-    private static PluginFile configFile = KitPvP.getInstance().getConfigFile();
-    private static PluginFile messageFile = KitPvP.getInstance().getMessageFile();
+    private static final PluginFile configFile = KitPvP.getInstance().getConfigFile();
+    private static final PluginFile messageFile = KitPvP.getInstance().getMessageFile();
 
     // Global messages
     public static String PERMISSION_ERROR = Message.get("permission_error");

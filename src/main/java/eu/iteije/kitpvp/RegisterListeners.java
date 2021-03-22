@@ -15,8 +15,6 @@ public class RegisterListeners {
 
         // PlayerInteractEvent
         pluginManager.registerEvents(new PlayerInteract(instance), instance);
-        // SignChangeEvent
-        pluginManager.registerEvents(new SignChange(instance), instance);
         // BlockPlaceEvent
         pluginManager.registerEvents(new BlockPlace(), instance);
         // PlayerQuitEvent

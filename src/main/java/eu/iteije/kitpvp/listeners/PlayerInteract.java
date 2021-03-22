@@ -1,17 +1,12 @@
 package eu.iteije.kitpvp.listeners;
 
 import eu.iteije.kitpvp.KitPvP;
-import eu.iteije.kitpvp.commands.subcommands.SpawnSubCmd;
 import eu.iteije.kitpvp.files.PluginFile;
-import eu.iteije.kitpvp.pluginutils.Message;
-import eu.iteije.kitpvp.pluginutils.TransferMessage;
 import eu.iteije.kitpvp.utils.game.Game;
-import eu.iteije.kitpvp.utils.game.SelectKit;
 import eu.iteije.kitpvp.utils.mapsetup.CreateMap;
 import eu.iteije.kitpvp.utils.mapsetup.ToolActions;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -43,13 +38,6 @@ public class PlayerInteract implements Listener {
         Player player = event.getPlayer();
         // Action performed by player
         Action action = event.getAction();
-        // Clicked material > AIR by default
-        Material clickedBlock = Material.AIR;
-        try {
-            clickedBlock = event.getClickedBlock().getType();
-        } catch (NullPointerException exception) {
-            // Handle NullPointerException > If player is hitting the air, NullPointerException (.getType()) will be triggered
-        }
 
         // Cancel interact event if player is in game
         if (Game.playersInGame.containsKey(player.getUniqueId())) {
@@ -59,53 +47,11 @@ public class PlayerInteract implements Listener {
             }
         }
 
-        // Left/right click block check | SIGNS
-        if (action == Action.RIGHT_CLICK_BLOCK || action == Action.LEFT_CLICK_BLOCK) {
-            // Checking whether the clicked block is a sign
-            if (clickedBlock == Material.SIGN || clickedBlock == Material.WALL_SIGN) {
-                // Checking item in playerhand; it have to be destructible
-                // A KITPVP sign is ONLY destructible by an AXE
-                if (!player.getItemInHand().toString().contains("AXE")) {
-                    // Get clicked sign and get expected header from config
-                    Sign sign = (Sign) event.getClickedBlock().getState();
-                    String signHeader = TransferMessage.replaceColorCodes(configFile.get().getString("sign_prefix")).toLowerCase();
-
-                    // Compare sign prefix from config with the header of the interacted sign
-                    if (sign.getLine(0).toLowerCase().equals(signHeader)) {
-                        // Get map name at sign line 1 (for a player line 2)
-                        String mapName = sign.getLine(1).toUpperCase();
-                        // Check whether the map name/map data is known
-                        if (mapFile.get().getConfigurationSection("maps." + mapName) != null) {
-                            // Check whether the player is ingame or not
-                            if (!Game.playersInGame.containsKey(player.getUniqueId())) {
-                                // Check if player is editing a kit
-                                SpawnSubCmd spawnSubCmd = new SpawnSubCmd();
-                                if (spawnSubCmd.getSpawnSet()) {
-                                    SelectKit selectKit = new SelectKit(player, mapName);
-                                    selectKit.openMenu();
-                                } else {
-                                    // Send no lobbyspawn message
-                                    Message.sendToPlayer(player, Message.get("interactsign_no_spawn"), true);
-                                }
-                            } else {
-                                // Already in game error
-                                Message.sendToPlayer(player, Message.get("interactsign_ingame_error"), true);
-                            }
-
-                        } else {
-                            // Map doesn't exists error
-                            Message.sendToPlayer(player, Message.get("interactsign_map_error"), true);
-                        }
-                    }
-                }
-            }
-        }
-
         // Right click block only
         if (action == Action.RIGHT_CLICK_BLOCK) {
             if (CreateMap.savedInventories.containsKey(player.getUniqueId())) {
                 // Checking whether the clicked block is a setup block and which it is
-                String setupItem = CreateMap.checkSetupItem(player.getInventory().getItemInHand().getType(), player);
+                String setupItem = CreateMap.checkSetupItem(player.getInventory().getItemInMainHand().getType(), player);
                 if (!setupItem.equals("none")) {
                     // Use setup item
                     event.setCancelled(true);

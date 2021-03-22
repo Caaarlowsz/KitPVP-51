@@ -58,7 +58,7 @@ public class NpcModule {
         if (this.joinNpcs.containsKey(map)) delete(map);
 
         NPC npc = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, "&dClick to join");
-        npc.data().setPersistent("map", map);
+        npc.data().setPersistent("map", map.toUpperCase());
         this.setSkin(npc);
 
         npc.spawn(location, SpawnReason.PLUGIN);

@@ -3,15 +3,13 @@ package eu.iteije.kitpvp.utils.game;
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.commands.subcommands.SpawnSubCmd;
 import eu.iteije.kitpvp.files.PluginFile;
+import eu.iteije.kitpvp.memory.GameLocations;
 import eu.iteije.kitpvp.pluginutils.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -45,36 +43,17 @@ public class Game {
     }
 
     public void join() {
-        // Send loading message, mapName is already uppercase
-        String message = Message.get("interactsign_join_loading");
-        message = Message.replace(message, "{map}", mapName);
-        Message.sendToPlayer(player, message, true);
+        // Send teleport message
+        Message.sendToPlayer(player, "&aJoining game...", false);
 
-        // Teleport to random spawnpoint
-        try {
-            // Amount of spawnpoints
-            int amountOfSpawnpoints = mapFile.get().getConfigurationSection("maps." + mapName + ".spawnpoints").getKeys(false).size();
-            if (amountOfSpawnpoints == 0) {
-                // No spawnpoints available message
-                Message.sendToPlayer(player, Message.get("joingame_no_spawns"), true);
-                return;
-            } else {
-                // Get random number between 1 and the value of amountOfSpawnspoints
-                int randomNumber = (int) ((amountOfSpawnpoints) * Math.random()) + 1;
-
-                // Receive location data from map file
-                World world = Bukkit.getWorld(mapFile.get().getString("maps." + mapName + ".spawnpoints." + randomNumber + ".world"));
-                double x = (Double) mapFile.get().get("maps." + mapName + ".spawnpoints." + randomNumber + ".x");
-                double y = (Double) mapFile.get().get("maps." + mapName + ".spawnpoints." + randomNumber + ".y");
-                double z = (Double) mapFile.get().get("maps." + mapName + ".spawnpoints." + randomNumber + ".z");
-                Location spawnpoint = new Location(world, x, y, z);
-
-                // Teleport player to location
-                player.teleport(spawnpoint);
-            }
-        } catch (Exception exception) {
-            exception.printStackTrace();
+        // Teleport to previously set spawnpoint
+        Location spawn = GameLocations.getSelectedLocation(player.getUniqueId());
+        if (spawn == null) {
+            Message.sendToPlayer(player, "&cSpawn location is invalid!", false);
+            return;
         }
+
+        player.teleport(spawn);
 
         // Set gamemode to survival
         player.setGameMode(GameMode.SURVIVAL);
@@ -84,55 +63,6 @@ public class Game {
 
         // Add player to HashMap playersInGame
         playersInGame.put(player.getUniqueId(), mapName);
-    }
-
-    public static HashMap<UUID, Integer> countdown = new HashMap<>();
-    private static HashMap<UUID, BukkitTask> countdownTask = new HashMap<>();
-
-    public static void delayedLeave(Player player, boolean delay) {
-        if (delay) {
-            PluginFile configFile = KitPvP.getInstance().getConfigFile();
-            int delayInSeconds = configFile.get().getInt("game_leave_delay");
-            // Check whether the number is valid
-            if (delayInSeconds >= 0) {
-                // Put delay in hashmap
-                countdown.put(player.getUniqueId(), delayInSeconds);
-                // Pre define message, so it don't have to be loaded over and over again
-                String message = Message.get("game_leave_delay");
-
-                // Create new BukkitTask and save it in a HashMap
-                countdownTask.put(player.getUniqueId(), new BukkitRunnable() {
-                    @Override
-                    public void run() {
-                        if (countdown.get(player.getUniqueId()) > 0) {
-                            // Get current countdown number and send it to the player
-                            int currentCountdown = countdown.get(player.getUniqueId());
-                            Message.sendToPlayer(player, Message.replace(message, "{seconds}", String.valueOf(countdown.get(player.getUniqueId()))), true);
-                            // Subtract 1 from the HashMap countdown
-                            countdown.put(player.getUniqueId(), (currentCountdown - 1));
-                        } else {
-                            // Remove countdown integer from hashmap
-                            countdown.remove(player.getUniqueId());
-                            // Cancel BukkitTask saved in countdownTask
-                            BukkitTask bukkitTask = countdownTask.get(player.getUniqueId());
-                            bukkitTask.cancel();
-                            // Remove BukkitTask saved in hashmap
-                            countdownTask.remove(player.getUniqueId());
-
-                            // Call leave() method
-                            leave(player);
-                            // Success message
-                            Message.sendToPlayer(player, Message.get("leave_success"), true);
-                        }
-                    }
-                }.runTaskTimer(KitPvP.getInstance(), 0, 20));
-            }
-        } else {
-            // Call leave() method
-            leave(player);
-            // Success message
-            Message.sendToPlayer(player, Message.get("leave_success"), true);
-        }
     }
 
     public static void leave(Player player) {

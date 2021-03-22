@@ -1,5 +1,5 @@
 kits:
-  newkitname:
+  Mage:
     icon: DIAMOND_SWORD
     effects: [ ]
     items:

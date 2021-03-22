@@ -36,6 +36,8 @@ public class SetCenterSubCmd {
                         centerData.set("center.yaw", location.getYaw());
                         mapFile.save();
 
+                        instance.getGameLocations().get(args[1]).setCenter(location);
+
                         Message.sendToPlayer(player, "&aCenter location has been updated!", false);
                     } else {
                         String message = Message.get("placenpc_map_error"); // just use the same message, no need to add another message line

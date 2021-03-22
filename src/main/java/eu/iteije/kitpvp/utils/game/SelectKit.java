@@ -27,7 +27,7 @@ import java.util.UUID;
 public class SelectKit {
 
     // Title of select menu
-    public static String SELECT_KIT_INVENTORY_TITLE = TransferMessage.replaceColorCodes("&c&lSelect a kit");
+    public static String SELECT_KIT_INVENTORY_TITLE = TransferMessage.replaceColorCodes("&8Select kit");
 
     // Assigned player
     private Player player;
@@ -59,7 +59,7 @@ public class SelectKit {
         PluginFile kitFile = KitPvP.getInstance().getKitFile();
 
         // Close menu item
-        ItemStack closeItem = InventoryItem.createItem(Material.BARRIER, 1, "&cSluit menu"); // create new itemstack
+        ItemStack closeItem = InventoryItem.createItem(Material.BARRIER, 1, "&cClose"); // create new itemstack
         inventory.setItem(49, closeItem); // assign itemstack to inventory
 
         // Put kits into inventory
@@ -84,7 +84,7 @@ public class SelectKit {
 
 
                 // Change display name
-                kitItemMeta.setDisplayName(TransferMessage.replaceColorCodes("&c" + kitName));
+                kitItemMeta.setDisplayName(TransferMessage.replaceColorCodes("&d" + kitName));
                 // Assign new itemmeta to the itemstack
                 kitItemStack.setItemMeta(kitItemMeta);
                 // Assign itemstack to the next allowed slot

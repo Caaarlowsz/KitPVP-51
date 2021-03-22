@@ -27,8 +27,8 @@ public class SpawnSubCmd {
             try {
                 // Return inventory/leave if player is in game
                 if (Game.playersInGame.containsKey(player.getUniqueId())) {
-                    // Leave game with specified delay in config.yml
-                    Game.delayedLeave(player, true);
+                    // Execute /kill command and thus using the combat log to determine whether the player can quit or not
+                    player.performCommand("kill");
                 } else {
                     // Try teleporting to spawn
                     teleportToSpawn(player);

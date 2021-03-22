@@ -6,9 +6,8 @@ mysql_no_connection: "&fNo (valid) database connection! Action cancelled!"
 permission_error: "&cInvalid permissions!"
 wrong_usage: "&fUse &e{command}&f!"
 player_only: "&cThis command is only available to players!"
-# Place sign messages
-placesign_empty_map_line: "&cPlease enter an existing map name on the second line of the sign."
-placesign_map_error: "&cThe map &4{map} &cdoes not exist!"
+# Place npc messages
+placenpc_map_error: "&cThe map &4{map} &cdoes not exist!"
 # Interact sign messages
 interactsign_map_error: "&cThis map is no longer available."
 interactsign_no_spawn: "&cUnable to join game: lobby spawn has not been set."

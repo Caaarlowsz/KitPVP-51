@@ -23,6 +23,7 @@ public class KitPvPCmd implements CommandExecutor {
             "/kitpvp setspawn",
             "/kitpvp spawn",
             "/kitpvp placenpc <mapname>",
+            "/kitpvp setcenter <mapname>",
             "/kill",
             "/leaderboard"
     );
@@ -33,6 +34,7 @@ public class KitPvPCmd implements CommandExecutor {
             "Change the lobby spawn",
             "Teleport to the spawn",
             "Place a join NPC at your current location",
+            "Set the center location for a specific map",
             "Kill yourself while not in combat",
             "A list of players with the most kills"
     );
@@ -77,6 +79,10 @@ public class KitPvPCmd implements CommandExecutor {
                 case "placenpc":
                     PlaceNpcSubCmd placeNpcSubCmd = new PlaceNpcSubCmd();
                     placeNpcSubCmd.send(sender, args);
+                    break;
+                case "setcenter":
+                    SetCenterSubCmd setCenterSubCmd = new SetCenterSubCmd();
+                    setCenterSubCmd.send(sender, args);
                     break;
                 default:
                     help.send(sender);

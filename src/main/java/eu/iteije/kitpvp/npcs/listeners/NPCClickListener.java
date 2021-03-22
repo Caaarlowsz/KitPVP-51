@@ -16,12 +16,15 @@ public class NPCClickListener implements Listener {
 
     @EventHandler
     public void onRightClick(NPCRightClickEvent event) {
-        event.getClicker().sendMessage("Select kit and location");
+        String map = event.getNPC().data().get("map");
+        event.getClicker().sendMessage("Select kit and location (" + map + ")");
+
     }
 
     @EventHandler
     public void onLeftClick(NPCLeftClickEvent event) {
-        event.getClicker().sendMessage("Select kit and teleport to center");
+        String map = event.getNPC().data().get("map");
+        event.getClicker().sendMessage("Select kit and teleport to center (" + map + ")");
     }
 
 }

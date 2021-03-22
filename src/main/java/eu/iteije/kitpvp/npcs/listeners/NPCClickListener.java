@@ -5,6 +5,7 @@ import eu.iteije.kitpvp.memory.GameLocations;
 import eu.iteije.kitpvp.pluginutils.Message;
 import eu.iteije.kitpvp.utils.game.Game;
 import eu.iteije.kitpvp.utils.game.SelectKit;
+import eu.iteije.kitpvp.utils.game.SelectSpawn;
 import net.citizensnpcs.api.event.NPCLeftClickEvent;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
 import org.bukkit.Location;
@@ -23,8 +24,12 @@ public class NPCClickListener implements Listener {
     @EventHandler
     public void onRightClick(NPCRightClickEvent event) {
         String map = event.getNPC().data().get("map");
-        event.getClicker().sendMessage("Select kit and location (" + map + ")");
+        Player clicker = event.getClicker();
 
+        if (!Game.playersInGame.containsKey(clicker.getUniqueId())) {
+            SelectSpawn selectSpawn = new SelectSpawn(map, instance.getGameLocations().get(map), clicker);
+            selectSpawn.openMenu();
+        }
     }
 
 

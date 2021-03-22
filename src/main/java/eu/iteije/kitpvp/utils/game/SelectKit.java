@@ -27,7 +27,7 @@ import java.util.UUID;
 public class SelectKit {
 
     // Title of select menu
-    public static String SELECT_KIT_INVENTORY_TITLE = TransferMessage.replaceColorCodes("&8Select kit");
+    public static String SELECT_KIT_INVENTORY_TITLE = TransferMessage.replaceColorCodes("&8Select Kit");
 
     // Assigned player
     private Player player;

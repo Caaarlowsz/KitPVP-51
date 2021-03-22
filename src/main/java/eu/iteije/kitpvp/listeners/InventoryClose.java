@@ -2,6 +2,7 @@ package eu.iteije.kitpvp.listeners;
 
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.utils.game.SelectKit;
+import eu.iteije.kitpvp.utils.game.SelectSpawn;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,6 +27,11 @@ public class InventoryClose implements Listener {
         if (SelectKit.hasInventoryOpen.containsKey(player.getUniqueId())) {
             // Remove player from HashMap
             SelectKit.hasInventoryOpen.remove(player.getUniqueId());
+        }
+
+        if (SelectSpawn.hasInventoryOpen.containsKey(player.getUniqueId())) {
+            // Remove player from HashMap
+            SelectSpawn.hasInventoryOpen.remove(player.getUniqueId());
         }
     }
 }

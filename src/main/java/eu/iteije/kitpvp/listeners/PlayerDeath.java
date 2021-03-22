@@ -61,6 +61,7 @@ public class PlayerDeath implements Listener {
                 Scoreboard.load(player);
 
                 EntityDamageByEntity.giveClearance(killer.getUniqueId());
+                event.setDroppedExp(0);
             } else {
                 // Convert death message
                 String message = Message.get("game_death_unknown_cause");

@@ -14,7 +14,7 @@ public class KitPvPCmd implements CommandExecutor {
     private final KitPvP instance;
 
     // Commands and explanation shown in the help list
-    private List<String> commands = Arrays.asList(
+    private final List<String> commands = Arrays.asList(
             "/kitpvp createmap",
             "/kitpvp deletemap",
             "/kitpvp maps",
@@ -23,7 +23,7 @@ public class KitPvPCmd implements CommandExecutor {
             "/kitpvp leave",
             "/leaderboard"
     );
-    private List<String> explanation = Arrays.asList(
+    private final List<String> explanation = Arrays.asList(
             "Create a new map",
             "Delete a map",
             "List of all maps",

@@ -7,27 +7,15 @@ import org.bukkit.command.CommandSender;
 
 public class MapsSubCmd {
 
-    // Instance of main class
-    private KitPvP instance;
-
-    // No help page for this command
-
-    // Maps.yml
-    private PluginFile mapFile;
-
-    /**
-     * @param instance instance of KitPvP (main) class
-     */
-    public MapsSubCmd(KitPvP instance) {
-        this.instance = instance;
-    }
+    public MapsSubCmd() {}
 
     /**
      * @param sender command executor
      */
     public void send(CommandSender sender) {
         // Define instance of MapFile
-        this.mapFile = KitPvP.getInstance().getMapFile();
+        // Maps.yml
+        PluginFile mapFile = KitPvP.getInstance().getMapFile();
 
         if (!mapFile.get().getConfigurationSection("maps").getKeys(false).isEmpty()) {
             // Title message

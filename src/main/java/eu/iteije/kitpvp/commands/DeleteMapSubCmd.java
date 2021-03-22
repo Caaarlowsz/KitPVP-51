@@ -10,9 +10,6 @@ import java.util.List;
 
 public class DeleteMapSubCmd {
 
-    // Instance of main class
-    private KitPvP instance;
-
     // Commands and explanation shown in the help list
     private List<String> commands = Arrays.asList(
             "/kitpvp deletemap <name>"
@@ -27,12 +24,7 @@ public class DeleteMapSubCmd {
     // Maps.yml
     private PluginFile mapFile;
 
-    /**
-     * @param instance instance of KitPvP (main) class
-     */
-    public DeleteMapSubCmd(KitPvP instance) {
-        this.instance = instance;
-    }
+    public DeleteMapSubCmd() {}
 
     /**
      * @param sender command executor

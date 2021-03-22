@@ -8,29 +8,15 @@ import eu.iteije.kitpvp.utils.mapsetup.CreateMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collections;
 
 public class CreateMapSubCmd {
 
     // Instance of main class
-    private KitPvP instance;
-
-    // Commands and explanation shown in the help list
-    private List<String> commands = Arrays.asList(
-            "/kitpvp createmap <name>"
-    );
-    private List<String> explanation = Arrays.asList(
-            "Create a map in your current world"
-    );
+    private final KitPvP instance;
 
     // Help class instance
-    private Help help = new Help(commands, explanation);
-    // Instance of CreateMap
-    private CreateMap createMap;
-
-    // Maps.yml
-    private PluginFile mapFile;
+    private final Help help = new Help(Collections.singletonList("/kitpvp createmap <name>"), Collections.singletonList("Create a map in your current world"));
 
     /**
      * @param instance instance of KitPvP (main) class
@@ -45,9 +31,11 @@ public class CreateMapSubCmd {
      */
     public void send(CommandSender sender, String[] args) {
         // Define MapFile instance
-        this.mapFile = KitPvP.getInstance().getMapFile();
+        // Maps.yml
+        PluginFile mapFile = KitPvP.getInstance().getMapFile();
         // Define createMap (instance of CreateMap)
-        createMap = new CreateMap(instance);
+        // Instance of CreateMap
+        CreateMap createMap = new CreateMap(instance);
         // Command executor has to be a player
         if (sender instanceof Player) {
             Player player = (Player) sender;

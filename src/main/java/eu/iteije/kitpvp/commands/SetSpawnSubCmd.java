@@ -9,27 +9,15 @@ import org.bukkit.entity.Player;
 
 public class SetSpawnSubCmd {
 
-    // Instance of main class
-    private KitPvP instance;
-
-    // No help page for this command
-
-    // Config.yml
-    private PluginFile configFile;
-
-    /**
-     * @param instance instance of KitPvP (main) class
-     */
-    public SetSpawnSubCmd(KitPvP instance) {
-        this.instance = instance;
-    }
+    public SetSpawnSubCmd() {}
 
     /**
      * @param sender command executor
      */
     public void send(CommandSender sender) {
         // Define ConfigFile instance
-        configFile = KitPvP.getInstance().getConfigFile();
+        // Config.yml
+        PluginFile configFile = KitPvP.getInstance().getConfigFile();
         // Command executor have to be a player
         if (sender instanceof Player) {
             // Check permissions

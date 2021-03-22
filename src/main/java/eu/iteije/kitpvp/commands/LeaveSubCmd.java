@@ -1,6 +1,5 @@
 package eu.iteije.kitpvp.commands;
 
-import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.pluginutils.Message;
 import eu.iteije.kitpvp.utils.game.Game;
 import org.bukkit.command.CommandSender;
@@ -8,17 +7,7 @@ import org.bukkit.entity.Player;
 
 public class LeaveSubCmd {
 
-    // Instance of main class
-    private KitPvP instance;
-
-    // No help page for this command
-
-    /**
-     * @param instance instance of KitPvP (main) class
-     */
-    public LeaveSubCmd(KitPvP instance) {
-        this.instance = instance;
-    }
+    public LeaveSubCmd() {}
 
     /**
      * @param sender command executor

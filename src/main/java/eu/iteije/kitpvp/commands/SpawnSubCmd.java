@@ -12,17 +12,7 @@ import org.bukkit.entity.Player;
 
 public class SpawnSubCmd {
 
-    // Instance of main class
-    private KitPvP instance;
-
-    // No help page for this command
-
-    /**
-     * @param instance instance of KitPvP (main) class
-     */
-    public SpawnSubCmd(KitPvP instance) {
-        this.instance = instance;
-    }
+    public SpawnSubCmd() {}
 
     /**
      * @param sender command executor

@@ -60,4 +60,8 @@ public class EntityDamageByEntity implements Listener {
     public static void removeCombatLog(UUID uuid) {
         combatLog.remove(uuid);
     }
+
+    public static void giveClearance(UUID uuid) {
+        combatLog.put(uuid, 0L);
+    }
 }

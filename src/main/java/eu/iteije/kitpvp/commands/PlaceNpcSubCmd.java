@@ -27,6 +27,5 @@ public class PlaceNpcSubCmd {
         } else {
             Message.sendToSender(sender, Message.PERMISSION_ERROR, true);
         }
-
     }
 }

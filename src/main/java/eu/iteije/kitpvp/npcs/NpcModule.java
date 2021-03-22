@@ -2,10 +2,9 @@ package eu.iteije.kitpvp.npcs;
 
 import eu.iteije.kitpvp.KitPvP;
 import eu.iteije.kitpvp.files.PluginFile;
-import eu.iteije.kitpvp.npcs.traits.SpawnNpcTrait;
+import eu.iteije.kitpvp.npcs.listeners.NPCClickListener;
 import eu.iteije.kitpvp.pluginutils.Message;
 import net.citizensnpcs.api.CitizensAPI;
-import net.citizensnpcs.api.event.DespawnReason;
 import net.citizensnpcs.api.event.SpawnReason;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
@@ -30,6 +29,8 @@ public class NpcModule {
         this.mapFile = mapFile;
         this.joinNpcs = new HashMap<>();
 
+        instance.getServer().getPluginManager().registerEvents(new NPCClickListener(instance), instance);
+
         this.loadNpcs(mapFile);
     }
 
@@ -53,11 +54,10 @@ public class NpcModule {
 
     public void placeNpc(String map, Location location, boolean save) {
         map = map.toLowerCase();
-        if (this.joinNpcs.containsKey(map)) despawn(map);
+        if (this.joinNpcs.containsKey(map)) delete(map);
 
         NPC npc = CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, "&dClick to join");
-        npc.addTrait(new SpawnNpcTrait(instance, map + "_spawn"));
-        npc.data().setPersistent(NPC.);
+//        npc.data().setPersistent(NPC.);
 
         npc.spawn(location, SpawnReason.PLUGIN);
 
@@ -92,18 +92,21 @@ public class NpcModule {
 
     }
 
-    public void despawn(String map) {
+    public void delete(String map) {
         NPC npc = this.joinNpcs.get(map);
         if (npc != null) {
-            npc.despawn(DespawnReason.PLUGIN);
+            npc.destroy();
+            CitizensAPI.getNPCRegistry().deregister(npc);
             this.joinNpcs.remove(map);
         }
     }
 
     public void unload() {
-        for (NPC npc : this.joinNpcs.values()) {
-            npc.despawn(DespawnReason.PLUGIN);
-        }
+//        for (NPC npc : this.joinNpcs.values()) {
+//            npc.destroy();
+//            CitizensAPI.getNPCRegistry().deregisterAll();
+//        }
+        CitizensAPI.getNPCRegistry().deregisterAll();
     }
 
 //    private NPC setSkin(NPC npc) {

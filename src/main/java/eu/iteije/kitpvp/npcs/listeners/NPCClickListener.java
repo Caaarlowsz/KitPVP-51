@@ -1,17 +1,16 @@
-package eu.iteije.kitpvp.npcs.traits;
+package eu.iteije.kitpvp.npcs.listeners;
 
 import eu.iteije.kitpvp.KitPvP;
 import net.citizensnpcs.api.event.NPCLeftClickEvent;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
-import net.citizensnpcs.api.trait.Trait;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 
-public class SpawnNpcTrait extends Trait {
+public class NPCClickListener implements Listener {
 
     private final KitPvP instance;
 
-    public SpawnNpcTrait(KitPvP instance, String name) {
-        super(name);
+    public NPCClickListener(KitPvP instance) {
         this.instance = instance;
     }
 

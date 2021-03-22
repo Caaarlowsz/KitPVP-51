@@ -77,6 +77,7 @@ public class KitPvPCmd implements CommandExecutor {
                 case "placenpc":
                     PlaceNpcSubCmd placeNpcSubCmd = new PlaceNpcSubCmd();
                     placeNpcSubCmd.send(sender, args);
+                    break;
                 default:
                     help.send(sender);
                     break;

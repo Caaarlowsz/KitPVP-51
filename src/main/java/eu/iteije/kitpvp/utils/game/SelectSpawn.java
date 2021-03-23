@@ -1,10 +1,10 @@
 package eu.iteije.kitpvp.utils.game;
 
 import eu.iteije.kitpvp.memory.GameLocations;
+import eu.iteije.kitpvp.memory.SpawnLocation;
 import eu.iteije.kitpvp.pluginutils.TransferMessage;
 import eu.iteije.kitpvp.utils.InventoryItem;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -44,9 +44,9 @@ public class SelectSpawn {
         inventory.setItem(allowedSlots[0], centerItem);
 
         int count = 1;
-        for (Map.Entry<String, Location> entry : locations.getSpawnPoints().entrySet()) {
+        for (Map.Entry<String, SpawnLocation> entry : locations.getSpawnPoints().entrySet()) {
             if (count < (allowedSlots.length)) { // remove 1 slot due to the center spawn being loaded separately
-                ItemStack spawnItem = InventoryItem.createItem(Material.PAPER, 1, "&d" + entry.getKey());
+                ItemStack spawnItem = InventoryItem.createItem(entry.getValue().getMaterial(), 1, "&d" + entry.getKey());
                 inventory.setItem(allowedSlots[count], spawnItem);
                 count++;
             }

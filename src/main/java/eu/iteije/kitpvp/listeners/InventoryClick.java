@@ -52,7 +52,7 @@ public class InventoryClick implements Listener {
                     // Check if there is any kit in the slot
                     if (event.getCurrentItem().getType() == Material.PAPER) {
                         String clickedItem = TransferMessage.removeColors(event.getCurrentItem().getItemMeta().getDisplayName());
-                        Location location = instance.getGameLocations().get(map).getSpawnPoints().get(clickedItem);
+                        Location location = instance.getGameLocations().get(map).getSpawnPoints().get(clickedItem).getLocation();
                         if (location == null) location = instance.getGameLocations().get(map).getCenter();
                         GameLocations.select(player.getUniqueId(), location);
 

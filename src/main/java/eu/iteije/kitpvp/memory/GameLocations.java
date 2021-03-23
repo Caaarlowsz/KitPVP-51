@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -17,7 +18,7 @@ public class GameLocations {
     @Getter @Setter
     private Location center;
     @Getter
-    private Map<String, Location> spawnPoints;
+    private Map<String, SpawnLocation> spawnPoints;
 
     private static Map<UUID, Location> selectedLocations = new HashMap<>();
 
@@ -29,7 +30,13 @@ public class GameLocations {
         if (spawnPoints != null) {
             for (String key : spawnPoints.getKeys(false)) {
                 Location location = getLocation(spawnPoints.getConfigurationSection(key));
-                if (location != null) this.spawnPoints.put(key, location);
+                if (location != null) {
+                    Material material = Material.PAPER;
+                    try {
+                        material = Material.valueOf(spawnPoints.getString(key + ".item"));
+                    } catch (IllegalArgumentException | NullPointerException ignored) {}
+                    this.spawnPoints.put(key, new SpawnLocation(location, material));
+                }
             }
         }
     }
